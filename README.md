@@ -1,8 +1,8 @@
 # Starting off.. Make sure you have Mongodb installed and your node + npm versions match these
 
-Node version: v7.3.0
+Node version: v7.4.0
 
-npm version: 3.10.10
+npm version: 4.0.5
 
 
 ## Instructions
