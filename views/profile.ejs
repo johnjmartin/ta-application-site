@@ -5,6 +5,7 @@
 	<title>Node Authentication</title>
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="C:\Users\Eric Braun\Documents\Queen's Fourth Year\Winter 2017\Final Project 499\ta-application-site\css\application.css">
 	<style>
 		body 		{ padding-top:80px; word-wrap:break-word; }
 	</style>
@@ -12,27 +13,112 @@
 <body>
 <div class="container">
 
-	<div class="page-header text-center">
-		<h1><span class="fa fa-anchor"></span> Profile Page</h1>
-		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
-	</div>
+	<div class="mdd2e">
+        <h1><span></span>T.A Application</h1>
+		<div class="form-center">
+			<label for "text-center">Upload Transcript</label>
+    		<input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+    		<small id="fileHelp" class="form-text text-muted">This will automatically fill in your courses and grades.</small>
+ 		</div>
+    </div>
 
 	<div class="row">
-
-		<!-- LOCAL INFORMATION -->
-		<div class="col-sm-6">
-			<div class="well">
-				<h3><span class="fa fa-user"></span> Local</h3>
-
-					<p>
-						<strong>id</strong>: <%= user._id %><br>
-						<strong>email</strong>: <%= user.local.email %><br>
-						<strong>password</strong>: <%= user.local.password %>
-					</p>
-
+  		<div class="col-sm-6">
+  			<div class="text-center">
+				<h1><span></span> Fall</h1>
 			</div>
+  			<form class="form-horizontal" role="form">
+	    		<div class="form-group">
+	       			<div class="col-sm-4 text-center">
+	       				<label>Course Code</label>
+  						<input class="form-control" id="Fc1" type="text">
+  						<input class="form-control" id="Fc2" type="text">
+  						<input class="form-control" id="Fc3" type="text">
+  						<input class="form-control" id="Fc4" type="text">
+  						<input class="form-control" id="Fc5" type="text">
+  						<input class="form-control" id="Fc6" type="text">
+					</div>
+					<div class="col-sm-1 text-center">
+	       				<label>Check</label>
+  						<button type="button" class="btn btn-default">X</button>
+  						<button type="button" class="btn btn-default">X</button>
+  						<button type="button" class="btn btn-default">X</button>
+  						<button type="button" class="btn btn-default">X</button>
+  						<button type="button" class="btn btn-default">X</button>
+  						<button type="button" class="btn btn-default">X</button>
+  					</div>
+  					<div class="col-xs-1">
+  					</div>
+	        		<div class="col-sm-4 text-center">
+	       				<label>Grade</label>
+  						<input class="form-control" id="Fg1" type="text">
+  						<input class="form-control" id="Fg2" type="text">
+  						<input class="form-control" id="Fg3" type="text">
+  						<input class="form-control" id="Fg4" type="text">
+  						<input class="form-control" id="Fg5" type="text">
+  						<input class="form-control" id="Fg6" type="text">
+					</div>
+					<div class="col-sm-1 text-center">
+	       				<label>Clear</label>
+  						<button type="button" class="btn btn-default">X</button>
+  						<button type="button" class="btn btn-default">X</button>
+  						<button type="button" class="btn btn-default">X</button>
+  						<button type="button" class="btn btn-default">X</button>
+  						<button type="button" class="btn btn-default">X</button>
+  						<button type="button" class="btn btn-default">X</button>
+					</div>
+	        	</div>
+	        </form>
 		</div>
+  		<div class="col-sm-6">
+  			<div class="text-center">
+				<h1><span></span> Winter</h1>
+			</div>
+  			<form class="form-horizontal" role="form">
+	    		<div class="form-group">
+	       			<div class="col-sm-5 text-center">
+	       				<label>Course Code</label>
+  						<input class="form-control" id="Wcode1" type="text">
+  						<input class="form-control" id="Wcode2" type="text">
+  						<input class="form-control" id="Wcode3" type="text">
+  						<input class="form-control" id="Wcode4" type="text">
+  						<input class="form-control" id="Wcode5" type="text">
+  						<input class="form-control" id="Wcode6" type="text">
+					</div>
+					<div class="col-sm-1 text-center">
+	       				<label>Check</label>
+  						<button type="button" class="btn btn-default">YUP</button>
+  						<button type="button" class="btn btn-default">YUP</button>
+  						<button type="button" class="btn btn-default">YUP</button>
+  						<button type="button" class="btn btn-default">YUP</button>
+  						<button type="button" class="btn btn-default">YUP</button>
+  						<button type="button" class="btn btn-default">YUP</button>
+					</div>
+	        		<div class="col-sm-4 text-center">
+	       				<label>Grade</label>
+  						<input class="form-control" id="Wg1" type="text">
+  						<input class="form-control" id="Wg2" type="text">
+  						<input class="form-control" id="Wg3" type="text">
+  						<input class="form-control" id="Wg4" type="text">
+  						<input class="form-control" id="Wg5" type="text">
+  						<input class="form-control" id="Wg6" type="text">
+					</div>
+					<div class="col-sm-1 text-center">
+	       				<label>Clear</label>
+  						<button type="button" class="btn btn-default">X</button>
+  						<button type="button" class="btn btn-default">X</button>
+  						<button type="button" class="btn btn-default">X</button>
+  						<button type="button" class="btn btn-default">X</button>
+  						<button type="button" class="btn btn-default">X</button>
+  						<button type="button" class="btn btn-default">X</button>
+					</div>
+	        	</div>
+	        </form>
+		</div>
+	</div>
 
+	<div class="page-footer text-center">
+		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
 	</div>
 
 </div>
