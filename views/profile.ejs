@@ -6,13 +6,15 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="C:\Users\Eric Braun\Documents\Queen's Fourth Year\Winter 2017\Final Project 499\ta-application-site\css\application.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<style>
 		body 		{ padding-top:80px; word-wrap:break-word; }
 	</style>
 </head>
 <body>
 <div class="container">
-
 	<div class="mdd2e">
         <h1><span></span>T.A Application</h1>
 		<div class="form-center">
@@ -20,107 +22,261 @@
     		<input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
     		<small id="fileHelp" class="form-text text-muted">This will automatically fill in your courses and grades.</small>
  		</div>
-    </div>
-
-	<div class="row">
+  </div>
+</div>
+<div class="container">
+<div class="row">
+	<div class="col-sm-6">
   		<div class="col-sm-6">
   			<div class="text-center">
 				<h1><span></span> Fall</h1>
 			</div>
-  			<form class="form-horizontal" role="form">
-	    		<div class="form-group">
-	       			<div class="col-sm-4 text-center">
-	       				<label>Course Code</label>
-  						<input class="form-control" id="Fc1" type="text">
-  						<input class="form-control" id="Fc2" type="text">
-  						<input class="form-control" id="Fc3" type="text">
-  						<input class="form-control" id="Fc4" type="text">
-  						<input class="form-control" id="Fc5" type="text">
-  						<input class="form-control" id="Fc6" type="text">
-					</div>
-					<div class="col-sm-1 text-center">
-	       				<label>Check</label>
-  						<button type="button" class="btn btn-default">X</button>
-  						<button type="button" class="btn btn-default">X</button>
-  						<button type="button" class="btn btn-default">X</button>
-  						<button type="button" class="btn btn-default">X</button>
-  						<button type="button" class="btn btn-default">X</button>
-  						<button type="button" class="btn btn-default">X</button>
-  					</div>
-  					<div class="col-xs-1">
-  					</div>
-	        		<div class="col-sm-4 text-center">
-	       				<label>Grade</label>
-  						<input class="form-control" id="Fg1" type="text">
-  						<input class="form-control" id="Fg2" type="text">
-  						<input class="form-control" id="Fg3" type="text">
-  						<input class="form-control" id="Fg4" type="text">
-  						<input class="form-control" id="Fg5" type="text">
-  						<input class="form-control" id="Fg6" type="text">
-					</div>
-					<div class="col-sm-1 text-center">
-	       				<label>Clear</label>
-  						<button type="button" class="btn btn-default">X</button>
-  						<button type="button" class="btn btn-default">X</button>
-  						<button type="button" class="btn btn-default">X</button>
-  						<button type="button" class="btn btn-default">X</button>
-  						<button type="button" class="btn btn-default">X</button>
-  						<button type="button" class="btn btn-default">X</button>
-					</div>
-	        	</div>
-	        </form>
-		</div>
-  		<div class="col-sm-6">
-  			<div class="text-center">
-				<h1><span></span> Winter</h1>
-			</div>
-  			<form class="form-horizontal" role="form">
-	    		<div class="form-group">
-	       			<div class="col-sm-5 text-center">
-	       				<label>Course Code</label>
-  						<input class="form-control" id="Wcode1" type="text">
-  						<input class="form-control" id="Wcode2" type="text">
-  						<input class="form-control" id="Wcode3" type="text">
-  						<input class="form-control" id="Wcode4" type="text">
-  						<input class="form-control" id="Wcode5" type="text">
-  						<input class="form-control" id="Wcode6" type="text">
-					</div>
-					<div class="col-sm-1 text-center">
-	       				<label>Check</label>
-  						<button type="button" class="btn btn-default">YUP</button>
-  						<button type="button" class="btn btn-default">YUP</button>
-  						<button type="button" class="btn btn-default">YUP</button>
-  						<button type="button" class="btn btn-default">YUP</button>
-  						<button type="button" class="btn btn-default">YUP</button>
-  						<button type="button" class="btn btn-default">YUP</button>
-					</div>
-	        		<div class="col-sm-4 text-center">
-	       				<label>Grade</label>
-  						<input class="form-control" id="Wg1" type="text">
-  						<input class="form-control" id="Wg2" type="text">
-  						<input class="form-control" id="Wg3" type="text">
-  						<input class="form-control" id="Wg4" type="text">
-  						<input class="form-control" id="Wg5" type="text">
-  						<input class="form-control" id="Wg6" type="text">
-					</div>
-					<div class="col-sm-1 text-center">
-	       				<label>Clear</label>
-  						<button type="button" class="btn btn-default">X</button>
-  						<button type="button" class="btn btn-default">X</button>
-  						<button type="button" class="btn btn-default">X</button>
-  						<button type="button" class="btn btn-default">X</button>
-  						<button type="button" class="btn btn-default">X</button>
-  						<button type="button" class="btn btn-default">X</button>
-					</div>
-	        	</div>
-	        </form>
-		</div>
-	</div>
+    </div>
+    <% for(var i = 0; i < 6; i++) { %>
 
+      <div class="container pull-left">
+        <div class="row">
+          <div class="dropdown">
+            <button class="btn dropdown-toggle pull-left" type="button" data-toggle="dropdown">Course Code
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#">HTML</a></li>
+              <li><a href="#">CSS</a></li>
+              <li><a href="#">JavaScript</a></li>
+            </ul>
+        </div>
+          <div class="col-2 col-sm-auto pull-left">
+            <button type="button" class="btn btn-default">X</button>
+          </div>
+          <div class="col-4 col-sm-auto pull-left">
+            <input class="form-control" id="Fg1" type="text">
+          </div>
+        </div>
+      </div>
+    <% } %>
+            <div class="container pull-left">
+        <div class="row">
+          <div class="dropdown">
+            <button class="btn dropdown-toggle pull-left" type="button" data-toggle="dropdown">Course Code
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#">HTML</a></li>
+              <li><a href="#">CSS</a></li>
+              <li><a href="#">JavaScript</a></li>
+            </ul>
+        </div>
+          <div class="col-1 col-sm-auto pull-left">
+            <button type="button" class="btn btn-default">X</button>
+          </div>
+          <div class="col-4 col-sm-auto pull-left">
+            <input class="form-control" id="Fg1" type="text">
+          </div>
+        </div>
+      </div>
+      <div class="container pull-left">
+        <div class="row">
+          <div class="dropdown">
+            <button class="btn dropdown-toggle pull-left" type="button" data-toggle="dropdown">Course Code
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#">HTML</a></li>
+              <li><a href="#">CSS</a></li>
+              <li><a href="#">JavaScript</a></li>
+            </ul>
+        </div>
+          <div class="col-1 col-sm-auto pull-left">
+            <button type="button" class="btn btn-default">X</button>
+          </div>
+          <div class="col-4 col-sm-auto pull-left">
+            <input class="form-control" id="Fg1" type="text">
+          </div>
+        </div>
+      </div>
+            <div class="container pull-left">
+        <div class="row">
+          <div class="dropdown">
+            <button class="btn dropdown-toggle pull-left" type="button" data-toggle="dropdown">Course Code
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#">HTML</a></li>
+              <li><a href="#">CSS</a></li>
+              <li><a href="#">JavaScript</a></li>
+            </ul>
+        </div>
+          <div class="col-1 col-sm-auto pull-left">
+            <button type="button" class="btn btn-default">X</button>
+          </div>
+          <div class="col-4 col-sm-auto pull-left">
+            <input class="form-control" id="Fg1" type="text">
+          </div>
+        </div>
+      </div>
+            <div class="container pull-left">
+        <div class="row">
+          <div class="dropdown">
+            <button class="btn dropdown-toggle pull-left" type="button" data-toggle="dropdown">Course Code
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#">HTML</a></li>
+              <li><a href="#">CSS</a></li>
+              <li><a href="#">JavaScript</a></li>
+            </ul>
+        </div>
+          <div class="col-1 col-sm-auto pull-left">
+            <button type="button" class="btn btn-default">X</button>
+          </div>
+          <div class="col-4 col-sm-auto pull-left">
+            <input class="form-control" id="Fg1" type="text">
+          </div>
+        </div>
+      </div>
+            <div class="container pull-left">
+        <div class="row">
+          <div class="dropdown">
+            <button class="btn dropdown-toggle pull-left" type="button" data-toggle="dropdown">Course Code
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#">HTML</a></li>
+              <li><a href="#">CSS</a></li>
+              <li><a href="#">JavaScript</a></li>
+            </ul>
+        </div>
+          <div class="col-1 col-sm-auto pull-left">
+            <button type="button" class="btn btn-default">X</button>
+          </div>
+          <div class="col-4 col-sm-auto pull-left">
+            <input class="form-control" id="Fg1" type="text">
+          </div>
+        </div>
+      </div>
+  </div>
+    <div class="col-sm-6">
+      <div class="col-sm-6 pull-right">
+        <div class="text-center">
+        <h1><span></span> Winter</h1>
+      </div>
+    </div>
+      <div class="container pull-right">
+        <div class="row">
+          <div class="dropdown">
+            <button class="btn dropdown-toggle pull-right" type="button" data-toggle="dropdown">Course Code
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#">HTML</a></li>
+              <li><a href="#">CSS</a></li>
+              <li><a href="#">JavaScript</a></li>
+            </ul>
+        </div>
+          <div class="col-1 col-sm-auto pull-right">
+            <button type="button" class="btn btn-default">X</button>
+          </div>
+          <div class="col-4 col-sm-auto pull-right">
+            <input class="form-control" id="Fg1" type="text">
+          </div>
+        </div>
+      </div>
+      <div class="container pull-right">
+        <div class="row">
+          <div class="dropdown">
+            <button class="btn dropdown-toggle pull-right" type="button" data-toggle="dropdown">Course Code
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#">HTML</a></li>
+              <li><a href="#">CSS</a></li>
+              <li><a href="#">JavaScript</a></li>
+            </ul>
+        </div>
+          <div class="col-1 col-sm-auto pull-right">
+            <button type="button" class="btn btn-default">X</button>
+          </div>
+          <div class="col-4 col-sm-auto pull-right">
+            <input class="form-control" id="Fg1" type="text">
+          </div>
+        </div>
+      </div>
+            <div class="container pull-right">
+        <div class="row">
+          <div class="dropdown">
+            <button class="btn dropdown-toggle pull-right" type="button" data-toggle="dropdown">Course Code
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#">HTML</a></li>
+              <li><a href="#">CSS</a></li>
+              <li><a href="#">JavaScript</a></li>
+            </ul>
+        </div>
+          <div class="col-1 col-sm-auto pull-right">
+            <button type="button" class="btn btn-default">X</button>
+          </div>
+          <div class="col-4 col-sm-auto pull-right">
+            <input class="form-control" id="Fg1" type="text">
+          </div>
+        </div>
+      </div>
+            <div class="container pull-right">
+        <div class="row">
+          <div class="dropdown">
+            <button class="btn dropdown-toggle pull-right" type="button" data-toggle="dropdown">Course Code
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#">HTML</a></li>
+              <li><a href="#">CSS</a></li>
+              <li><a href="#">JavaScript</a></li>
+            </ul>
+        </div>
+          <div class="col-1 col-sm-auto pull-right">
+            <button type="button" class="btn btn-default">X</button>
+          </div>
+          <div class="col-4 col-sm-auto pull-right">
+            <input class="form-control" id="Fg1" type="text">
+          </div>
+        </div>
+      </div>
+            <div class="container pull-right">
+        <div class="row">
+          <div class="dropdown">
+            <button class="btn dropdown-toggle pull-right" type="button" data-toggle="dropdown">Course Code
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#">HTML</a></li>
+              <li><a href="#">CSS</a></li>
+              <li><a href="#">JavaScript</a></li>
+            </ul>
+        </div>
+          <div class="col-1 col-sm-auto pull-right">
+            <button type="button" class="btn btn-default">X</button>
+          </div>
+          <div class="col-4 col-sm-auto pull-right">
+            <input class="form-control" id="Fg1" type="text">
+          </div>
+        </div>
+      </div>
+            <div class="container pull-right">
+        <div class="row">
+          <div class="dropdown">
+            <button class="btn dropdown-toggle pull-right" type="button" data-toggle="dropdown">Course Code
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#">HTML</a></li>
+              <li><a href="#">CSS</a></li>
+              <li><a href="#">JavaScript</a></li>
+            </ul>
+        </div>
+          <div class="col-1 col-sm-auto pull-right">
+            <button type="button" class="btn btn-default">X</button>
+          </div>
+          <div class="col-4 col-sm-auto pull-right">
+            <input class="form-control" id="Fg1" type="text">
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+</div>
+<div class="container">
 	<div class="page-footer text-center">
 		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
 	</div>
-
 </div>
 </body>
 </html>
