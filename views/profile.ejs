@@ -5,7 +5,7 @@
 	<title>Node Authentication</title>
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="C:\Users\Eric Braun\Documents\Queen's Fourth Year\Winter 2017\Final Project 499\ta-application-site\css\application.css">
+	<link rel="stylesheet" type="text/css" href="application.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -17,14 +17,16 @@
 <div class="container">
 	<div class="page-header text-center">
 		<h1><span class="label"></span> <%= user.fname %>, <%= user.lname %> </h1>
-    <h1><span></span>T.A Application</h1>
+    <h1><span></span>T.A. Application</h1>
 	</div>
 </div>
-<div class="mdd2">
-	<div class="form-center">
+<div class="col-md-4 col-md-offset-4">
+	<div class="form-center text-center">
 		<label for "text-center">Upload Transcript</label>
-  		<input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
-  		<small id="fileHelp" class="form-text text-muted">This will automatically fill in your courses and grades.</small>
+  		<input type="file" class="form-control-file text-cenet col-md-10 col-md-offset-2" id="exampleInputFile" aria-describedby="
+      fileHelp">
+      <br>
+      <small id="fileHelp" class="form-text text-muted">This will automatically fill in your courses and grades.</small>
 		</div>
 </div>
 <div class="container">
@@ -42,16 +44,14 @@
       <br>
       <br>
       <% for (var j = 0; j < 6; j++) { %>
-
           <div class="row">
-            <div class="dropdown">
-              <button class="btn dropdown-toggle pull-left" type="button" data-toggle="dropdown">Course Code
-              <span class="caret"></span></button>
-              <ul class="dropdown-menu" name="fallCID">
-                <li><a href="#">HTML</a></li>
-                <li><a href="#">CSS</a></li>
-                <li><a href="#">JavaScript</a></li>
-              </ul>
+            <div class="col-4 pull-left">
+              <select class="form-control" id="sel1">
+                <option>Course Code</option>
+                <option>CISC 101</option>
+                <option>CISC 102</option>
+                <option>CISC 103</option>
+              </select>
            </div>
             <div class="col-1 pull-left">
               <button type="button" class="btn btn-default" name="fallTA">X</button>
@@ -78,15 +78,14 @@
       <% for (var i = 0; i < 6; i++) { %>
 
           <div class="row">
-            <div class="dropdown">
-              <button class="btn dropdown-toggle pull-right" type="button" data-toggle="dropdown">Course Code
-              <span class="caret"></span></button>
-              <ul class="dropdown-menu">
-                <li><a href="#">HTML</a></li>
-                <li><a href="#">CSS</a></li>
-                <li><a href="#">JavaScript</a></li>
-              </ul>
-          </div>
+            <div class="col-4 pull-right">
+              <select class="form-control" id="sel1">
+                <option>Course Code</option>
+                <option>CISC 101</option>
+                <option>CISC 102</option>
+                <option>CISC 103</option>
+              </select>
+           </div>
             <div class="col-1 pull-right">
               <button type="button" class="btn btn-default">X</button>
             </div>
