@@ -4,3 +4,12 @@
   left:50%;
   transform: translate(-50%,-50%);
 }
+
+#left{
+	margin-left: 0px;
+}
+
+#right{
+	margin-right: 0px;
+	text-align: right;
+}
