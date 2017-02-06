@@ -75,6 +75,14 @@ module.exports = function(app, passport) {
 	});
 
 	// =====================================
+	// APPLICATION =========================
+	// =====================================
+	app.get('/application', function(req, res) {
+		res.redirect('application.ejs'); // load the application.ejs file
+	});
+
+
+	// =====================================
 	// LOGOUT ==============================
 	// =====================================
 	app.get('/logout', function(req, res) {
