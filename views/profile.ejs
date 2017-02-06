@@ -26,65 +26,32 @@
   </div>
 </div>
 <div class="container">
-<div class="row">
-	<div class="col-sm-6">
-  		<div class="col-sm-6">
-  			<div class="text-center">
-				<h1><span></span> Fall</h1>
-			</div>
-    </div>
-    <% for(var i = 0; i < 6; i++) { %>
-
-      <div class="container pull-left">
-        <div class="row">
-          <div class="dropdown">
-            <button class="btn dropdown-toggle pull-left" type="button" data-toggle="dropdown">Course Code
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <li><a href="#">HTML</a></li>
-              <li><a href="#">CSS</a></li>
-              <li><a href="#">JavaScript</a></li>
-            </ul>
-        </div>
-          <div class="col-2 col-sm-auto pull-left">
-            <button type="button" class="btn btn-default">X</button>
-          </div>
-          <div class="col-4 col-sm-auto pull-left">
-            <input class="form-control" id="Fg1" type="text">
-          </div>
-        </div>
-      </div>
-    <% } %>
-  </div>
-    <div class="col-sm-6">
-      <div class="col-sm-6 pull-right">
-        <div class="text-center">
-        <h1><span></span> Winter</h1>
-      </div>
-    </div>
-    <% for (var i = 0; i < 6; i++) { %>
-      <div class="container pull-right">
-        <div class="row">
-          <div class="dropdown">
-            <button class="btn dropdown-toggle pull-right" type="button" data-toggle="dropdown">Course Code
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <li><a href="#">HTML</a></li>
-              <li><a href="#">CSS</a></li>
-              <li><a href="#">JavaScript</a></li>
-            </ul>
-        </div>
-          <div class="col-1 col-sm-auto pull-right">
-            <button type="button" class="btn btn-default">X</button>
-          </div>
-          <div class="col-4 col-sm-auto pull-right">
-            <input class="form-control" id="Fg1" type="text">
-          </div>
-        </div>
-      </div>
-      <% } %>
-  </div>
-</div>
+	<div class="row">
+		<div class="col-sm-6">
+	  		<div class="col-sm-6">
+	  			<div class="text-center">
+					<h1><span></span> Fall</h1>
+				</div>
+	    </div>
+	      <div class="container pull-left">
+	        <div class="row">
+				<form action="/profile" method="post">
+					 <select name="course">
+					    <option value="101">CISC 101</option>
+					    <option value="102">CISC 102</option>
+					    <option value="103">CISC 103</option>
+					    <option value="104">CISC 104</option>
+					  </select>
+	         		 <input type="checkbox" name="hasTaed" value="true">TA'ed course before?
+	         		 <label>Course Grade:</label>
+						<input type="grade" name="grade"/>
+					<input type="submit" value="Submit"/>
+					</div>
+				</form>
+	        </div>
+	      </div>
+	  </div>
+	</div>
 </div>
 <div class="container">
 	<div class="page-footer text-center">

@@ -1,4 +1,6 @@
 // app/routes.js
+var Application = require("./models/application.js");
+
 module.exports = function(app, passport) {
 
 	// =====================================
@@ -51,6 +53,25 @@ module.exports = function(app, passport) {
 		res.render('profile.ejs', {
 			user : req.user // get the user out of session and pass to template
 		});
+	});
+
+	app.post('/profile', isLoggedIn, function(req, res) {
+		var body = req.body;
+		var newApplication = new Application();
+		console.dir(req.body)
+		newApplication.courseCode = body.course;
+		newApplication.grade	  = body.grade;
+
+		if (newApplication.hasOwnProperty('hasTAed')) {
+			newApplication.hasTAed = true;
+		} else {
+			newApplication.hasTAed = false;
+		}
+		newApplication.save(function(err) {
+            if (err)
+                throw err;
+        });
+		res.redirect('/sucessPage');
 	});
 
 	// =====================================
