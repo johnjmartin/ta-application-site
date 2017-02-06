@@ -13,6 +13,7 @@ var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
+var path 	 	 = require('path');
 
 var configDB = require('./config/database.js');
 
@@ -28,6 +29,8 @@ app.use(bodyParser.json()); // get information from html forms
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs'); // set up ejs for templating
+app.use(express.static(path.join(__dirname,'public')));
+
 
 // required for passport
 app.use(session({
