@@ -1,5 +1,7 @@
 // app/routes.js
-var Application = require("./models/application.js");
+var Application = require("./models/application");
+var User       	= require('./models/user');
+
 
 module.exports = function(app, passport) {
 
@@ -56,9 +58,8 @@ module.exports = function(app, passport) {
 	});
 
 	app.post('/profile', isLoggedIn, function(req, res) {
-		var body = req.body;
-		var newApplication = new Application();
-		console.dir(req.body)
+		var body 		          = req.body;
+		var newApplication        = new Application();
 		newApplication.courseCode = body.course;
 		newApplication.grade	  = body.grade;
 
@@ -67,10 +68,14 @@ module.exports = function(app, passport) {
 		} else {
 			newApplication.hasTAed = false;
 		}
-		newApplication.save(function(err) {
-            if (err)
-                throw err;
-        });
+		User.findById(req.user._id, function(err, user){
+			if (err) return handleError(err);
+			user.application = newApplication;
+			user.save(function(err){
+				if (err)
+					throw err;
+			});
+		});
 		res.redirect('/sucessPage');
 	});
 
