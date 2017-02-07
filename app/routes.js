@@ -71,14 +71,16 @@ module.exports = function(app, passport) {
             if (err)
                 throw err;
         });
-		res.redirect('/sucessPage');
+		res.redirect('/application');
 	});
 
 	// =====================================
 	// APPLICATION =========================
 	// =====================================
-	app.get('/application', function(req, res) {
-		res.redirect('application.ejs'); // load the application.ejs file
+	app.get('/application', isLoggedIn, function(req, res) {
+		res.render('application.ejs', {
+			user: req.user
+		}); // load the application.ejs file
 	});
 
 
