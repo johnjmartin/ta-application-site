@@ -44,22 +44,12 @@
 <div class="col-md-4 col-md-offset-4">
 	<div class="form-center text-center">
     <h3><span></span>Please Enter Grades</h3>
-		<label for "text-center">Upload Transcript</label>
-  		<input type="file" class="form-control-file text-cenet col-md-10 col-md-offset-2" id="exampleInputFile" aria-describedby="
-      fileHelp">
-      <br>
-      <small id="fileHelp" class="form-text text-muted">This will automatically fill in your courses and grades.</small>
-		</div>
+	</div>
 </div>
 <div class="container">
   <form action="/profile" method="post">
   <div class="row">
     <div class="col-sm-6">
-        <div class="col-sm-6 pull-left">
-          <div class="text-center">
-          <h1><span></span> Fall</h1>
-        </div>
-      </div>
       <br>
       <br>
       <br>
@@ -68,56 +58,31 @@
       <% for (var j = 0; j < 6; j++) { %>
           <div class="row">
             <div class="col-4 pull-left">
-              <select class="form-control" id="sel1">
+              <select class="form-control" id="sel1" name="courses">
                 <option>Course Code</option>
                 <option value="101">CISC 101</option>
                 <option value="102">CISC 102</option>
                 <option value="103">CISC 103</option>
               </select>
            </div>
-            <div class="col-1 pull-left">
-              <button type="button" class="btn btn-default" name="fallTA">X</button>
-            </div>
-
             <div class="col-4 pull-left">
-              <input class="form-control" id="Fg" type="text" name="fallGrade">
+              <input class="form-control" id="Fg" type="text" name="grades">
             </div>
           </div>
 
       <% } %>
     </div>
       <div class="col-sm-6">
-        <div class="col-sm-6 pull-right">
-          <div class="text-center">
-          <h1><span></span> Winter</h1>
-        </div>
-      </div>
       <br>
       <br>
       <br>
       <br>
       <br>
-      <% for (var i = 0; i < 6; i++) { %>
-
-          <div class="row">
-            <div class="col-4 pull-right">
-              <select class="form-control" id="sel1">
-                <option>Course Code</option>
-                <option>CISC 101</option>
-                <option>CISC 102</option>
-                <option>CISC 103</option>
-              </select>
-           </div>
-            <div class="col-1 pull-right">
-              <button type="button" class="btn btn-default">X</button>
-            </div>
-
-            <div class="col-4 pull-right">
-              <input class="form-control" id="Fg1" type="text" name="">
-            </div>
-          </div>
-
-        <% } %>
+      <label>Upload Transcript</label>
+      <input type="file" class="form-control-file text-cenet col-md-10 col-md-offset-2" id="exampleInputFile" aria-describedby="
+            fileHelp">
+      <br>
+      <small id="fileHelp" class="form-text text-muted">This will automatically fill in your courses and grades.</small>
     </div>
   </div>
 </div>
@@ -129,8 +94,5 @@
 	</div>
 </div>
 </form>
-    <div class="col-sm-2 col-sm-offset-1">
-        <h3><span class="label"></span> <%= user.lname %>, <%= user.fname %> </h3>
-      </div>
 </body>
 </html>

@@ -18,11 +18,11 @@ div[class="page-header"]{
 
 }
 
-#courseRow{
-  border: 2px black;
+div[class="row2"]{
   border-style: groove;
-  border-radius: 8px;
+
 }
+
 div[class="right"]{
 	padding-right: 5%;
 
