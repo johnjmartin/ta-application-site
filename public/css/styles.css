@@ -15,7 +15,18 @@ body{
 div[class="page-header"]{
   padding-top: 20px;
 	height: 100px;
+  padding-right: 15px;
 
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
 }
 
 #courseRow{
@@ -33,4 +44,21 @@ div[class="right"]{
 	vertical-align: bottom;
 	float: none;
 	text-align: center;
+}
+
+.btn-custom {
+  background-color: hsl(110, 79%, 24%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#44e523", endColorstr="#1c6d0c");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#44e523), to(#1c6d0c));
+  background-image: -moz-linear-gradient(top, #44e523, #1c6d0c);
+  background-image: -ms-linear-gradient(top, #44e523, #1c6d0c);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #44e523), color-stop(100%, #1c6d0c));
+  background-image: -webkit-linear-gradient(top, #44e523, #1c6d0c);
+  background-image: -o-linear-gradient(top, #44e523, #1c6d0c);
+  background-image: linear-gradient(#44e523, #1c6d0c);
+  border-color: #1c6d0c #1c6d0c hsl(110, 79%, 17%);
+  color: #fff !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.46);
+  -webkit-font-smoothing: antialiased;
 }
