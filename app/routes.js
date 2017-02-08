@@ -68,6 +68,7 @@ module.exports = function(app, passport) {
 		} else {
 			newApplication.hasTAed = false;
 		}
+		
 		User.findById(req.user._id, function(err, user){
 			if (err) return handleError(err);
 			user.application = newApplication;
@@ -76,8 +77,18 @@ module.exports = function(app, passport) {
 					throw err;
 			});
 		});
-		res.redirect('/sucessPage');
+		res.redirect('/application');
 	});
+
+	// =====================================
+	// APPLICATION =========================
+	// =====================================
+	app.get('/application', isLoggedIn, function(req, res) {
+		res.render('application.ejs', {
+			user: req.user
+		}); // load the application.ejs file
+	});
+
 
 	// =====================================
 	// LOGOUT ==============================

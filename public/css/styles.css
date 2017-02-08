@@ -1,0 +1,36 @@
+body{ 
+  word-wrap:break-word; 
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 100px;
+}
+
+#midman {
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+
+div[class="page-header"]{
+  padding-top: 20px;
+	height: 100px;
+
+}
+
+#courseRow{
+  border: 2px black;
+  border-style: groove;
+  border-radius: 8px;
+}
+div[class="right"]{
+	padding-right: 5%;
+
+}
+
+.vbottom{
+	display: flex;
+	vertical-align: bottom;
+	float: none;
+	text-align: center;
+}

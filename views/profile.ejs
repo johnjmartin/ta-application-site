@@ -5,61 +5,94 @@
 	<title>Node Authentication</title>
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="application.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/styles.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<style>
-		body 		{ padding-top:80px; word-wrap:break-word; }
-	</style>
 </head>
 <body>
-<div class="container">
-	<div class="page-header text-center">
-		<h1><span class="label"></span> <%= user.fname %>, <%= user.lname %> </h1>
-    <h1><span></span>T.A. Application</h1>
-	</div>
-</div>
-<div class="col-md-4 col-md-offset-4">
-	<div class="form-center text-center">
-		<label for "text-center">Upload Transcript</label>
-  		<input type="file" class="form-control-file text-cenet col-md-10 col-md-offset-2" id="exampleInputFile" aria-describedby="
-      fileHelp">
-      <br>
-      <small id="fileHelp" class="form-text text-muted">This will automatically fill in your courses and grades.</small>
-		</div>
-</div>
-
-<div class="row">
-  <div class="col-sm-6">
-      <div class="col-sm-6">
-        <div class="text-center">
-        <h1><span></span> Fall</h1>
-      </div>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">T.A. Application</a>
     </div>
-      <div class="container pull-left">
-        <div class="row">
-      <form action="/profile" method="post">
-         <select name="course">
-            <option value="101">CISC 101</option>
-            <option value="102">CISC 102</option>
-            <option value="103">CISC 103</option>
-            <option value="104">CISC 104</option>
-          </select>
-             <input type="checkbox" name="hasTaed" value="true">TA'ed course before?
-             <label>Course Grade:</label>
-          <input type="grade" name="grade"/>
-        <input type="submit" value="Submit"/>
-        </div>
-      </form>
-        </div>
-      </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#">Grades</a></li>
+      <li><a href="#">Application</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Account
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Profile</a></li>
+          <li><a href="#">Sign Out</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="page-header">
+  <div class="row vbottom">
+    <div class="col-sm-1">
+      <img src="/images/queens.jpeg" alt="Queen's Logo" style="width:300px;height:75px;">
+    </div>
+    <div class="col-md-4 col-md-offset-3">
+      <h1>Transcript</h1>
+    </div>
   </div>
 </div>
-<div class="container">
-	<div class="page-footer text-center">
-		<a href="/logout" class="btn btn-default btn-sm" name=>Logout</a>
+
+<div class="col-md-4 col-md-offset-4">
+	<div class="form-center text-center">
+    <h3><span></span>Please Enter Grades</h3>
 	</div>
 </div>
+<div class="container">
+  <form action="/profile" method="post">
+  <div class="row">
+    <div class="col-sm-6">
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <% for (var j = 0; j < 6; j++) { %>
+          <div class="row">
+            <div class="col-4 pull-left">
+              <select class="form-control" id="sel1" name="courses">
+                <option>Course Code</option>
+                <option value="101">CISC 101</option>
+                <option value="102">CISC 102</option>
+                <option value="103">CISC 103</option>
+              </select>
+           </div>
+            <div class="col-4 pull-left">
+              <input class="form-control" id="Fg" type="text" name="grades">
+            </div>
+          </div>
+
+      <% } %>
+    </div>
+      <div class="col-sm-6">
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <label>Upload Transcript</label>
+      <input type="file" class="form-control-file text-cenet col-md-10 col-md-offset-2" id="exampleInputFile" aria-describedby="
+            fileHelp">
+      <br>
+      <small id="fileHelp" class="form-text text-muted">This will automatically fill in your courses and grades.</small>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container">
+	<div class="page-footer text-center">
+		<button type="submit" class="btn btn-success" name="submitButton">Submit</button>
+    <br>
+	</div>
+</div>
+</form>
 </body>
 </html>
