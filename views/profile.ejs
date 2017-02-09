@@ -12,34 +12,12 @@
   <script type="text/javascript">
       function addRow() { 
         var first_row=$('#rowObject');     
-        first_row.style.display = 'block';
         first_row.clone().appendTo('#gradeTable');
       }
   </script>
 </head>
 <body>
-
-
-<div id="rowObject" style="display:none;">
-  <div class="col-sm-4"> 
-   <div class="row">
-      <div class="col-sm-5 nopadding">
-        <select class="form-control" id="sel1" name="courses">
-          <option>Course Code</option>
-          <option value="101">CISC 101</option>
-          <option value="102">CISC 102</option>
-          <option value="103">CISC 103</option>
-        </select>
-     </div>
-      <div class="col-sm-2 nopadding">
-        <input class="form-control" id="Fg" type="text" name="grades">
-      </div>
-    </div>
-  </div>
-</div>
-
-
-  <nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">T.A. Application</a>
@@ -69,31 +47,31 @@
   </div>
 </div>
 
-<div class="col-md-4 col-md-offset-4">
-	<div class="form-center text-center">
+<div class="col-md-6 col-md-offset-3" align="center">
+	<div class="form-center">
     <h3><span></span>Please Enter Grades</h3>
-    <form ref='uploadForm' 
-      id='uploadForm' 
-      action='/upload' 
-      method='post' 
-      encType="multipart/form-data">
-        <input type="file" name="transcript" />
-        <input type='submit' value='Upload!' />
-    </form>     
-		<!-- <label for "text-center">Upload Transcript</label>
-  		<input type="file" class="form-control-file text-cenet col-md-10 col-md-offset-2" id="exampleInputFile" aria-describedby="
-      fileHelp">
-      <br>
-      <small id="fileHelp" class="form-text text-muted">This will automatically fill in your courses and grades.</small>
-		</div> -->
+          <label>Upload Transcript</label>
+      <form ref='uploadForm' 
+        id='uploadForm' 
+        action='/upload' 
+        method='post' 
+        encType="multipart/form-data"
+        >
+          <input type="file" name="transcript" />
+          <small class="form-text center-block text-muted">This will automatically fill in your courses and grades.</small>
+          <br>
+          <br>
+          <input type='submit' value='Upload!' />
+      </form>   
     <br>
+  </div>
 </div>
 <div class="container" id="gradeTable">
   <div class="row center-block">
       <form action="/profile" method="post">
       <% for (var i = 0; i < 3; i++) { %>
-        <div class="col-sm-4"> 
         <% for (var j = 0; j < 4; j++) { %>
+          <div class="col-sm-4" id="rowObject">
             <div class="row">
               <div class="col-sm-5 nopadding">
                 <select class="form-control" id="sel1" name="courses">
@@ -108,8 +86,8 @@
               </div>
             </div>
             <br>
+          </div>
        <% } %>
-     </div>
     <% } %>
   </div> 
 </div> 
