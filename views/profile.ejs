@@ -9,8 +9,36 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+      function addRow() { 
+        var first_row=$('#rowObject');     
+        first_row.style.display = 'block';
+        first_row.clone().appendTo('#gradeTable');
+      }
+  </script>
 </head>
 <body>
+
+
+<div id="rowObject" style="display:none;">
+  <div class="col-sm-4"> 
+   <div class="row">
+      <div class="col-sm-5 nopadding">
+        <select class="form-control" id="sel1" name="courses">
+          <option>Course Code</option>
+          <option value="101">CISC 101</option>
+          <option value="102">CISC 102</option>
+          <option value="103">CISC 103</option>
+        </select>
+     </div>
+      <div class="col-sm-2 nopadding">
+        <input class="form-control" id="Fg" type="text" name="grades">
+      </div>
+    </div>
+  </div>
+</div>
+
+
   <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -52,11 +80,11 @@
 		</div>
     <br>
 </div>
-<div class="container center-block">
+<div class="container" id="gradeTable">
   <div class="row center-block">
       <form action="/profile" method="post">
       <% for (var i = 0; i < 3; i++) { %>
-      <div class="col-sm-4">
+        <div class="col-sm-4"> 
         <% for (var j = 0; j < 4; j++) { %>
             <div class="row">
               <div class="col-sm-5 nopadding">
@@ -75,15 +103,15 @@
        <% } %>
      </div>
     <% } %>
-  </div>  
-</div>
-<br>
-<br>
+  </div> 
+</div> 
 <div class="container">
   <div class="text-center">
-    <button class="btn" type="button" id="addRow" onclick="addButton();" >Add Row</button>
+    <p><a href="#" onClick="addRow();">Add Row</a></p>
   </div>
 </div>
+<br>
+<br>
 <div class="container">
 	<div class="page-footer text-center">
 		<button type="submit" class="btn btn-custom btn-success" name="submitButton">Submit</button>
