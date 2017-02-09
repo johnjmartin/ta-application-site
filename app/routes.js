@@ -1,5 +1,8 @@
 // app/routes.js
-var Application = require("./models/application.js");
+var Application = require("./models/application");
+var User       	= require('./models/user');
+var fileUpload  = require('express-fileupload');
+
 
 module.exports = function(app, passport) {
 
@@ -56,21 +59,26 @@ module.exports = function(app, passport) {
 	});
 
 	app.post('/profile', isLoggedIn, function(req, res) {
-		var body = req.body;
-		var newApplication = new Application();
-		console.dir(req.body)
+		var body 		          = req.body;
+		var newApplication        = new Application();
 		newApplication.courseCode = body.course;
 		newApplication.grade	  = body.grade;
+		console.dir(body);
 
 		if (newApplication.hasOwnProperty('hasTAed')) {
 			newApplication.hasTAed = true;
 		} else {
 			newApplication.hasTAed = false;
 		}
-		newApplication.save(function(err) {
-            if (err)
-                throw err;
-        });
+		
+		User.findById(req.user._id, function(err, user){
+			if (err) return handleError(err);
+			user.application = newApplication;
+			user.save(function(err){
+				if (err)
+					throw err;
+			});
+		});
 		res.redirect('/application');
 	});
 
@@ -81,6 +89,40 @@ module.exports = function(app, passport) {
 		res.render('application.ejs', {
 			user: req.user
 		}); // load the application.ejs file
+	});
+
+	// =====================================
+	// UPLOAD ==============================
+	// =====================================
+
+	app.post('/upload', isLoggedIn, function(req, res) {
+		var transcript;
+
+		if (!req.files) {
+			res.send('No files were uploaded.');
+			return;
+		}
+
+		// The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+		transcript = req.files.transcript;
+
+		var path   = req.user._id + "_transcript.pdf"
+
+		//TODO: Add a flash to keep user on the page if no files contained in transcript
+		if (!req.files.transcript) {
+			res.send('No files were uploaded. Hit that back button');
+			return;
+		}
+
+		// Use the mv() method to place the file somewhere on your server
+		transcript.mv(__dirname+'/../public/' + path, function(err) {
+		if (err) {
+		  res.status(500).send(err);
+		}
+		else {
+		  res.send('File uploaded!');
+		}
+		});
 	});
 
 
