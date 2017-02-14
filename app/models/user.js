@@ -10,7 +10,7 @@ var userSchema = mongoose.Schema({
     lname        : String,
     email        : String,
     password     : String,
-    application  : {}
+    grades	     : {}
 });
 
 // methods ======================

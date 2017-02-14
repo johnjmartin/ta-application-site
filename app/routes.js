@@ -1,6 +1,7 @@
 // app/routes.js
 var Application = require("./models/application");
 var User       	= require('./models/user');
+var Grades      = require('./models/grades');
 var fileUpload  = require('express-fileupload');
 
 
@@ -25,7 +26,7 @@ module.exports = function(app, passport) {
 
 	// process the login form
 	app.post('/login', passport.authenticate('local-login', {
-		successRedirect : '/profile', // redirect to the secure profile section
+		successRedirect : '/grades', // redirect to the secure profile section
 		failureRedirect : '/login', // redirect back to the signup page if there is an error
 		failureFlash : true // allow flash messages
 	}));
@@ -58,22 +59,43 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	app.post('/profile', isLoggedIn, function(req, res) {
-		var body 		          = req.body;
-		var newApplication        = new Application();
-		newApplication.courseCode = body.course;
-		newApplication.grade	  = body.grade;
+
+	// =====================================
+	// GRADES SECTION =========================
+	// =====================================
+	// we will want this protected so you have to be logged in to visit
+	// we will use route middleware to verify this (the isLoggedIn function)
+	app.get('/grades', isLoggedIn, function(req, res) {
+		res.render('grades.ejs', {
+			user : req.user // get the user out of session and pass to template
+		});
+	});
+
+	app.post('/grades', isLoggedIn, function(req, res) {
+		// initalize course details
+		var body 	  = req.body;
+		var points 	  = body.grades;
+		var courses   = body.courses;
+		var grades 	  = [];
+		var newGrades = new Grades();
+
 		console.dir(body);
 
-		if (newApplication.hasOwnProperty('hasTAed')) {
-			newApplication.hasTAed = true;
-		} else {
-			newApplication.hasTAed = false;
+		//populate newGrades document
+		// TODO: error checking points.len != courses.len
+		for (i = 0; i<points.length; i++) {
+			grades.push({
+				grade  : points[i],
+				course : courses[i]
+			});
+			console.dir(courses[i]);
 		}
-		
+		console.dir(grades);
+		newGrades.grades = grades;
+
 		User.findById(req.user._id, function(err, user){
 			if (err) return handleError(err);
-			user.application = newApplication;
+			user.grades = newGrades;
 			user.save(function(err){
 				if (err)
 					throw err;
@@ -89,6 +111,30 @@ module.exports = function(app, passport) {
 		res.render('application.ejs', {
 			user: req.user
 		}); // load the application.ejs file
+	});
+
+	app.post('/application', isLoggedIn, function(req, res) {
+		var body 		          = req.body;
+		var newApplication        = new Application();
+		newApplication.courseCode = body.courses;
+		newApplication.grade	  = body.grades;
+		console.dir(body);
+		
+		if (newApplication.hasOwnProperty('hasTAed')) {
+			newApplication.hasTAed = true;
+		} else {
+			newApplication.hasTAed = false;
+		}
+		
+		User.findById(req.user._id, function(err, user){
+			if (err) return handleError(err);
+			user.application = newApplication;
+			user.save(function(err){
+				if (err)
+					throw err;
+			});
+		});
+		res.redirect('/success');
 	});
 
 	// =====================================

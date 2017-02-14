@@ -4,9 +4,9 @@
 var mongoose = require('mongoose');
 
 var courseSchema = mongoose.Schema({
-    courseCode     : String,
+    courseCode     : [String],
     hasTAed        : Boolean,
-    grade          : String
+    grade          : [String]
 });
 
 module.exports = mongoose.model('Application', courseSchema);
