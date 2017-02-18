@@ -17,13 +17,15 @@
   </script>
 </head>
 <body>
+
+<!-- Navigation Header (should be consistent on each page) -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">T.A. Application</a>
     </div>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#">Grades</a></li>
+      <li><a href="/grades">Grades</a></li>
       <li><a href="/application">Application</a></li>
       <%if (user.admin) { %>
         <li><a href="/admin">Admin</a></li>
@@ -39,6 +41,8 @@
     </ul>
   </div>
 </nav>
+
+
 <div class="page-header">
   <div class="row vbottom">
     <div class="col-sm-1">

@@ -11,6 +11,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+
+<!-- Navigation Header (should be consistent on each page) -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -19,6 +22,9 @@
     <ul class="nav navbar-nav navbar-right">
       <li><a href="/grades">Grades</a></li>
       <li><a href="/application">Application</a></li>
+      <%if (user.admin) { %>
+        <li><a href="/admin">Admin</a></li>
+      <% }%> 
       <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Account
         <span class="caret"></span></a>
@@ -30,32 +36,44 @@
     </ul>
   </div>
 </nav>
+
+
 <div class="page-header">
   <div class="row vbottom">
     <div class="col-sm-1">
       <img src="/images/queens.jpeg" alt="Queen's Logo" style="width:300px;height:75px;">
     </div>
     <div class="col-md-4 col-md-offset-3">
-      <h1>Profile</h1>
+      <h1>User Profile</h1>
     </div>
   </div>
 </div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+
+<div class="container">
+  <form action="/grades" method="post">
+    <div class="row">
+        <!-- LOCAL INFORMATION -->
+        <div class="col-sm-12">
+            <div class="well">
+                <h3><span class="fa fa-user"></span> <%= user.fname +" "+ user.lname %> </h3>
+
+                    <p>
+                        <strong>Email</strong>: <input disabled class="form-control" type="text" value=<%= user.email%> ><br>
+                        <strong>First Name</strong>: <input class="form-control" type="text" name="fname" value=<%= user.fname%> ><br>
+                        <strong>Last Name</strong>: <input class="form-control" type="text" name="lname" value=<%= user.lname%> ><br>
+                        <strong>Social Insurance Number</strong>: <input class="form-control" type="text" name="SIN"><br>
+                        <strong>Bank Account (Direct Deposit)</strong>: <input class="form-control" type="text" name="depo"><br>
+                    </p>
+
+            </div>
+        </div>
+    </div>      
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-success">Update</button>
     </div>
-  </div>
+  </form>
 </div>
+
 </body>
 </html>

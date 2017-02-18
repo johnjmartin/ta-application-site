@@ -57,6 +57,20 @@ module.exports = function(app, passport) {
 		});
 	});
 
+	//INCOMPLETE FUNCTION
+
+	app.post('/profile', isLoggedIn, function(req, res) {
+		var body = req.body;
+
+		User.findById(req.user._id, function(err, user) {
+			if (err) return handleError(err);
+			if (body.hasOwnProperty("fname")) user.fname = body.fname;
+			if (body.hasOwnProperty("lname")) user.lname = body.lname;
+			if (body.hasOwnProperty("SIN")) user.SIN = body.SIN;
+		});
+
+	});
+
 
 	// =====================================
 	// GRADES SECTION =========================
@@ -147,7 +161,7 @@ module.exports = function(app, passport) {
 
 
 	// =====================================
-	// UPLOAD ==============================
+	// UPLOAD -- should be removed (no longer a feature) ==============================
 	// =====================================
 
 	app.post('/upload', isLoggedIn, function(req, res) {
