@@ -1,12 +1,10 @@
-
-// app/models/user.js
-// load the things we need
+// app/models/application.js
 var mongoose = require('mongoose');
 
-var courseSchema = mongoose.Schema({
+var applicationSchema = mongoose.Schema({
     courseCode     : [String],
     hasTAed        : Boolean,
     grade          : [String]
 });
 
-module.exports = mongoose.model('Application', courseSchema);
+module.exports = mongoose.model('Application', applicationSchema);

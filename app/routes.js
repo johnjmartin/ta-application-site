@@ -1,8 +1,11 @@
 // app/routes.js
-var Application = require("./models/application");
+var Application = require('./models/application');
 var User       	= require('./models/user');
 var Grades      = require('./models/grades');
+var Course      = require('./models/course');
+
 var fileUpload  = require('express-fileupload');
+var fs 			= require('fs');
 
 
 module.exports = function(app, passport) {
@@ -85,25 +88,29 @@ module.exports = function(app, passport) {
 
 	app.post('/grades', isLoggedIn, function(req, res) {
 		// initalize course details
-		var body 	  = req.body;
-		var points 	  = body.grades;
-		var courses   = body.courses;
-		var grades 	  = [];
-		var newGrades = new Grades();
+		var body 	      = req.body;
+		var grades_string = body.grades;
+		var grades_arr    = [];
+		var newGrades 	  = new Grades();
 
-		console.dir(body);
-
-		//populate newGrades document
-		// TODO: error checking points.len != courses.len
-		for (i = 0; i<points.length; i++) {
-			grades.push({
-				grade  : points[i],
-				course : courses[i]
-			});
-			console.dir(courses[i]);
+		try {
+			grades_arr = body.grades.replace(/\r/g,'');
+			grades_arr = grades_arr.split('\n');
+		} catch (err) {
+			throw err;
 		}
-		console.dir(grades);
-		newGrades.grades = grades;
+		console.dir(grades_arr);
+
+		grades_arr = grades_arr.map(function (i) {
+			var x = i.split(',');
+			return { 'grade': x[1], 'course': x[0] };
+		});
+
+		console.dir(grades_string);
+		console.dir(grades_arr);
+
+	
+		newGrades.grades = grades_arr;
 
 		User.findById(req.user._id, function(err, user){
 			if (err) return handleError(err);
@@ -159,12 +166,19 @@ module.exports = function(app, passport) {
 		}); // load the application.ejs file
 	});
 
+	app.get('/admin/courselist', isLoggedInAdmin, function(req, res) {
+		res.render('admin/courselist.ejs', {
+			user: req.user
+		}); // load the application.ejs file
+	});
+
+
 
 	// =====================================
-	// UPLOAD -- should be removed (no longer a feature) ==============================
+	// UPLOAD ==============================
 	// =====================================
 
-	app.post('/upload', isLoggedIn, function(req, res) {
+	app.post('/upload_transcript', isLoggedIn, function(req, res) {
 		var transcript;
 
 		if (!req.files) {
@@ -175,7 +189,7 @@ module.exports = function(app, passport) {
 		// The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
 		transcript = req.files.transcript;
 
-		var path   = req.user._id + "_transcript.pdf"
+		var path   = "courselist.csv"
 
 		//TODO: Add a flash to keep user on the page if no files contained in transcript
 		if (!req.files.transcript) {
@@ -185,12 +199,35 @@ module.exports = function(app, passport) {
 
 		// Use the mv() method to place the file somewhere on your server
 		transcript.mv(__dirname+'/../public/' + path, function(err) {
-		if (err) {
-		  res.status(500).send(err);
-		}
-		else {
-		  res.send('File uploaded!');
-		}
+			if (err) {
+			  res.status(500).send(err);
+			}
+			else {
+			  res.redirect('/admin/courselist')
+			}
+		});
+
+		fs.readFile('public/courselist.csv', 'utf8', function(err, data) {
+			if (err) throw err;
+			data = data.replace(/\r/g,'');
+			data = data.split('\n');
+
+			data = data.filter( function(i){
+				return i != '';
+			}).map( function(i) {
+				return i.split(',');
+			});
+
+			for (i = 1; i<data.length; i++) {
+				var newCourse 				= new Course();
+				newCourse.term 				= data[i][0];
+				newCourse.courseID  		= data[i][1];
+				newCourse.courseDescription = data[i][2];
+				newCourse.instructorName    = data[i][3];
+				newCourse.save(function(err){
+					if (err) throw err;
+				});			
+			}
 		});
 	});
 
@@ -215,7 +252,7 @@ function isLoggedIn(req, res, next) {
 	res.redirect('/');
 }
 
-// route middleware to make sure
+// will 
 function isLoggedInAdmin(req, res, next) {
 
 	// if user is authenticated in the session, carry on
@@ -226,5 +263,5 @@ function isLoggedInAdmin(req, res, next) {
 	}
 
 	// if they aren't redirect them to the home page
-	res.redirect('/');
+	res.redirect('/profile');
 }

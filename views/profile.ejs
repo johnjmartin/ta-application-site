@@ -14,28 +14,8 @@
 
 
 <!-- Navigation Header (should be consistent on each page) -->
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">T.A. Application</a>
-    </div>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="/grades">Grades</a></li>
-      <li><a href="/application">Application</a></li>
-      <%if (user.admin) { %>
-        <li><a href="/admin">Admin</a></li>
-      <% }%> 
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Account
-        <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="/profile">Profile</a></li>
-          <li><a href="/logout">Sign Out</a></li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-</nav>
+<% include partials/header %>
+
 
 
 <div class="page-header">
