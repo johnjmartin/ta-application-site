@@ -99,16 +99,11 @@ module.exports = function(app, passport) {
 		} catch (err) {
 			throw err;
 		}
-		console.dir(grades_arr);
 
 		grades_arr = grades_arr.map(function (i) {
 			var x = i.split(',');
 			return { 'grade': x[1], 'course': x[0] };
 		});
-
-		console.dir(grades_string);
-		console.dir(grades_arr);
-
 	
 		newGrades.grades = grades_arr;
 
@@ -127,9 +122,12 @@ module.exports = function(app, passport) {
 	// APPLICATION =========================
 	// =====================================
 	app.get('/application', isLoggedIn, function(req, res) {
-		res.render('application.ejs', {
-			user: req.user
-		}); // load the application.ejs file
+		Course.find({}, function(err, courses) {
+			res.render('application.ejs', {
+				courses: courses,
+				user: req.user
+			}); // load the application.ejs file
+		}); 
 	});
 
 	app.post('/application', isLoggedIn, function(req, res) {
@@ -168,7 +166,8 @@ module.exports = function(app, passport) {
 
 	app.get('/admin/courselist', isLoggedInAdmin, function(req, res) {
 		res.render('admin/courselist.ejs', {
-			user: req.user
+			user: req.user,
+			message: req.flash('uploadMessage')
 		}); // load the application.ejs file
 	});
 
@@ -182,6 +181,7 @@ module.exports = function(app, passport) {
 		var transcript;
 
 		if (!req.files) {
+			req.flash
 			res.send('No files were uploaded.');
 			return;
 		}
@@ -228,6 +228,7 @@ module.exports = function(app, passport) {
 					if (err) throw err;
 				});			
 			}
+			req.flash('uploadMessage', 'Upload Success!!')
 		});
 	});
 
@@ -254,7 +255,6 @@ function isLoggedIn(req, res, next) {
 
 // will 
 function isLoggedInAdmin(req, res, next) {
-
 	// if user is authenticated in the session, carry on
 	if (req.isAuthenticated()) {
 		if (req.user.admin){

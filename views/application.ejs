@@ -10,10 +10,26 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>    
   <script type="text/javascript">
-    courseListF = ['CISC 101','CISC 102','CISC 499'];
-    courseListW = ['CISC 1','CISC 102','CISC 499'];
-    descriptionF = ['John Jacob Jingle Heimer Schmitt, his name is my name too... whenever we go out, the people always shout HERE GOES JOHN JACOB JINGLE HEIMER SCHMITT NANANANANANANA','This is desc for CISC 102'];
-    descriptionW = ['This is description for CISC 1','This is desc for CISC 2'];
+
+  courseListF = [];
+  courseListW = [];
+  descriptionF = [];
+  descriptionW = [];
+
+  var courses = <%- JSON.stringify(courses) %>;
+
+  for (var i=0; i < courses.length; i++) {
+    var course = courses[i];
+    if (course['term'] == 'Fall 2017') {
+      courseListF.push(course['courseID']);
+      descriptionF.push(course['courseDescription']);
+    } else {
+      courseListW.push(course['courseID']);
+      descriptionW.push(course['courseDescription']);
+    }
+  } 
+
+
 
   
   window.onload = function() {
@@ -56,6 +72,7 @@
   </script>
 </head>
 <body>
+
 <!-- Navigation Header (should be consistent on each page) -->
 <% include partials/header %>
 
