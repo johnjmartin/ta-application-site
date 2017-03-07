@@ -6,9 +6,27 @@
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="/css/styles.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.css">
+  <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    var dataSet = [["Braun","Eric","13eb20@queensu.ca","4th"],["Martin","John","12jjm4@queensu.ca","4th"],["Stewart","James","jstewart@queensu.ca","1st"],["Wazowski","Mike","mwazowski@monster.inc","2nd"]];
+    
+  $(document).ready(function() {
+      $('#example').DataTable( {
+          data: dataSet,
+          columns: [
+              { title: "Last Name" },
+              { title: "First Name"},
+              { title: "Email"},
+              { title: "Year"}
+            ]
+        } );
+    } );
+</script>
 </head>
 <body>
 
@@ -44,5 +62,6 @@
     </div>
   </div>
 </div>
+<table id="example" class="display" width="100%"></table>
 </body>
 </html>

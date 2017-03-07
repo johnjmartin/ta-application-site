@@ -6,43 +6,45 @@
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="/css/styles.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.css">
+  <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    var semesterList = ['Winter 2017','Fall 2016','Winter 2016','Fall 2015'];
+    window.onload = function() {
+      var sem = document.getElementById("semesters");
+      for (i = 0; i < semesterList.length; i++){
+        var Entry = document.createElement("option");
+        Entry.value = semesterList[i];
+        Entry.id = semesterList[i];
+        Entry.text = semesterList[i];
+        sem.add(Entry, null);
+      }
+    }
+    function render(){
+        var dataSet = [["Braun","Eric","13eb20@queensu.ca","4th"],["Martin","John","12jjm4@queensu.ca","4th"],["Stewart","James","jstewart@queensu.ca","1st"],["Wazowski","Mike","mwazowski@monster.inc","2nd"]];
+        
+      $(document).ready(function() {
+          $('#example').DataTable( {
+              data: dataSet,
+              columns: [
+                  { title: "Last Name" },
+                  { title: "First Name"},
+                  { title: "Email"},
+                  { title: "Year"}
+                ]
+            } );
+        } );
+    }
+</script>
 </head>
 <body>
 
 
-<!-- Navigation Header (should be consistent on each page) -->
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">T.A. Application</a>
-    </div>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="/grades">Grades</a></li>
-      <li><a href="/application">Application</a></li>
-      <%if (user.admin) { %>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
-          <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="/admin/">Users List</a></li>
-            <li><a href="/admin/applications"></a>Applicant Reivew</li>
-          </ul>
-        </li>
-      <% }%> 
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Account
-        <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="/profile">Profile</a></li>
-          <li><a href="/logout">Sign Out</a></li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-</nav>
+<% include ../partials/header %>
 
 
 <div class="page-header">
@@ -55,22 +57,20 @@
     </div>
   </div>
 </div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+<div class ="container pull-center">
+  <div class ="row">
+  <div class="col-md-2 col-md-offset-5">
+    <select class="form-control" id="semesters">
+        <option>Select a Semester</option>
+    </select>
+    <br>
+
+ </div>
+ <div class="col-md-1 col-md-offset-5.5">
+      <button onClick="render()">Render</button>
     </div>
-  </div>
 </div>
+</div>
+<table id="example" class="display" width="100%"></table>
 </body>
 </html>
