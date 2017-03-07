@@ -159,10 +159,19 @@ module.exports = function(app, passport) {
 	// ADMINISTRATION =========================
 	// =====================================
 	app.get('/admin', isLoggedInAdmin, function(req, res) {
+		var query = User.find({});
+  		var dataSet = query.select('lname');
 		res.render('admin.ejs', {
 			user: req.user
 		}); // load the application.ejs file
 	});
+
+	app.get('/admin/applications', isLoggedInAdmin, function(req, res) {
+		res.render('admin/applications.ejs', {
+			user: req.user
+		}); // load the application.ejs file
+	});
+
 
 	app.get('/admin/courselist', isLoggedInAdmin, function(req, res) {
 		res.render('admin/courselist.ejs', {
