@@ -25,19 +25,33 @@
       }
     }
     function render(){
-        var dataSet = [["Braun","Eric","13eb20@queensu.ca","4th"],["Martin","John","12jjm4@queensu.ca","4th"],["Stewart","James","jstewart@queensu.ca","1st"],["Wazowski","Mike","mwazowski@monster.inc","2nd"]];
         
-      $(document).ready(function() {
-          $('#example').DataTable( {
-              data: dataSet,
-              columns: [
-                  { title: "Last Name" },
-                  { title: "First Name"},
-                  { title: "Email"},
-                  { title: "Year"}
-                ]
-            } );
-        } );
+        var userInfo = [["Winter 2017",['CISC 101','Braun','Eric','A+','T'],['CISC 101','Martin','John','D-','F'],['CISC 203','Bobby','Ricky','B+','F']],["Fall 2016",['CISC 497','French','Steve','A-','T']]];
+        while (true){
+          var semester = document.getElementById("semesters");
+          for (i = 0; i < userInfo.length; i++){
+            if (userInfo[i][0] == semester.value){
+              var dataSet = userInfo[i];
+              dataSet = dataSet.slice(1,dataSet.length);
+            }
+          }
+          if (typeof table == 'undefined'){
+            table = $('#example').dataTable( {
+                data: dataSet,
+                columns: [
+                    { title: "Course" },
+                    { title: "Last Name"},
+                    { title: "First Name"},
+                    { title: "Grade"},
+                    { title: "Previous TA"}
+                  ]
+              } );
+            break;
+          } else{
+            table.fnClearTable();
+            break;
+          }
+        }
     }
 </script>
 </head>
