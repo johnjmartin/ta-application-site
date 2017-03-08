@@ -88,11 +88,17 @@
     </div>
   </div>
 </div>
-
-<div class="container2">
+<div class="col-md-4 col-md-offset-4">
+  <div class="text-center">
+    <small>Please select six courses for each semester for which you would like to apply. Check the box in the center if you have TA'd for this course before. Hover over the description link for an expectation of requirements for each course. A text box has been left open for comments for both semesters</small>
+  </div>
+</div>
+<br>
+<br>
+<div class="container">
   <form action="/profile" method="post">
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-md-5 col-md-offset-1">
         <div class="col-sm-6 pull-left">
           <div class="text-center">
           <h1><span></span> Fall</h1>
@@ -104,7 +110,7 @@
       <br>
       <br>
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-5">
               <select class="form-control" id="F0">
                   <option>Select a course</option>
               </select>
@@ -119,7 +125,7 @@
           </div>
           <br>
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-5">
               <select class="form-control" id="F1">
                   <option>Select a course</option>
               </select>
@@ -134,7 +140,7 @@
           </div>
           <br>
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-5">
               <select class="form-control" id="F2">
                   <option>Select a course</option>
               </select>
@@ -149,7 +155,7 @@
           </div>
           <br>
           <div class="row">
-             <div class="col-md-4">
+             <div class="col-md-5">
               <select class="form-control" id="F3">
                   <option>Select a course</option>
               </select>
@@ -164,7 +170,7 @@
           </div>
           <br>
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-5">
               <select class="form-control" id="F4">
                   <option>Select a course</option>
               </select>
@@ -179,7 +185,7 @@
           </div>
           <br>
           <div class="row">
-             <div class="col-md-4">
+             <div class="col-md-5">
               <select class="form-control" id="F5">
                   <option>Select a course</option>
               </select>
@@ -192,9 +198,12 @@
               <a href="#" id="Fd5" data-toggle="tooltip" onmouseover="discription(F5,Fd5)" title = "">Description</a>
             </div>
           </div>
+          <br>
+          <br>
+          <textarea rows="4" cols="50" name="fallCom"></textarea>
     </div>
-      <div class="col-sm-6">
-        <div class="col-sm-6 pull-right">
+      <div class="col-sm-5 col-sm-offset-1">
+        <div class="col-sm-6 col-sm-offset-1">
           <div class="text-center">
           <h1><span></span> Winter</h1>
         </div>
@@ -205,94 +214,97 @@
       <br>
       <br>
           <div class="row">
-            <div class="col-md-4 pull-right">
+            <div class="col-md-5">
               <select class="form-control" id="W0">
                   <option>Select a course</option>
               </select>
            </div>
-            <div class="col-md-1 pull-right">
+            <div class="col-md-1">
               <input type="checkbox"></input>
             </div>
 
-            <div class="col-md-3 pull-right">
+            <div class="col-md-3">
               <a href="#" id="Wd0" data-toggle="tooltip" onmouseover="discription(W0,Wd0)" title = "">Description</a>
             </div>
           </div>
           <br>
           <div class="row">
-            <div class="col-md-4 pull-right">
+            <div class="col-md-5">
               <select class="form-control" id="W1">
                   <option>Select a course</option>
               </select>
            </div>
-            <div class="col-md-1 pull-right">
+            <div class="col-md-1">
               <input type="checkbox"></input>
             </div>
 
-            <div class="col-md-3 pull-right">
+            <div class="col-md-3">
               <a href="#" id="Wd1" data-toggle="tooltip" onmouseover="discription(W1,Wd1)" title = "">Description</a>
             </div>
           </div>
           <br>
           <div class="row">
-            <div class="col-md-4 pull-right">
+            <div class="col-md-5">
               <select class="form-control" id="W2">
                   <option>Select a course</option>
               </select>
            </div>
-            <div class="col-md-1 pull-right">
+            <div class="col-md-1">
               <input type="checkbox"></input>
             </div>
 
-            <div class="col-md-3 pull-right">
+            <div class="col-md-3">
               <a href="#" id="Wd2" data-toggle="tooltip" onmouseover="discription(W2,Wd2)" title = "">Description</a>
             </div>
           </div>
           <br>
           <div class="row">
-            <div class="col-md-4 pull-right">
+            <div class="col-md-5">
               <select class="form-control" id="W3">
                   <option>Select a course</option>
               </select>
            </div>
-            <div class="col-md-1 pull-right">
+            <div class="col-md-1">
               <input type="checkbox"></input>
             </div>
 
-            <div class="col-md-3 pull-right">
+            <div class="col-md-3">
               <a href="#" id="Wd3" data-toggle="tooltip" onmouseover="discription(W3,Wd3)" title = "">Description</a>
             </div>
           </div>
           <br>
           <div class="row">
-            <div class="col-md-4 pull-right">
+            <div class="col-md-5">
               <select class="form-control" id="W4">
                   <option>Select a course</option>
               </select>
            </div>
-            <div class="col-md-1 pull-right">
+            <div class="col-md-1">
               <input type="checkbox"></input>
             </div>
 
-            <div class="col-md-3 pull-right">
+            <div class="col-md-3">
               <a href="#" id="Wd4" data-toggle="tooltip" onmouseover="discription(W4,Wd4)" title = "">Description</a>
             </div>
           </div>
           <br>
           <div class="row">
-            <div class="col-md-4 pull-right">
+            <div class="col-md-5">
               <select class="form-control" id="W5">
                   <option>Select a course</option>
               </select>
            </div>
-            <div class="col-md-1 pull-right">
+            <div class="col-md-1">
               <input type="checkbox"></input>
             </div>
 
-            <div class="col-md-3 pull-right">
+            <div class="col-md-3">
               <a href="#" id="Wd5" data-toggle="tooltip" onmouseover="discription(W5,Wd5)" title = "">Description</a>
             </div>
           </div>
+          <br>
+          <br>
+          <textarea rows="4" cols="50" name="winterCom"></textarea>
 
     </div>
   </div>
