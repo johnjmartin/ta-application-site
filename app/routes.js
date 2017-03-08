@@ -167,19 +167,33 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	// To give admin priviliges 
+	// To give/remove admin priviliges 
 	app.post('/admin', isLoggedInAdmin, function(req, res) {
-
-		User.findOne({ 'email': req.body.email }, function(err, user){
-
-			if (err) return handleError(err);
-			user.admin = true;
-			user.save(function(err){
-				if (err)
-					throw err;
+		console.dir(req.body.emailgive);
+		console.dir(req.body.emailremove);
+		if(req.body.emailgive != ''){
+			User.findOne({ 'email': req.body.emailgive }, function(err, user){
+				if (err) return handleError(err);
+				user.admin = true;
+				user.save(function(err){
+					if (err)
+						throw err;
+				});
 			});
-		});
-		res.redirect('/admin');
+			res.redirect('/admin');
+		}
+		if(req.body.emailremove != ''){
+			User.findOne({ 'email': req.body.emailremove }, function(err, user){
+				if (err) return handleError(err);
+				user.admin = false;
+				user.save(function(err){
+					if (err)
+						throw err;
+				});
+			});
+			res.redirect('/admin');
+		}
+
 	});
 
 	app.get('/admin/applications', isLoggedInAdmin, function(req, res) {

@@ -39,12 +39,15 @@
       else {
           table.$('tr.selected').removeClass('selected');
           $(this).addClass('selected');
-        var temp = document.getElementById("email");
-        temp.value =  table.row('.selected').data()[2];
       }
     } );
-      $('#button').click(function(){
-
+      $('#give').click(function(){
+        var temp = document.getElementById("emailgive");
+        temp.value =  table.row('.selected').data()[2];
+      });
+      $('#remove').click(function(){
+        var temp = document.getElementById("emailremove");
+        temp.value =  table.row('.selected').data()[2];
       });
     } );
 </script>
@@ -69,8 +72,11 @@
 
 <table id="example" class="display" width="100%"></table>
 <form action="/admin" method="post">
-  <input id="email" class="form-control-static" name="email">
-  <button type="submit" class="btn">Give Admin Privileges</button>
+  <input id="emailgive" class="form-control-static" name="emailgive">
+  <input id="emailremove" class="form-control-static" name="emailremove">
+  <button id="give" type="submit" class="btn">Give Admin Privileges</button>
+  <button id="remove" type="submit" class="btn">Remove Admin Privileges</button>
+
 </form>
 </body>
 </html>
