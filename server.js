@@ -46,9 +46,18 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
+
+// Custom flash middleware -- from Ethan Brown's book, 'Web Development with Node & Express'
+app.use(function(req, res, next){
+    // if there's a flash message in the session request, make it available in the response, then delete it
+    res.locals.sessionFlash = req.session.sessionFlash;
+    delete req.session.sessionFlash;
+    next();
+});
+
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 // launch ======================================================================
 app.listen(port);
-console.log('The magic happens on port ' + port);
+console.log('The magic happens at http://localhost:' + port);

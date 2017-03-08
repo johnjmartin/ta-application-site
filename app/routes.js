@@ -123,6 +123,7 @@ module.exports = function(app, passport) {
 	// =====================================
 	app.get('/application', isLoggedIn, function(req, res) {
 		Course.find({}, function(err, courses) {
+			//check for error
 			res.render('application.ejs', {
 				courses: courses,
 				user: req.user
@@ -217,6 +218,9 @@ module.exports = function(app, passport) {
 		});
 
 		fs.readFile('public/courselist.csv', 'utf8', function(err, data) {
+			Course.remove({}, function(err) { 
+			   console.log('collection removed') 
+			});
 			if (err) throw err;
 			data = data.replace(/\r/g,'');
 			data = data.split('\n');
