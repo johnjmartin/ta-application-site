@@ -159,11 +159,27 @@ module.exports = function(app, passport) {
 	// ADMINISTRATION =========================
 	// =====================================
 	app.get('/admin', isLoggedInAdmin, function(req, res) {
-		var query = User.find({});
-  		var dataSet = query.select('lname');
-		res.render('admin.ejs', {
+		User.find({}, function(err, users){
+			res.render('admin.ejs', {
+			users: users,
 			user: req.user
 		}); // load the application.ejs file
+		});
+	});
+
+	// To give admin priviliges 
+	app.post('/admin', isLoggedInAdmin, function(req, res) {
+
+		User.findOne({ 'email': req.body.email }, function(err, user){
+
+			if (err) return handleError(err);
+			user.admin = true;
+			user.save(function(err){
+				if (err)
+					throw err;
+			});
+		});
+		res.redirect('/admin');
 	});
 
 	app.get('/admin/applications', isLoggedInAdmin, function(req, res) {
