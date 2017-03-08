@@ -160,11 +160,41 @@ module.exports = function(app, passport) {
 	// ADMINISTRATION =========================
 	// =====================================
 	app.get('/admin', isLoggedInAdmin, function(req, res) {
-		var query = User.find({});
-  		var dataSet = query.select('lname');
-		res.render('admin.ejs', {
+		User.find({}, function(err, users){
+			res.render('admin.ejs', {
+			users: users,
 			user: req.user
 		}); // load the application.ejs file
+		});
+	});
+
+	// To give/remove admin priviliges 
+	app.post('/admin', isLoggedInAdmin, function(req, res) {
+		console.dir(req.body.emailgive);
+		console.dir(req.body.emailremove);
+		if(req.body.emailgive != ''){
+			User.findOne({ 'email': req.body.emailgive }, function(err, user){
+				if (err) return handleError(err);
+				user.admin = true;
+				user.save(function(err){
+					if (err)
+						throw err;
+				});
+			});
+			res.redirect('/admin');
+		}
+		if(req.body.emailremove != ''){
+			User.findOne({ 'email': req.body.emailremove }, function(err, user){
+				if (err) return handleError(err);
+				user.admin = false;
+				user.save(function(err){
+					if (err)
+						throw err;
+				});
+			});
+			res.redirect('/admin');
+		}
+
 	});
 
 	app.get('/admin/applications', isLoggedInAdmin, function(req, res) {

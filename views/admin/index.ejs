@@ -13,18 +13,42 @@
   <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript">
-    var dataSet = [["Braun","Eric","13eb20@queensu.ca","4th"],["Martin","John","12jjm4@queensu.ca","4th"],["Stewart","James","jstewart@queensu.ca","1st"],["Wazowski","Mike","mwazowski@monster.inc","2nd"]];
-    
+    var dataSet2 = [["Braun","Eric","13eb20@queensu.ca","4th"],["Martin","John","12jjm4@queensu.ca","4th"],["Stewart","James","jstewart@queensu.ca","1st"],["Wazowski","Mike","mwazowski@monster.inc","2nd"]];
+    var email;
+    var data = <%- JSON.stringify(users) %>;
+    var dataSet = [];
+    for (var i = 0; i < data.length; i++){
+      dataSet[i] = [data[i]['lname'], data[i]['fname'], data[i]['email'],data[i]['email'],data[i]['admin']];
+    }
+
   $(document).ready(function() {
-      $('#example').DataTable( {
+      var table = $('#example').DataTable( {
           data: dataSet,
           columns: [
               { title: "Last Name" },
               { title: "First Name"},
               { title: "Email"},
-              { title: "Year"}
+              { title: "Year"},
+              { title: "Admin" }
             ]
         } );
+      $('#example tbody').on( 'click', 'tr', function () {
+      if ( $(this).hasClass('selected') ) {
+          $(this).removeClass('selected');
+      }
+      else {
+          table.$('tr.selected').removeClass('selected');
+          $(this).addClass('selected');
+      }
+    } );
+      $('#give').click(function(){
+        var temp = document.getElementById("emailgive");
+        temp.value =  table.row('.selected').data()[2];
+      });
+      $('#remove').click(function(){
+        var temp = document.getElementById("emailremove");
+        temp.value =  table.row('.selected').data()[2];
+      });
     } );
 </script>
 </head>
@@ -45,23 +69,14 @@
     </div>
   </div>
 </div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 <table id="example" class="display" width="100%"></table>
+<form action="/admin" method="post">
+  <input id="emailgive" class="form-control-static" name="emailgive">
+  <input id="emailremove" class="form-control-static" name="emailremove">
+  <button id="give" type="submit" class="btn">Give Admin Privileges</button>
+  <button id="remove" type="submit" class="btn">Remove Admin Privileges</button>
+
+</form>
 </body>
 </html>
