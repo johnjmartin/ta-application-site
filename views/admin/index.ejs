@@ -13,7 +13,6 @@
   <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript">
-    var dataSet2 = [["Braun","Eric","13eb20@queensu.ca","4th"],["Martin","John","12jjm4@queensu.ca","4th"],["Stewart","James","jstewart@queensu.ca","1st"],["Wazowski","Mike","mwazowski@monster.inc","2nd"]];
     var email;
     var data = <%- JSON.stringify(users) %>;
     var dataSet = [];
@@ -22,33 +21,25 @@
     }
 
   $(document).ready(function() {
-      var table = $('#example').DataTable( {
+      var table = $('#example').DataTable({
           data: dataSet,
           columns: [
               { title: "Last Name" },
               { title: "First Name"},
               { title: "Email"},
               { title: "Year"},
-              { title: "Admin" }
+              { title: "Admin",
+                render: function ( data, type, row ) {
+                    if ( type === 'display' && data == true ) {
+                        return '<input type="checkbox" class="editor-active" checked>';
+                    } else {
+                      return '<input type="checkbox" class="editor-active">';
+                    }
+                },
+                className: "dt-body-center"
+            }
             ]
-        } );
-      $('#example tbody').on( 'click', 'tr', function () {
-      if ( $(this).hasClass('selected') ) {
-          $(this).removeClass('selected');
-      }
-      else {
-          table.$('tr.selected').removeClass('selected');
-          $(this).addClass('selected');
-      }
-    } );
-      $('#give').click(function(){
-        var temp = document.getElementById("emailgive");
-        temp.value =  table.row('.selected').data()[2];
-      });
-      $('#remove').click(function(){
-        var temp = document.getElementById("emailremove");
-        temp.value =  table.row('.selected').data()[2];
-      });
+        });
     } );
 </script>
 </head>
@@ -70,8 +61,8 @@
   </div>
 </div>
 
-<table id="example" class="display" width="100%"></table>
 <form action="/admin" method="post">
+  <table id="example" class="display" width="100%"></table>
   <input id="emailgive" class="form-control-static" name="emailgive">
   <input id="emailremove" class="form-control-static" name="emailremove">
   <button id="give" type="submit" class="btn">Give Admin Privileges</button>

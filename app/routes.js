@@ -132,6 +132,7 @@ module.exports = function(app, passport) {
 	});
 
 	app.post('/application', isLoggedIn, function(req, res) {
+	  	console.log("checkpoint: " + JSON.stringify(req.body));
 		var body 		          = req.body;
 		var newApplication        = new Application();
 		newApplication.courseCode = body.courses;
@@ -172,6 +173,7 @@ module.exports = function(app, passport) {
 	app.post('/admin', isLoggedInAdmin, function(req, res) {
 		console.dir(req.body.emailgive);
 		console.dir(req.body.emailremove);
+		console.dir(req.body);
 		if(req.body.emailgive != ''){
 			User.findOne({ 'email': req.body.emailgive }, function(err, user){
 				if (err) return handleError(err);
