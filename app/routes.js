@@ -171,8 +171,6 @@ module.exports = function(app, passport) {
 
 	// To give/remove admin priviliges 
 	app.post('/admin', isLoggedInAdmin, function(req, res) {
-		console.dir(req.body.emailgive);
-		console.dir(req.body.emailremove);
 		console.dir(req.body);
 		if(req.body.emailgive != ''){
 			User.findOne({ 'email': req.body.emailgive }, function(err, user){

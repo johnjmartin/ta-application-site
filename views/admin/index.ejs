@@ -31,15 +31,18 @@
               { title: "Admin",
                 render: function ( data, type, row ) {
                     if ( type === 'display' && data == true ) {
-                        return '<input type="checkbox" class="editor-active" checked>';
+                        return '<input type="checkbox" name="isAdmin[]" value="checked" class="editor-active" checked>';
                     } else {
-                      return '<input type="checkbox" class="editor-active">';
+                      return '<input type="checkbox" name="isAdmin[]" value="checked" class="editor-active">';
                     }
                 },
                 className: "dt-body-center"
             }
             ]
         });
+      $("input:checked", table.fnGetNodes()).each(function(){
+        console.log($(this).val());
+      });
     } );
 </script>
 </head>
@@ -66,7 +69,6 @@
   <input id="emailgive" class="form-control-static" name="emailgive">
   <input id="emailremove" class="form-control-static" name="emailremove">
   <button id="give" type="submit" class="btn">Give Admin Privileges</button>
-  <button id="remove" type="submit" class="btn">Remove Admin Privileges</button>
 
 </form>
 </body>
