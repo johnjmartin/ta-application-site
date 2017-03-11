@@ -161,11 +161,11 @@ module.exports = function(app, passport) {
 	// ADMINISTRATION =========================
 	// =====================================
 	app.get('/admin', isLoggedInAdmin, function(req, res) {
-		User.find({}, function(err, users){
+		User.find({}, function(err, users) {
 			res.render('admin.ejs', {
 			users: users,
 			user: req.user
-		}); // load the application.ejs file
+			}); // load the application.ejs file
 		});
 	});
 
@@ -200,50 +200,50 @@ module.exports = function(app, passport) {
 	app.get('/admin/applications', isLoggedInAdmin, function(req, res) {
 		res.render('admin/applications.ejs', {
 			user: req.user
-		}); // load the application.ejs file
+		}); 
 	});
 
 
 	app.get('/admin/courselist', isLoggedInAdmin, function(req, res) {
-		res.render('admin/courselist.ejs', {
-			user: req.user,
-			message: req.flash('uploadMessage')
-		}); // load the application.ejs file
+		Course.find({}, function(err, courses) {
+			res.render('admin/courselist.ejs', {
+				courses: courses,
+				user: req.user,
+				errorMessage: req.flash('error'),
+				successMessage: req.flash('success')
+			}); // load the application.ejs file
+		});
 	});
-
 
 
 	// =====================================
 	// UPLOAD ==============================
 	// =====================================
 
-	app.post('/upload_transcript', isLoggedIn, function(req, res) {
+	//NOTE/TODO: courselists cannot have extra commas within course descriptions, etc. 
+	app.post('/upload_courselist', isLoggedInAdmin, function(req, res) {
 		var transcript;
-
-		if (!req.files) {
-			req.flash
-			res.send('No files were uploaded.');
-			return;
-		}
 
 		// The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
 		transcript = req.files.transcript;
 
 		var path   = "courselist.csv"
 
-		//TODO: Add a flash to keep user on the page if no files contained in transcript
+		//Flash to keep user on the page if no files contained in transcript
 		if (!req.files.transcript) {
-			res.send('No files were uploaded. Hit that back button');
+			req.flash('error', "Error, files missing!");
+			res.redirect(301, '/admin/courselist');
 			return;
 		}
 
 		// Use the mv() method to place the file somewhere on your server
 		transcript.mv(__dirname+'/../public/' + path, function(err) {
 			if (err) {
-			  res.status(500).send(err);
+				res.status(500).send(err);
 			}
 			else {
-			  res.redirect('/admin/courselist')
+				req.flash('success', 'Course List file uploaded successfully! Verify contents in the table below.')
+				res.redirect('/admin/courselist');
 			}
 		});
 
@@ -303,8 +303,8 @@ function isLoggedInAdmin(req, res, next) {
 		if (req.user.admin){
 			return next();
 		}
+		res.redirect('/profile')
 	}
-
 	// if they aren't redirect them to the home page
-	res.redirect('/profile');
+	res.redirect('/');
 }

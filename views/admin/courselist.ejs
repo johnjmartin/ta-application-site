@@ -2,19 +2,37 @@
 <!doctype html>
 <html>
 <head>
-  <title>Node Authentication</title>
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="/css/styles.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <% include ../partials/header %>
+
+  <script type="text/javascript">
+    var email;
+    var data = <%- JSON.stringify(courses) %>;
+    var dataSet = [];
+    for (var i = 0; i < data.length; i++){
+      dataSet[i] = [data[i]['instructorName'], data[i]['courseDescription'], data[i]['courseID'],data[i]['term']];
+    }
+    console.log(data);
+    console.log(dataSet);
+
+    $(document).ready(function() {
+        var table = $('#example').DataTable({
+            data: dataSet,
+            columns: [
+                { title: "Instructor Name" },
+                { title: "Course Description"},
+                { title: "Course ID"},
+                { title: "Term"}
+              ]
+          });
+        });
+</script>
+
 </head>
 <body>
 
 
 <!-- Navigation Header (should be consistent on each page) -->
-<% include ../partials/header %>
+<% include ../partials/nav %>
 
 <div class="page-header">
   <div class="row vbottom">
@@ -28,12 +46,19 @@
 </div>
 
 <div class="col-md-6 col-md-offset-3" align="center">
+    <!-- show any messages that come back with authentication -->
+  <% if (errorMessage.length > 0) { %>
+    <div class="alert alert-danger"><%= errorMessage %></div>
+  <% } %>  
+  <% if (successMessage.length > 0) { %>
+    <div class="alert alert-success"><%= successMessage %></div>
+  <% } %>
  	<div class="form-center">
      <h3><span></span>Please Enter Grades</h3>
            <label>Upload Course List</label>
        <form ref='uploadForm' 
          id='uploadForm' 
-         action='/upload_transcript'
+         action='/upload_courselist'
          method='post' 
          encType="multipart/form-data"
          >
@@ -46,30 +71,10 @@
      <br>
    </div>
 
-    <!-- show any messages that come back with authentication -->
-  <% if (message.length > 0) { %>
-    <div class="alert alert-danger"><%= message %></div>
-  <% } %>
-
 </div>
+<table id="example" class="display" width="100%"></table>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 </body>
 </html>
 

@@ -1,31 +1,10 @@
-<!-- NavBar -->
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">T.A. Application</a>
-    </div>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="/grades">Grades</a></li>
-      <li><a href="/application">Application</a></li>
-      <%if (user.admin) { %>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
-          <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="/admin/">Users List</a></li>
-            <li><a href="/admin/applications">Applicant Review</a></li>
-            <li><a href="/admin/courselist">Course List</a></li>
-          </ul>
-        </li>
-      <% }%> 
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Account
-        <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="/profile">Profile</a></li>
-          <li><a href="/logout">Sign Out</a></li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-</nav>
+<title>QSC TA Application</title>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/css/styles.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
