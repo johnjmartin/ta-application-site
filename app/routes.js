@@ -132,9 +132,112 @@ module.exports = function(app, passport) {
 	});
 
 	app.post('/application', isLoggedIn, function(req, res) {
-	  	console.log("checkpoint: " + JSON.stringify(req.body));
+
 		var body 		          = req.body;
-		var newApplication        = new Application();
+		var appList = [];
+
+		if (body.F0 != "Select a course"){
+			var newApplication        = new Application();
+			newApplication.courseCode = body.F0;
+			newApplication.hasTAed = body.checkF0;
+			newApplication.grade = 0;
+			appList.push(newApplication);
+		}
+		if (body.F1 != "Select a course"){
+			var newApplication        = new Application();
+			newApplication.courseCode = body.F1;
+			newApplication.hasTAed = body.checkF1;
+			newApplication.grade = 0;
+			appList.push(newApplication);
+		}
+		if (body.F2 != "Select a course"){
+			var newApplication        = new Application();
+			newApplication.courseCode = body.F2;
+			newApplication.hasTAed = body.checkF2;
+			newApplication.grade = 0;
+			appList.push(newApplication);
+		}
+		if (body.F3 != "Select a course"){
+			var newApplication        = new Application();
+			newApplication.courseCode = body.F3;
+			newApplication.hasTAed = body.checkF3;
+			newApplication.grade = 0;
+			appList.push(newApplication);
+		}
+		if (body.F4 != "Select a course"){
+			var newApplication        = new Application();
+			newApplication.courseCode = body.F4;
+			newApplication.hasTAed = body.checkF4;
+			newApplication.grade = 0;
+			appList.push(newApplication);
+		}
+		if (body.F5 != "Select a course"){
+			var newApplication        = new Application();
+			newApplication.courseCode = body.F5;
+			newApplication.hasTAed = body.checkF5;
+			newApplication.grade = 0;
+			appList.push(newApplication);
+		}
+		if (body.W0 != "Select a course"){
+			var newApplication        = new Application();
+			newApplication.courseCode = body.W0;
+			newApplication.hasTAed = body.checkW0;
+			newApplication.grade = 0;
+			appList.push(newApplication);
+		}
+		if (body.W1 != "Select a course"){
+			var newApplication        = new Application();
+			newApplication.courseCode = body.W1;
+			newApplication.hasTAed = body.checkW1;
+			newApplication.grade = 0;
+			appList.push(newApplication);
+		}
+		if (body.W2 != "Select a course"){
+			var newApplication        = new Application();
+			newApplication.courseCode = body.W2;
+			newApplication.hasTAed = body.checkW2;
+			newApplication.grade = 0;
+			appList.push(newApplication);
+		}
+		if (body.W3 != "Select a course"){
+			var newApplication        = new Application();
+			newApplication.courseCode = body.W3;
+			newApplication.hasTAed = body.checkW3;
+			newApplication.grade = 0;
+			appList.push(newApplication);
+		}
+		if (body.W4 != "Select a course"){
+			var newApplication        = new Application();
+			newApplication.courseCode = body.W4;
+			newApplication.hasTAed = body.checkW4;
+			newApplication.grade = 0;
+			appList.push(newApplication);
+		}
+		if (body.W5 != "Select a course"){
+			var newApplication        = new Application();
+			newApplication.courseCode = body.W5;
+			newApplication.hasTAed = body.checkW5;
+			newApplication.grade = 0;
+			appList.push(newApplication);
+		}
+		/*
+		for (i = 0; i < 6; i++){
+			var course = 'F' + i;
+			console.log(course);
+			console.log(body.F0);
+			console.log(body.);
+			var check = "checkF" + i;
+			if (body.course != undefined){
+				var newApplication = new Application();
+				newApplication.courseCode = body.course;
+				newApplication.hasTAed = body.check;
+				newApplication.grade = 0;
+				console.log(newApplication)
+				appList.push(newApplication);
+			}
+		}
+		console.log(appList);
+		/*
 		newApplication.courseCode = body.courses;
 		newApplication.grade	  = body.grades;
 		console.dir(body);
@@ -144,16 +247,17 @@ module.exports = function(app, passport) {
 		} else {
 			newApplication.hasTAed = false;
 		}
-		
+		*/
 		User.findById(req.user._id, function(err, user){
 			if (err) return handleError(err);
-			user.application = newApplication;
+			user.applications = appList;
 			user.save(function(err){
 				if (err)
 					throw err;
 			});
 		});
-		res.redirect('/success');
+		req.flash('Succesfully applied to courses')
+		res.redirect('/application');
 	});
 
 
