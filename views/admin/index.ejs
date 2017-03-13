@@ -2,21 +2,16 @@
 <!doctype html>
 <html>
 <head>
-  <title>Node Authentication</title>
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="/css/styles.css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.css">
-  <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <% include ../partials/header %>
+
   <script type="text/javascript">
     var email;
     var data = <%- JSON.stringify(users) %>;
     var dataSet = [];
     for (var i = 0; i < data.length; i++){
+      if (data[i]['admin']) { data[i]['admin'] = 'Yes'; }
+      if (!data[i]['admin']) { data[i]['admin'] = ''; }
+
       dataSet[i] = [data[i]['lname'], data[i]['fname'], data[i]['email'],data[i]['email'],data[i]['admin']];
     }
 
@@ -28,22 +23,27 @@
               { title: "First Name"},
               { title: "Email"},
               { title: "Year"},
-              { title: "Admin",
-                render: function ( data, type, row ) {
-                    if ( type === 'display' && data == true ) {
-                        return '<input type="checkbox" name="isAdmin[]" value="checked" class="editor-active" checked>';
-                    } else {
-                      return '<input type="checkbox" name="isAdmin[]" value="checked" class="editor-active">';
-                    }
-                },
-                className: "dt-body-center"
-            }
+              { title: "Admin Privileges"}
             ]
         });
-      $("input:checked", table.fnGetNodes()).each(function(){
-        console.log($(this).val());
-      });
-    } );
+       $('#example tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+          table.$('tr.selected').removeClass('selected');
+          $(this).addClass('selected');
+        }
+        });
+        $('#give').click(function(){
+          var temp = document.getElementById("emailgive");
+          temp.value =  table.row('.selected').data()[2];
+        });
+        $('#remove').click(function(){
+          var temp = document.getElementById("emailremove");
+          temp.value =  table.row('.selected').data()[2];
+        });
+  });
 </script>
 </head>
 <body>
@@ -66,9 +66,10 @@
 
 <form action="/admin" method="post">
   <table id="example" class="display" width="100%"></table>
-  <input id="emailgive" class="form-control-static" name="emailgive">
-  <input id="emailremove" class="form-control-static" name="emailremove">
-  <button id="give" type="submit" class="btn">Give Admin Privileges</button>
+  <input id="emailgive" class="form-control-static" name="emailgive" hidden>
+  <input id="emailremove" class="form-control-static" name="emailremove" hidden>
+  <button id="give" type="submit" class="btn-success">Give Admin Privileges</button>
+  <button id="remove" type="submit" class="btn-danger">Remove Admin Privileges</button>
 
 </form>
 </body>
