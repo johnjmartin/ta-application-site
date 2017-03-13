@@ -11,7 +11,8 @@ var userSchema = mongoose.Schema({
     email        : String,
     password     : String,
     admin		 : Boolean,
-    grades	     : {}
+    grades	     : {},
+    applications : {}
 });
 
 // methods ======================

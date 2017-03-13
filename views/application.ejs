@@ -24,9 +24,6 @@
     }
   } 
 
-
-
-  
   window.onload = function() {
     var str;
     for (f = 0; f < 6; f++){
@@ -34,7 +31,8 @@
       var courses = document.getElementById(str);
       for (i = 0; i < courseListF.length; i++) {
         var Entry = document.createElement("option");
-        Entry.value = "F" + i;
+        Entry.name = "F" + i;
+        Entry.value = courseListF[i];
         Entry.id = courseListF[i];
         Entry.text = courseListF[i];
         courses.add(Entry, null);
@@ -45,7 +43,8 @@
       var courses = document.getElementById(str);
       for (i = 0; i < courseListW.length; i++) {
           var Entry = document.createElement("option");
-          Entry.value = "W" + i;
+          Entry.name = "W" + i;
+          Entry.value = courseListW[i];
           Entry.id = courseListW[i];
           Entry.text = courseListW[i];
           courses.add(Entry ,null);
@@ -106,12 +105,12 @@
       <br>
           <div class="row">
             <div class="col-md-5">
-              <select class="form-control" id="F0">
+              <select class="form-control" name="F0" id="F0">
                   <option>Select a course</option>
               </select>
            </div>
             <div class="col-md-1">
-              <input type="checkbox"></input>
+              <input name="checkF0" type="checkbox"></input>
             </div>
 
             <div class="col-md-3">
@@ -121,12 +120,12 @@
           <br>
           <div class="row">
             <div class="col-md-5">
-              <select class="form-control" id="F1">
+              <select class="form-control" name="F1" id="F1">
                   <option>Select a course</option>
               </select>
            </div>
             <div class="col-md-1">
-              <input type="checkbox"></input>
+              <input name="checkF1" type="checkbox"></input>
             </div>
 
             <div class="col-md-3">
@@ -136,12 +135,12 @@
           <br>
           <div class="row">
             <div class="col-md-5">
-              <select class="form-control" id="F2">
+              <select class="form-control" name="F2" id="F2">
                   <option>Select a course</option>
               </select>
            </div>
             <div class="col-md-1">
-              <input type="checkbox"></input>
+              <input name="checkF2" type="checkbox"></input>
             </div>
 
             <div class="col-md-3">
@@ -151,12 +150,12 @@
           <br>
           <div class="row">
              <div class="col-md-5">
-              <select class="form-control" id="F3">
+              <select class="form-control" name="F3" id="F3">
                   <option>Select a course</option>
               </select>
            </div>
             <div class="col-md-1">
-              <input type="checkbox"></input>
+              <input name="checkF3" type="checkbox"></input>
             </div>
 
             <div class="col-md-3">
@@ -166,12 +165,12 @@
           <br>
           <div class="row">
             <div class="col-md-5">
-              <select class="form-control" id="F4">
+              <select class="form-control" name="F4" id="F4">
                   <option>Select a course</option>
               </select>
            </div>
             <div class="col-md-1">
-              <input type="checkbox"></input>
+              <input name="checkF4" type="checkbox"></input>
             </div>
 
             <div class="col-md-3">
@@ -181,12 +180,12 @@
           <br>
           <div class="row">
              <div class="col-md-5">
-              <select class="form-control" id="F5">
+              <select class="form-control" name="F5" id="F5">
                   <option>Select a course</option>
               </select>
            </div>
             <div class="col-md-1">
-              <input type="checkbox"></input>
+              <input name="checkF5" type="checkbox"></input>
             </div>
 
             <div class="col-md-3">
@@ -210,12 +209,12 @@
       <br>
           <div class="row">
             <div class="col-md-5">
-              <select class="form-control" id="W0">
+              <select class="form-control" name="W0" id="W0">
                   <option>Select a course</option>
               </select>
            </div>
             <div class="col-md-1">
-              <input type="checkbox"></input>
+              <input name="checkW0" type="checkbox"></input>
             </div>
 
             <div class="col-md-3">
@@ -225,12 +224,12 @@
           <br>
           <div class="row">
             <div class="col-md-5">
-              <select class="form-control" id="W1">
+              <select class="form-control" name="W1" id="W1">
                   <option>Select a course</option>
               </select>
            </div>
             <div class="col-md-1">
-              <input type="checkbox"></input>
+              <input name="checkW1" type="checkbox"></input>
             </div>
 
             <div class="col-md-3">
@@ -240,12 +239,12 @@
           <br>
           <div class="row">
             <div class="col-md-5">
-              <select class="form-control" id="W2">
+              <select class="form-control" name="W2" id="W2">
                   <option>Select a course</option>
               </select>
            </div>
             <div class="col-md-1">
-              <input type="checkbox"></input>
+              <input name="checkW2" type="checkbox"></input>
             </div>
 
             <div class="col-md-3">
@@ -255,12 +254,12 @@
           <br>
           <div class="row">
             <div class="col-md-5">
-              <select class="form-control" id="W3">
+              <select class="form-control" name="W3" id="W3">
                   <option>Select a course</option>
               </select>
            </div>
             <div class="col-md-1">
-              <input type="checkbox"></input>
+              <input name="checkW3" type="checkbox"></input>
             </div>
 
             <div class="col-md-3">
@@ -270,12 +269,12 @@
           <br>
           <div class="row">
             <div class="col-md-5">
-              <select class="form-control" id="W4">
+              <select class="form-control" name="W4" id="W4">
                   <option>Select a course</option>
               </select>
            </div>
             <div class="col-md-1">
-              <input type="checkbox"></input>
+              <input name="checkW4" type="checkbox"></input>
             </div>
 
             <div class="col-md-3">
@@ -285,12 +284,12 @@
           <br>
           <div class="row">
             <div class="col-md-5">
-              <select class="form-control" id="W5">
+              <select class="form-control" name="W5" id="W5">
                   <option>Select a course</option>
               </select>
            </div>
             <div class="col-md-1">
-              <input type="checkbox"></input>
+              <input name="checkW5" type="checkbox"></input>
             </div>
 
             <div class="col-md-3">
