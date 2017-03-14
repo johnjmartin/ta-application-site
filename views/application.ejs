@@ -6,25 +6,21 @@
 
   <script type="text/javascript">
 
-  var user = <%- JSON.stringify(user) %>;
-  console.log(user.applications);
-
-  var data = <%- JSON.stringify(courses) %>;
+  var data = <%- JSON.stringify(user.applications) %>;
   var dataSet = [];
-  for (var i = 0; i < data.length; i++){
-    dataSet[i] = [data[i]['instructorName'], data[i]['courseDescription'], data[i]['courseID'],data[i]['term']];
+  for (var i = 0; i < data.length; i++) {
+    if (data[i]['hasTAed']) { data[i]['hasTAed'] = 'Yes'; }
+    if (!data[i]['hasTAed']) { data[i]['hasTAed'] = ''; }
+    dataSet[i] = [data[i]['courseCode'], data[i]['hasTAed'], data[i]['semester']];
   }
-  console.log(data);
-  console.log(dataSet);
 
   $(document).ready(function() {
     var table = $('#example').DataTable({
         data: dataSet,
         columns: [
-            { title: "Instructor Name" },
-            { title: "Course Description"},
-            { title: "Course ID"},
-            { title: "Term"}
+            { title: "Course Code" },
+            { title: "Past TA"},
+            { title: "Semester"}
           ]
     });
   });
@@ -338,9 +334,7 @@
   </form>
 </div>
 <% if (user.applications) { %>
-
-
-  
+  <table id="example" class="display" width="100%"></table>
 <% } %>
 </body>
 </html>
