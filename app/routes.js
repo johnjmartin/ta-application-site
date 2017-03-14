@@ -143,6 +143,11 @@ module.exports = function(app, passport) {
 				var newApplication = new Application();
 				newApplication.courseCode = courseList[i];
 				newApplication.hasTAed = TAList[i];
+				if (i < 6){
+					newApplication.semester = "Fall";
+				} else{
+					newApplication.semester = "Winter";
+				}
 				appList.push(newApplication);
 			}
 		}
