@@ -56,7 +56,8 @@ module.exports = function(app, passport) {
 	// we will use route middleware to verify this (the isLoggedIn function)
 	app.get('/profile', isLoggedIn, function(req, res) {
 		res.render('profile.ejs', {
-			user : req.user // get the user out of session and pass to template
+			user : req.user,
+			message: req.flash('success')
 		});
 	});
 
@@ -69,9 +70,18 @@ module.exports = function(app, passport) {
 			if (err) return handleError(err);
 			if (body.hasOwnProperty("fname")) user.fname = body.fname;
 			if (body.hasOwnProperty("lname")) user.lname = body.lname;
-			if (body.hasOwnProperty("SIN")) user.SIN = body.SIN;
+			if (body.hasOwnProperty("year")) user.year = body.year;
+			user.save(function(err){
+				if (err) {
+					throw err;
+				}
+				else {
+					req.flash('success', "Profile updated successfully!");
+				}
+			});
 		});
 
+		res.redirect('/profile');
 	});
 
 

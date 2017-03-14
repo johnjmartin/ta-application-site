@@ -61,6 +61,7 @@ module.exports = function(passport) {
                 newUser.email    = email;
                 newUser.password = newUser.generateHash(password); // use the generateHash function in our user model
                 newUser.fname    = req.body.fname;
+                newUser.year     = req.body.year;
                 newUser.lname    = req.body.lname;
                 newUser.admin    = false;
 

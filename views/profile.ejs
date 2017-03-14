@@ -22,20 +22,29 @@
     </div>
   </div>
 </div>
-
+<% if (message.length > 0) { %>
+    <div class="alert alert-success"><%= message %></div>
+  <% } %>
 <div class="container">
-  <form action="/grades" method="post">
+  <form action="/profile" method="post">
     <div class="row">
         <!-- LOCAL INFORMATION -->
         <div class="col-sm-12">
             <div class="well">
                 <h3><span class="fa fa-user"></span> <%= user.fname +" "+ user.lname %> </h3>
-
                     <p>
                         <strong>Email</strong>: <input disabled class="form-control" type="text" value=<%= user.email%> ><br>
                         <strong>First Name</strong>: <input class="form-control" type="text" name="fname" value=<%= user.fname%> ><br>
                         <strong>Last Name</strong>: <input class="form-control" type="text" name="lname" value=<%= user.lname%> ><br>
-                        <strong>Social Insurance Number</strong>: <input class="form-control" type="text" name="SIN"><br>
+                        <strong>Year</strong>: <select name="year" class="form-control" id="semesters">
+                                                <%
+                                                  var options = [ "Fist Year", "Second Year", "Third Year", "Fourth Year", "Graduate" ];
+                                                  for ( var i = 0; i < options.length; i++ ) {
+                                                      var selected = ( user.year == options[i] ) ? "selected" : "";
+                                                      %><option value="<%=options[ i ] %>" <%=selected %>><%=options[i] %></option><%
+                                                  }
+                                                %>
+                                                </select> <br>
                         <strong>Bank Account (Direct Deposit)</strong>: <input class="form-control" type="text" name="depo"><br>
                     </p>
 

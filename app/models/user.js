@@ -8,6 +8,7 @@ var Application = require('./application')
 var userSchema = mongoose.Schema({
     fname        : String,
     lname        : String,
+    year  		 : String,
     email        : String,
     password     : String,
     admin		 : Boolean,

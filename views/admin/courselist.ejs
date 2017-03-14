@@ -8,10 +8,8 @@
     var data = <%- JSON.stringify(courses) %>;
     var dataSet = [];
     for (var i = 0; i < data.length; i++){
-      dataSet[i] = [data[i]['courseCode'], data[i]['hasTAed']];
+      dataSet[i] = [data[i]['instructorName'], data[i]['courseDescription'], data[i]['courseID'], data[i]['term']];
     }
-    console.log(data);
-    console.log(dataSet);
 
     $(document).ready(function() {
         var table = $('#example').DataTable({
