@@ -31,14 +31,17 @@
             if (userList[i].applications[j].courseCode == course){
               var grade = "N/A"
               var prevTA = false;
-              //if (userList[i].grades != undefined){
-              //  for (k = 0; k < userList[i].grades.length; k++){
-               //   if (userList[i].grades[k].course == course){
-               //     grade = userList[i].grades[k].grade;
-               //   }
-               // }
-             // }
-              var temp = [userList[i].fname, userList[i].lname, userList[i].email, grade, false];
+              if (userList[i].applications[j].hasTAed){
+                prevTA = true;
+              }
+              if (userList[i].grades != undefined){
+                for (k = 0; k < userList[i].grades.grades.length; k++){
+                  if (userList[i].grades.grades[k].course == course){
+                    grade = userList[i].grades.grades[k].grade;
+                  }
+                }
+              }
+              var temp = [userList[i].fname, userList[i].lname, userList[i].email, grade, prevTA];
               dataSet.push(temp);
             }
           }
