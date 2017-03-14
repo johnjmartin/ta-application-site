@@ -178,7 +178,7 @@ module.exports = function(app, passport) {
 			res.render('admin.ejs', {
 			users: users,
 			user: req.user
-			}); // load the application.ejs file
+			});
 		});
 	});
 
@@ -211,11 +211,18 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/admin/applications', isLoggedInAdmin, function(req, res) {
-		res.render('admin/applications.ejs', {
-			user: req.user
-		}); 
+		User.find({}, function(err, users) {
+			Course.find({}, function(err, courses) {
+				console.dir(users);
+				console.dir(courses);
+				res.render('admin/applications.ejs', {
+					users: users,
+					courses: courses,
+					user: req.user
+				});
+			});
+		});
 	});
-
 
 	app.get('/admin/courselist', isLoggedInAdmin, function(req, res) {
 		Course.find({}, function(err, courses) {

@@ -5,11 +5,10 @@
   <% include ../partials/header %>
 
   <script type="text/javascript">
-    var email;
     var data = <%- JSON.stringify(courses) %>;
     var dataSet = [];
     for (var i = 0; i < data.length; i++){
-      dataSet[i] = [data[i]['instructorName'], data[i]['courseDescription'], data[i]['courseID'],data[i]['term']];
+      dataSet[i] = [data[i]['courseCode'], data[i]['hasTAed']];
     }
     console.log(data);
     console.log(dataSet);
@@ -18,7 +17,7 @@
         var table = $('#example').DataTable({
             data: dataSet,
             columns: [
-                { title: "Instructor Name" },
+                { title: "Instruc" },
                 { title: "Course Description"},
                 { title: "Course ID"},
                 { title: "Term"}
