@@ -135,108 +135,17 @@ module.exports = function(app, passport) {
 	app.post('/application', isLoggedIn, function(req, res) {
 		var body 		          = req.body;
 		var appList = [];
-
-		if (body.F0 != "Select a course"){
-			var newApplication        = new Application();
-			newApplication.courseCode = body.F0;
-			newApplication.hasTAed = body.checkF0;
-			newApplication.grade = 0;
-			appList.push(newApplication);
-		}
-		if (body.F1 != "Select a course"){
-			var newApplication        = new Application();
-			newApplication.courseCode = body.F1;
-			newApplication.hasTAed = body.checkF1;
-			newApplication.grade = 0;
-			appList.push(newApplication);
-		}
-		if (body.F2 != "Select a course"){
-			var newApplication        = new Application();
-			newApplication.courseCode = body.F2;
-			newApplication.hasTAed = body.checkF2;
-			newApplication.grade = 0;
-			appList.push(newApplication);
-		}
-		if (body.F3 != "Select a course"){
-			var newApplication        = new Application();
-			newApplication.courseCode = body.F3;
-			newApplication.hasTAed = body.checkF3;
-			newApplication.grade = 0;
-			appList.push(newApplication);
-		}
-		if (body.F4 != "Select a course"){
-			var newApplication        = new Application();
-			newApplication.courseCode = body.F4;
-			newApplication.hasTAed = body.checkF4;
-			newApplication.grade = 0;
-			appList.push(newApplication);
-		}
-		if (body.F5 != "Select a course"){
-			var newApplication        = new Application();
-			newApplication.courseCode = body.F5;
-			newApplication.hasTAed = body.checkF5;
-			newApplication.grade = 0;
-			appList.push(newApplication);
-		}
-		if (body.W0 != "Select a course"){
-			var newApplication        = new Application();
-			newApplication.courseCode = body.W0;
-			newApplication.hasTAed = body.checkW0;
-			newApplication.grade = 0;
-			appList.push(newApplication);
-		}
-		if (body.W1 != "Select a course"){
-			var newApplication        = new Application();
-			newApplication.courseCode = body.W1;
-			newApplication.hasTAed = body.checkW1;
-			newApplication.grade = 0;
-			appList.push(newApplication);
-		}
-		if (body.W2 != "Select a course"){
-			var newApplication        = new Application();
-			newApplication.courseCode = body.W2;
-			newApplication.hasTAed = body.checkW2;
-			newApplication.grade = 0;
-			appList.push(newApplication);
-		}
-		if (body.W3 != "Select a course"){
-			var newApplication        = new Application();
-			newApplication.courseCode = body.W3;
-			newApplication.hasTAed = body.checkW3;
-			newApplication.grade = 0;
-			appList.push(newApplication);
-		}
-		if (body.W4 != "Select a course"){
-			var newApplication        = new Application();
-			newApplication.courseCode = body.W4;
-			newApplication.hasTAed = body.checkW4;
-			newApplication.grade = 0;
-			appList.push(newApplication);
-		}
-		if (body.W5 != "Select a course"){
-			var newApplication        = new Application();
-			newApplication.courseCode = body.W5;
-			newApplication.hasTAed = body.checkW5;
-			newApplication.grade = 0;
-			appList.push(newApplication);
-		}
-		/*
-		for (i = 0; i < 6; i++){
-			var course = 'F' + i;
-			console.log(course);
-			console.log(body.F0);
-			console.log(body.);
-			var check = "checkF" + i;
-			if (body.course != undefined){
+		var courseList = [body.F0, body.F1, body.F2, body.F3, body.F4, body.F5, body.W0, body.W1, body.W2, body.W3, body.W4, body.W5];
+		var TAList = [body. checkF0, body.checkF1, body.checkF2, body.checkF3, body.checkF4, body.checkF5, body.checkW0, body.checkW1, body.checkW2, body.checkW3, body.checkW4, body.checkW5];
+		console.log(courseList[0]);
+		for (i = 0; i < 12; i++){
+			if (courseList[i] != "Select a course"){
 				var newApplication = new Application();
-				newApplication.courseCode = body.course;
-				newApplication.hasTAed = body.check;
-				newApplication.grade = 0;
-				console.log(newApplication)
+				newApplication.courseCode = courseList[i];
+				newApplication.hasTAed = TAList[i];
 				appList.push(newApplication);
 			}
 		}
-		console.log(appList);
 		/*
 		newApplication.courseCode = body.courses;
 		newApplication.grade	  = body.grades;
