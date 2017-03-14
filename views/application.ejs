@@ -82,6 +82,9 @@
     </div>
   </div>
 </div>
+    <% if (successMessage.length > 0) { %>
+    <div class="alert alert-success text-center"><%=  successMessage %></div>
+  <% } %>
 <div class="col-md-4 col-md-offset-4">
   <div class="text-center">
     <small>Please select six courses for each semester for which you would like to apply. Check the box in the center if you have TA'd for this course before. Hover over the description link for an expectation of requirements for each course. A text box has been left open for comments for both semesters</small>
@@ -89,6 +92,7 @@
 </div>
 <br>
 <br>
+
 <div class="container">
 <form action="/application" method="post">
   <div class="row">

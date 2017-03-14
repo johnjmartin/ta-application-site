@@ -126,13 +126,13 @@ module.exports = function(app, passport) {
 			//check for error
 			res.render('application.ejs', {
 				courses: courses,
-				user: req.user
+				user: req.user,
+				successMessage: req.flash('success')
 			}); // load the application.ejs file
 		}); 
 	});
 
 	app.post('/application', isLoggedIn, function(req, res) {
-
 		var body 		          = req.body;
 		var appList = [];
 
@@ -256,7 +256,7 @@ module.exports = function(app, passport) {
 					throw err;
 			});
 		});
-		req.flash('Succesfully applied to courses')
+		req.flash('success', 'Succesfully applied to courses');
 		res.redirect('/application');
 	});
 
@@ -327,7 +327,6 @@ module.exports = function(app, passport) {
 	//NOTE/TODO: courselists cannot have extra commas within course descriptions, etc. 
 	app.post('/upload_courselist', isLoggedInAdmin, function(req, res) {
 		var transcript;
-
 		// The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
 		transcript = req.files.transcript;
 
