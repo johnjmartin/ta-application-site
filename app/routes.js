@@ -143,6 +143,11 @@ module.exports = function(app, passport) {
 				var newApplication = new Application();
 				newApplication.courseCode = courseList[i];
 				newApplication.hasTAed = TAList[i];
+				if (i < 6){
+					newApplication.semester = "Fall";
+				} else{
+					newApplication.semester = "Winter";
+				}
 				appList.push(newApplication);
 			}
 		}
@@ -211,9 +216,12 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/admin/applications', isLoggedInAdmin, function(req, res) {
-		res.render('admin/applications.ejs', {
-			user: req.user
-		}); 
+		User.find({}, function(err, users) {
+			res.render('admin/applications.ejs', {
+				users: users,
+				user: req.user
+			}); // load the application.ejs file
+		});
 	});
 
 

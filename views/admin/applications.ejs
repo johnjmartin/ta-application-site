@@ -16,11 +16,13 @@
         sem.add(Entry, null);
       }
     }
+
+    var userList = <%- JSON.stringify(users) %>;
+    var courseList = [['CISC 101','Fall 2016'],['CISC 102', 'Fall 2016'],['CISC 330', 'Fall 2016'],['CISC 472','Winter 2017'],['CISC 499','Winter 2017']];
     function render(){
-        
-        var userInfo = [["Winter 2017",['CISC 101','Braun','Eric','A+','T'],['CISC 101','Martin','John','D-','F'],['CISC 203','Bobby','Ricky','B+','F']],["Fall 2016",['CISC 497','French','Steve','A-','T']]];
-        while (true){
+          alert("FS");
           var semester = document.getElementById("semesters");
+          alert(semester.length);
           for (i = 0; i < userInfo.length; i++){
             if (userInfo[i][0] == semester.value){
               var dataSet = userInfo[i];
@@ -43,8 +45,52 @@
             table.fnClearTable();
             break;
           }
-        }
     }
+    function renderUsers(){
+      var dataSet = [];
+      var course = document.getElementById("courses").value;
+      for (i = 0; i < userList.length; i++){
+        for (j = 0; j < userList[i].applications; j++){
+          if (userList[i].applications[j].courseCode == course){
+            var temp = [userList[i].lname, userList[i].email];
+            dataSet.push(temp);
+          }
+        }
+      }
+      table = $('#example').dataTable( {
+        data: dataSet,
+        columns: [
+            { title: "Last Name"},
+            { title: "Email"}
+          ]
+      });
+    }
+
+    function renderCourses(){
+      var courses = document.getElementById("courses");
+      var semester = document.getElementById("semesters").value;
+      for (i = 0; i < courseList.length; i++){
+        if (courseList[i][1] == semester){
+          var Entry = document.createElement("option");
+          Entry.value = courseList[i][0];
+          Entry.text = courseList[i][0];
+          Entry.name = courseList[i][0];
+          courses.add(Entry, null);
+        }
+      }
+    }
+
+    $(function() {
+      $('#courses').on('change',function(){
+        renderUsers();
+      });
+    });
+    $(function() {
+      $('#semesters').on('change',function(){
+        $('#courses').prop('disabled',false);
+        renderCourses();
+      });
+    });
 </script>
 </head>
 <body>
@@ -65,16 +111,17 @@
 </div>
 <div class ="container pull-center">
   <div class ="row">
-  <div class="col-md-2 col-md-offset-5">
+  <div class="col-md-2 col-md-offset-4">
+    <select class="form-control" id="courses" disabled>
+        <option>Select a Course</option>
+    </select>
+  </div>
+  <div class="col-md-2">
     <select class="form-control" id="semesters">
         <option>Select a Semester</option>
     </select>
     <br>
-
  </div>
- <div class="col-md-1 col-md-offset-5.5">
-      <button onClick="render()">Render</button>
-    </div>
 </div>
 </div>
 <table id="example" class="display" width="100%"></table>
