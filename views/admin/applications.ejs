@@ -20,49 +20,38 @@
 
     var userList = <%- JSON.stringify(users) %>;
     var courseList = [['CISC 101','Fall 2016'],['CISC 102', 'Fall 2016'],['CISC 330', 'Fall 2016'],['CISC 472','Winter 2017'],['CISC 499','Winter 2017']];
-    function render(){
-          alert("FS");
-          var semester = document.getElementById("semesters");
-          alert(semester.length);
-          for (i = 0; i < userInfo.length; i++){
-            if (userInfo[i][0] == semester.value){
-              var dataSet = userInfo[i];
-              dataSet = dataSet.slice(1,dataSet.length);
-            }
-          }
-          if (typeof table == 'undefined'){
-            table = $('#example').dataTable( {
-                data: dataSet,
-                columns: [
-                    { title: "Course" },
-                    { title: "Last Name"},
-                    { title: "First Name"},
-                    { title: "Grade"},
-                    { title: "Previous TA"}
-                  ]
-              } );
-            break;
-          } else{
-            table.fnClearTable();
-            break;
-          }
-    }
+    console.log(userList);
+  
     function renderUsers(){
       var dataSet = [];
       var course = document.getElementById("courses").value;
       for (i = 0; i < userList.length; i++){
-        for (j = 0; j < userList[i].applications; j++){
-          if (userList[i].applications[j].courseCode == course){
-            var temp = [userList[i].lname, userList[i].email];
-            dataSet.push(temp);
+        if (userList[i].applications != undefined){
+          for (j = 0; j < userList[i].applications.length; j++){
+            if (userList[i].applications[j].courseCode == course){
+              var grade = "N/A"
+              var prevTA = false;
+              //if (userList[i].grades != undefined){
+              //  for (k = 0; k < userList[i].grades.length; k++){
+               //   if (userList[i].grades[k].course == course){
+               //     grade = userList[i].grades[k].grade;
+               //   }
+               // }
+             // }
+              var temp = [userList[i].fname, userList[i].lname, userList[i].email, grade, false];
+              dataSet.push(temp);
+            }
           }
         }
       }
       table = $('#example').dataTable( {
         data: dataSet,
         columns: [
+            { title: "First Name"},
             { title: "Last Name"},
-            { title: "Email"}
+            { title: "Email"},
+            { title: "Grade"},
+            { title: "Previous TA"}
           ]
       });
     }
