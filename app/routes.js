@@ -88,8 +88,6 @@ module.exports = function(app, passport) {
 	// =====================================
 	// GRADES SECTION =========================
 	// =====================================
-	// we will want this protected so you have to be logged in to visit
-	// we will use route middleware to verify this (the isLoggedIn function)
 	app.get('/grades', isLoggedIn, function(req, res) {
 		res.render('grades.ejs', {
 			user : req.user // get the user out of session and pass to template
@@ -228,8 +226,6 @@ module.exports = function(app, passport) {
 	app.get('/admin/applications', isLoggedInAdmin, function(req, res) {
 		User.find({}, function(err, users) {
 			Course.find({}, function(err, courses) {
-				console.dir(users);
-				console.dir(courses);
 				res.render('admin/applications.ejs', {
 					users: users,
 					courses: courses,

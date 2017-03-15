@@ -9,7 +9,7 @@
     var data = <%- JSON.stringify(users) %>;
     var dataSet = [];
     for (var i = 0; i < data.length; i++){
-      if (data[i]['admin']) { data[i]['admin'] = 'Yes'; }
+      if (data[i]['admin']) { data[i]['admin'] = '<p>Yes</p>'; }
       if (!data[i]['admin']) { data[i]['admin'] = ''; }
       
       dataSet[i] = [data[i]['lname'], data[i]['fname'], data[i]['email'],data[i]['email'],data[i]['admin']];
