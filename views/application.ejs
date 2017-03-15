@@ -6,7 +6,10 @@
 
   <script type="text/javascript">
 
-  var data = <%- JSON.stringify(user.applications) %>;
+  var data = [];
+  <%if (user.applications) { %>
+    data = <%- JSON.stringify(user.applications) %>;
+  <% } %>
   var dataSet = [];
   for (var i = 0; i < data.length; i++) {
     if (data[i]['hasTAed']) { data[i]['hasTAed'] = 'Yes'; }

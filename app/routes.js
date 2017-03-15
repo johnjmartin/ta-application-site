@@ -131,6 +131,7 @@ module.exports = function(app, passport) {
 	// =====================================
 	app.get('/application', isLoggedIn, function(req, res) {
 		Course.find({}, function(err, courses) {
+			console.dir(courses);
 			//check for error
 			res.render('application.ejs', {
 				courses: courses,
