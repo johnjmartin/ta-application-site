@@ -2,7 +2,20 @@
 <!doctype html>
 <html>
 <head>
+
 	 <% include partials/header %>
+   <script type = "text/javascript">
+      $(document).ready(function() {
+        <%if (user.grades) { %>
+        var grades = <%- JSON.stringify(user.grades.grades) %>;
+        temp = ""
+        for (i = 0; i < grades.length; i++){
+          var temp = temp + grades[i].course + ", " + grades[i].grade + "\n"
+        }
+        $('#grades').val(temp);
+  <% } %>
+      });
+  </script>
 </head>
 <body>
 
@@ -31,12 +44,14 @@
     <br>
     <br>
     <form action="/grades" method="post">
-      <div id="gradeTable">
-        <textarea rows="20" cols="70" name="grades"></textarea>
-      </div>
-      <br>
-      <button type="submit" class="btn btn-success" name="submitButton">Submit</button>
-      <br>
+          <div id="gradeTable">
+            <textarea id="grades" value='SD' name="grades">
+            </textarea>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-success" name="submitButton">Submit</button>
+          <br>
+
   </div>
 </div>
 </form>

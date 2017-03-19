@@ -19,6 +19,10 @@ div[class="page-header"]{
 
 }
 
+#grades{
+  height: 100px;
+}
+
 .col-centered{
     float: none;
     margin: 0 auto;
