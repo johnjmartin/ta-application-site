@@ -143,7 +143,9 @@ module.exports = function(app, passport) {
 
 	app.post('/application', isLoggedIn, function(req, res) {
 		var body 		          = req.body;
+		console.log(body);
 		var appList = [];
+
 		var courseList = [body.F0, body.F1, body.F2, body.F3, body.F4, body.F5, body.W0, body.W1, body.W2, body.W3, body.W4, body.W5];
 		var TAList = [body. checkF0, body.checkF1, body.checkF2, body.checkF3, body.checkF4, body.checkF5, body.checkW0, body.checkW1, body.checkW2, body.checkW3, body.checkW4, body.checkW5];
 		console.log(courseList[0]);
@@ -156,6 +158,10 @@ module.exports = function(app, passport) {
 					newApplication.semester = "Fall";
 				} else{
 					newApplication.semester = "Winter";
+				}
+				if (body.hasOwnProperty('submitButton')){
+					console.log("SADSAD");
+					newApplication.submitted = true;
 				}
 				appList.push(newApplication);
 			}
