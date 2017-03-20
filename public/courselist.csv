@@ -1,71 +1,71 @@
 Term,Course ID,Course Description,Instructor Name
-
-Fall 2017,CISC 101,Elements of Computer Science,"Wendy Powley"
-Fall 2017,CISC 102,Discrete Mathematics for Computing 1,"David Rappaport"
-Fall 2017,CISC 110,Creative Computing,"Wendy Powley"
+,,,
+Fall 2017,CISC 101,Elements of Computer Science,Wendy Powley
+Fall 2017,CISC 102,Discrete Mathematics for Computing 1,David Rappaport
+Fall 2017,CISC 110,Creative Computing,Wendy Powley
 Fall 2017,CISC 121,Introduction to Computer Science 1,TBA
-Fall 2017,CISC 124,Introduction to Computer Science 2,"Alan McLeod"
-Fall 2017,CISC 203,Discrete Mathematics for Computing 11,"Robin Dawes"
-Fall 2017,CISC 204,Logic for Computing Science,"Randy Ellis"
-Fall 2017,CISC 220,System Level Programming,"Margaret Lamb"
-Fall 2017,CISC 320,Fundamentals of Software Development,"Alan McLeod"
-Fall 2017,CISC 322,Software Architecture,"David Lamb"
-Fall 2017,CISC 326,Game Architecture,"Ahmed Hassan"
-Fall 2017,CISC 327,Software Quality Assurance,"Mohammad Zulkernine"
-Fall 2017,CISC 330,Compter-Integrated Surgery,"Gabor Fichtinger"
-Fall 2017,CISC 333,Introduction to Data Mining,"David Skillicorn"
-Fall 2017,CISC 340,Digital Systems,"David Dove"
-Fall 2017,CISC 352,Artificial Intelligence,"Parvin Moussavi"
-Fall 2017,CISC 365,Algorithms 1,"Robin Dawes"
-Fall 2017,CISC 390,INTERNSHIP COURSE,"Qingling Duan"
-Fall 2017,CISC 422,Formal Methods in Software Engineering,"Nicolas Hili"
-Fall 2017,CISC 457,Image Processing and Computer,"James Stewart"
-Fall 2017,CISC 462,Computability and Complexity,"Kai Salomaa"
-Fall 2017,CISC 471,Computational Biology,"David Rappaport"
-Fall 2017,CISC 486,Game Engine Development,"Nick Graham"
-Fall 2017,CISC 498,Information Technology Project,"Mohammad Zulkernine"
-Fall 2017,CISC 500,Undergraduate Thesis,"Parvin Moussavi"
-Fall 2017,CISC 897,Research Methods in Computer Science,"Hassan Hassanein"
-Fall 2017,CMPE 365,Algorithms 1,"David Skillicorn"
-Fall 2017,COGS 100,Introduction to Cognitive Science,"Farhana Zulkernine"
-Fall 2017,P81,Computers: Applications and Implications,"Richard Lindley"
-
-Winter 2018,CISC 101,Elements of Computer Science,"Alan McLeod"
+Fall 2017,CISC 124,Introduction to Computer Science 2,Alan McLeod
+Fall 2017,CISC 203,Discrete Mathematics for Computing 11,Robin Dawes
+Fall 2017,CISC 204,Logic for Computing Science,Randy Ellis
+Fall 2017,CISC 220,System Level Programming,Margaret Lamb
+Fall 2017,CISC 320,Fundamentals of Software Development,Alan McLeod
+Fall 2017,CISC 322,Software Architecture,David Lamb
+Fall 2017,CISC 326,Game Architecture,Ahmed Hassan
+Fall 2017,CISC 327,Software Quality Assurance,Mohammad Zulkernine
+Fall 2017,CISC 330,Compter-Integrated Surgery,Gabor Fichtinger
+Fall 2017,CISC 333,Introduction to Data Mining,David Skillicorn
+Fall 2017,CISC 340,Digital Systems,David Dove
+Fall 2017,CISC 352,Artificial Intelligence,Parvin Moussavi
+Fall 2017,CISC 365,Algorithms 1,Robin Dawes
+Fall 2017,CISC 390,INTERNSHIP COURSE,Qingling Duan
+Fall 2017,CISC 422,Formal Methods in Software Engineering,Nicolas Hili
+Fall 2017,CISC 457,Image Processing and Computer,James Stewart
+Fall 2017,CISC 462,Computability and Complexity,Kai Salomaa
+Fall 2017,CISC 471,Computational Biology,David Rappaport
+Fall 2017,CISC 486,Game Engine Development,Nick Graham
+Fall 2017,CISC 498,Information Technology Project,Mohammad Zulkernine
+Fall 2017,CISC 500,Undergraduate Thesis,Parvin Moussavi
+Fall 2017,CISC 897,Research Methods in Computer Science,Hassan Hassanein
+Fall 2017,CMPE 365,Algorithms 1,David Skillicorn
+Fall 2017,COGS 100,Introduction to Cognitive Science,Farhana Zulkernine
+Fall 2017,P81,Computers: Applications and Implications,Richard Lindley
+,,,
+Winter 2018,CISC 101,Elements of Computer Science,Alan McLeod
 Winter 2018,CISC 102,Discreet Mathematics for Computing 1,Jacob Peoples
-Winter 2018,CISC 121,Introduction to Computing Science 1,"Wendy Powley"
+Winter 2018,CISC 121,Introduction to Computing Science 1,Wendy Powley
 Winter 2018,CISC 124,Introduction to Computing Science 2,TBA
-Winter 2018,CISC 221,Computer Architecture,"Dave Doves"
-Winter 2018,CISC 223,Software Specifications,"Kai Salomaa"
-Winter 2018,CISC 226,Game Design,"Nick Graham"
-Winter 2018,CISC 235,Data Structures,"Robin Dawes"
-Winter 2018,CISC 260,Programming Paradigms,"Margaret Lamb"
-Winter 2018,CISC 271,Scientific Computing,"Randy Ellis"
-Winter 2018,CISC 324,Operating Systems,"Dorothea Blostein"
-Winter 2018,CISC 325,Human-Computer Interaction,"Roel Vertegaal"
-Winter 2018,CISC 332,Database Management Systems,"Wendy Powley"
-Winter 2018,CISC 390,INTERNSHIP COURSE,"Qinglin Duan"
-Winter 2018,CISC 393,INTERNSHIP COURSE,"Qinglin Duan"
+Winter 2018,CISC 221,Computer Architecture,Dave Doves
+Winter 2018,CISC 223,Software Specifications,Kai Salomaa
+Winter 2018,CISC 226,Game Design,Nick Graham
+Winter 2018,CISC 235,Data Structures,Robin Dawes
+Winter 2018,CISC 260,Programming Paradigms,Margaret Lamb
+Winter 2018,CISC 271,Scientific Computing,Randy Ellis
+Winter 2018,CISC 324,Operating Systems,Dorothea Blostein
+Winter 2018,CISC 325,Human-Computer Interaction,Roel Vertegaal
+Winter 2018,CISC 332,Database Management Systems,Wendy Powley
+Winter 2018,CISC 390,INTERNSHIP COURSE,Qinglin Duan
+Winter 2018,CISC 393,INTERNSHIP COURSE,Qinglin Duan
 Winter 2018,CISC 452,Neural and Genetic Computing,TBA
-Winter 2018,CISC 453,Topics in Articial Intelligence,"Nancy Salay"
-Winter 2018,CISC 454,Graphics (A),"James Stewart"
-Winter 2018,CISC 458,Programming Language Processors (s),"James Cordy"
-Winter 2018,CISC 472,Medical Informatics,"Gabor Fichtinger"
-Winter 2018,CISC 490,Topics in Computing Science 1,"Hossam Hassanein"
-Winter 2018,CISC 496,Game Development Project,"Nick Graham"
-Winter 2018,CISC 497,"Social Ethical and Legal Issues in Computing","Wendy Powley"
-Winter 2018,CISC 498,Information Technology Project,"Mohammad Zulkernine"
-Winter 2018,CISC 499,Advanced Undergraduate Project,"Parvin Mousavi"
-Winter 2018,CISC 825,Paradigms of Wireless and Mobile Networking,"Hossam Hassanein"
-Winter 2018,COCA 201,Introduction Computing and Creative Arts,"Roel Vertegaal"
-Winter 2018,COGS 201,Cognition and Computation,"Farhana Zulkernine"
+Winter 2018,CISC 453,Topics in Articial Intelligence,Nancy Salay
+Winter 2018,CISC 454,Graphics (A),James Stewart
+Winter 2018,CISC 458,Programming Language Processors (s),James Cordy
+Winter 2018,CISC 472,Medical Informatics,Gabor Fichtinger
+Winter 2018,CISC 490,Topics in Computing Science 1,Hossam Hassanein
+Winter 2018,CISC 496,Game Development Project,Nick Graham
+Winter 2018,CISC 497,"Social, Ethical and Legal Issues in Computing",Wendy Powley
+Winter 2018,CISC 498,Information Technology Project,Mohammad Zulkernine
+Winter 2018,CISC 499,Advanced Undergraduate Project,Parvin Mousavi
+Winter 2018,CISC 825,Paradigms of Wireless and Mobile Networking,Hossam Hassanein
+Winter 2018,COCA 201,Introduction Computing and Creative Arts,Roel Vertegaal
+Winter 2018,COGS 201,Cognition and Computation,Farhana Zulkernine
 Winter 2018,COGS 300,Programming Cognitive Models,TBA
 Winter 2018,COGS 400,Neural and Genetic Models,TBA
-Winter 2018,COGS 499,Advanced Undergraduate Project,"Parvin Mousavi"
-Winter 2018,CISC 500,Undergraduate Thesis,"Parvin Mousavi"
-Winter 2018,CMPE 212,Instroduction to Computer Science II,"Alan McLeod"
-Winter 2018,P81,Computers: Applications and Implications,"Richard Linley"
-
-Spring/Summer 2018,CISC 102,Discrete Mathemathics for Computing 1,"Robin Dawes"
+Winter 2018,COGS 499,Advanced Undergraduate Project,Parvin Mousavi
+Winter 2018,CISC 500,Undergraduate Thesis,Parvin Mousavi
+Winter 2018,CMPE 212,Instroduction to Computer Science II,Alan McLeod
+Winter 2018,P81,Computers: Applications and Implications,Richard Linley
+,,,
+Spring/Summer 2018,CISC 102,Discrete Mathemathics for Computing 1,Robin Dawes
 Spring/Summer 2018,COGS 100,Introduction to Cognitive Science,Khalifa
-Spring/Summer 2018,CISC 101,Elements of Computing Science,"Alan McLeod"
-Spring/Summer 2018,CISC 121,Introduction to Computer Science 1,"Wendy Powley"
+Spring/Summer 2018,CISC 101,Elements of Computing Science,Alan McLeod
+Spring/Summer 2018,CISC 121,Introduction to Computer Science 1,Wendy Powley

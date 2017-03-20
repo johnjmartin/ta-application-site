@@ -6,6 +6,9 @@ var Course      = require('./models/course');
 
 var fileUpload  = require('express-fileupload');
 var fs 			= require('fs');
+var parse 		= require('csv-parse');
+require('should');
+
 
 
 module.exports = function(app, passport) {
@@ -90,7 +93,8 @@ module.exports = function(app, passport) {
 	// =====================================
 	app.get('/grades', isLoggedIn, function(req, res) {
 		res.render('grades.ejs', {
-			user : req.user // get the user out of session and pass to template
+			user : req.user,
+			message: req.flash('message')
 		});
 	});
 
@@ -105,13 +109,19 @@ module.exports = function(app, passport) {
 			grades_arr = body.grades.replace(/\r/g,'');
 			grades_arr = grades_arr.split('\n');
 		} catch (err) {
+			req.flash('message', 'Error parsing grades, check formatting and try again');
 			throw err;
 		}
 
-		grades_arr = grades_arr.map(function (i) {
-			var x = i.split(',');
-			return { 'grade': x[1], 'course': x[0] };
-		});
+		for (var i=0; i<grades_arr.length; i++) {
+			var temp = grades_arr[i].split(',');
+			if (!temp[1] || !temp[0] ) {
+				req.flash('message', 'One or more grades formatted incorrectly, try again.');
+				res.redirect('/grades');
+				return;
+			}
+			grades_arr[i] = { 'grade': temp[1].trim(), 'course': temp[0].trim() };
+		}
 	
 		newGrades.grades = grades_arr;
 
@@ -263,7 +273,6 @@ module.exports = function(app, passport) {
 		var transcript;
 		// The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
 		transcript = req.files.transcript;
-
 		var path   = "courselist.csv"
 
 		//Flash to keep user on the page if no files contained in transcript
@@ -286,29 +295,25 @@ module.exports = function(app, passport) {
 
 		fs.readFile('public/courselist.csv', 'utf8', function(err, data) {
 			Course.remove({}, function(err) { 
-			   console.log('collection removed') 
+			   console.log('collection removed');
 			});
-			if (err) throw err;
-			data = data.replace(/\r/g,'');
-			data = data.split('\n');
-
-			data = data.filter( function(i){
-				return i != '';
-			}).map( function(i) {
-				return i.split(',');
+			if (err) req.flash('error', 'Error Parsing uploaded file');
+			parse(data, {columns: true}, function(err, output) {
+				if (err) req.flash('error', 'Error Parsing uploaded file');
+				var x = output;
+				for (var i=0; i<x.length; i++) {
+					if (x[i]['Term']) {
+						var newCourse 				= new Course();
+						newCourse.term 				= x[i]['Term'];
+						newCourse.courseID  		= x[i]['Course ID'];
+						newCourse.courseDescription = x[i]['Course Description'];
+						newCourse.instructorName    = x[i]['Instructor Name'];
+						newCourse.save(function(err){
+							if (err) throw err;
+						});
+					}	
+				}
 			});
-
-			for (i = 1; i<data.length; i++) {
-				var newCourse 				= new Course();
-				newCourse.term 				= data[i][0];
-				newCourse.courseID  		= data[i][1];
-				newCourse.courseDescription = data[i][2];
-				newCourse.instructorName    = data[i][3];
-				newCourse.save(function(err){
-					if (err) throw err;
-				});			
-			}
-			req.flash('uploadMessage', 'Upload Success!!')
 		});
 	});
 

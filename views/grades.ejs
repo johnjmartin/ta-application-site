@@ -35,6 +35,9 @@
   </div>
 </div>
 <div class="col-md-4 col-md-offset-4">
+<% if (message.length > 0) { %>
+    <div class="alert alert-danger"><%= message %></div>
+  <% } %>
   <div class="text-center">
     <small>Please enter your grades in the text area below. Format must be as follows: <br>
       CISC 101, B+ <br>
