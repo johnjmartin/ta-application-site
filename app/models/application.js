@@ -5,7 +5,8 @@ var applicationSchema = mongoose.Schema({
     courseCode     : String,
     hasTAed        : Boolean,
     semester       : String,
-    submitted      : Boolean
+    submitted      : Boolean,
+    isTAing		   : Boolean
 });
 
 module.exports = mongoose.model('Application', applicationSchema);

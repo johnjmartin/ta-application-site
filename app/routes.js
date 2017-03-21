@@ -173,6 +173,7 @@ module.exports = function(app, passport) {
 					console.log("SADSAD");
 					newApplication.submitted = true;
 				}
+				newApplication.isTAing = false;
 				appList.push(newApplication);
 			}
 		}
@@ -232,16 +233,11 @@ module.exports = function(app, passport) {
 	app.get('/admin/applications', isLoggedInAdmin, function(req, res) {
 		User.find({}, function(err, users) {
 			Course.find({}, function(err, courses) {
-				if (req.headers.token) {
-					console.dir("Hey there im ajax");
-					res.send(courses);
-				} else {
-					res.render('admin/applications.ejs', {
-						users: users,
-						courses: courses,
-						user: req.user
-					});
-				}
+				res.render('admin/applications.ejs', {
+					users: users,
+					courses: courses,
+					user: req.user
+				});
 			});
 		});
 	});
@@ -249,8 +245,9 @@ module.exports = function(app, passport) {
 	app.get('/admin/applications/json', isLoggedInAdmin, function(req, res) {
 		User.find({}, function(err, users) {
 			Course.find({}, function(err, courses) {
-				console.dir("Hey there im ajax");
-				res.send(courses);
+				var applicants = findApplicants(users, courses); 
+				console.dir(applicants);
+				res.send(applicants);
 			});
 		});
 	});
@@ -341,7 +338,6 @@ function isLoggedIn(req, res, next) {
 	res.redirect('/');
 }
 
-// will 
 function isLoggedInAdmin(req, res, next) {
 	// if user is authenticated in the session, carry on
 	if (req.isAuthenticated()) {
@@ -352,4 +348,41 @@ function isLoggedInAdmin(req, res, next) {
 	}
 	// if they aren't redirect them to the home page
 	res.redirect('/');
+}
+
+function findApplicants(users, courses) {
+	// users = [ {name:John, applications:[{courseCode: ''', semester:''' }] }]
+	// courses = [ {term     		  : String, courseID          : String, courseDescription : String, instructorName    : String}]
+	var applicants_table = [];
+	for (var i=0; i<courses.length; i++) {
+		var course = courses[i];
+		for (var j=0; j<users.length; j++) {
+			var user         = users[j];
+			var applications = user.applications;
+			if (applications) {
+				for (var k=0; k<applications.length; k++) {
+					var app = applications[k];
+					console.dir(app.courseCode);
+					console.dir(course.courseID);
+					console.dir(course.term);
+					console.dir(app.semester);
+					// if (app.courseCode == course.courseID && course.term == app.semester){
+					if (app.courseCode == course.courseID){
+						var applicant = { 
+							'term'    	  : course.term, 
+							'courseID'	  : course.courseID,
+							'fullName'    : user.fname + ' ' + user.lname,
+							'email'	      : user.email,
+							'numAssigned' : user.numAssigned,
+							'hasTAed'	  : user.hasTAed,
+							'isTAing'	  : app.isTAing
+						};
+						applicants_table.push(applicant);
+					}
+				}
+			}
+		}
+	}
+
+	return applicants_table;
 }
