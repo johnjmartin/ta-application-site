@@ -176,17 +176,6 @@ module.exports = function(app, passport) {
 				appList.push(newApplication);
 			}
 		}
-		/*
-		newApplication.courseCode = body.courses;
-		newApplication.grade	  = body.grades;
-		console.dir(body);
-		
-		if (newApplication.hasOwnProperty('hasTAed')) {
-			newApplication.hasTAed = true;
-		} else {
-			newApplication.hasTAed = false;
-		}
-		*/
 		User.findById(req.user._id, function(err, user){
 			if (err) return handleError(err);
 			user.applications = appList;
@@ -243,11 +232,25 @@ module.exports = function(app, passport) {
 	app.get('/admin/applications', isLoggedInAdmin, function(req, res) {
 		User.find({}, function(err, users) {
 			Course.find({}, function(err, courses) {
-				res.render('admin/applications.ejs', {
-					users: users,
-					courses: courses,
-					user: req.user
-				});
+				if (req.headers.token) {
+					console.dir("Hey there im ajax");
+					res.send(courses);
+				} else {
+					res.render('admin/applications.ejs', {
+						users: users,
+						courses: courses,
+						user: req.user
+					});
+				}
+			});
+		});
+	});
+
+	app.get('/admin/applications/json', isLoggedInAdmin, function(req, res) {
+		User.find({}, function(err, users) {
+			Course.find({}, function(err, courses) {
+				console.dir("Hey there im ajax");
+				res.send(courses);
 			});
 		});
 	});

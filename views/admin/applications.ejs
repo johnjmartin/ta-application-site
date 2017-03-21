@@ -5,86 +5,31 @@
   <% include ../partials/header %>
 
   <script type="text/javascript">
-    var semesterList = ['Winter 2017','Fall 2016','Winter 2016','Fall 2015'];
-
-    window.onload = function() {
-      var sem = document.getElementById("semesters");
-      for (i = 0; i < semesterList.length; i++){
-        var Entry = document.createElement("option");
-        Entry.value = semesterList[i];
-        Entry.id = semesterList[i];
-        Entry.text = semesterList[i];
-        sem.add(Entry, null);
-      }
-    }
 
     var userList = <%- JSON.stringify(users) %>;
-    var courseList = [['CISC 101','Fall 2016'],['CISC 102', 'Fall 2016'],['CISC 330', 'Fall 2016'],['CISC 472','Winter 2017'],['CISC 499','Winter 2017']];
     console.log(userList);
-  
-    function renderUsers(){
-      var dataSet = [];
-      var course = document.getElementById("courses").value;
-      for (i = 0; i < userList.length; i++){
-        if (userList[i].applications != undefined){
-          for (j = 0; j < userList[i].applications.length; j++){
-            if (userList[i].applications[j].courseCode == course){
-              var grade = "N/A"
-              var prevTA = false;
-              if (userList[i].applications[j].hasTAed){
-                prevTA = true;
-              }
-              if (userList[i].grades != undefined){
-                for (k = 0; k < userList[i].grades.grades.length; k++){
-                  if (userList[i].grades.grades[k].course == course){
-                    grade = userList[i].grades.grades[k].grade;
-                  }
-                }
-              }
-              var temp = [userList[i].fname, userList[i].lname, userList[i].email, grade, prevTA];
-              dataSet.push(temp);
-            }
-          }
-        }
-      }
-      table = $('#example').dataTable( {
-        data: dataSet,
-        columns: [
-            { title: "First Name"},
-            { title: "Last Name"},
-            { title: "Email"},
-            { title: "Grade"},
-            { title: "Previous TA"}
-          ]
-      });
-    }
 
-    function renderCourses(){
-      var courses = document.getElementById("courses");
-      var semester = document.getElementById("semesters").value;
-      for (i = 0; i < courseList.length; i++){
-        if (courseList[i][1] == semester){
-          var Entry = document.createElement("option");
-          Entry.value = courseList[i][0];
-          Entry.text = courseList[i][0];
-          Entry.name = courseList[i][0];
-          courses.add(Entry, null);
-        }
-      }
-    }
+    var dataSet = [];
 
-    $(function() {
-      $('#courses').on('change',function(){
-        renderUsers();
+
+    $(document).ready(function() {
+      var table = $('#example').DataTable({
+          processing: true,
+          serverSide: true,
+          ajax: {
+              url: "/admin/applications/json",
+              dataSrc: ""
+          },    
+          columns: [ 
+            { data: "instructorName", title: "Instructor Name" },
+            { data: "courseDescription", title: "Course Description"},
+            { data: "courseID", title: "Course ID"},
+            { data: "term", title: "Term"}
+         ]
       });
     });
-    $(function() {
-      $('#semesters').on('change',function(){
-        $('#courses').prop('disabled',false);
-        renderCourses();
-      });
-    });
-</script>
+
+  </script>
 </head>
 <body>
 
@@ -105,18 +50,13 @@
 <div class ="container pull-center">
   <div class ="row">
   <div class="col-md-2 col-md-offset-4">
-    <select class="form-control" id="courses" disabled>
-        <option>Select a Course</option>
-    </select>
+   
   </div>
   <div class="col-md-2">
-    <select class="form-control" id="semesters">
-        <option>Select a Semester</option>
-    </select>
     <br>
  </div>
 </div>
 </div>
-<table id="example" class="display" width="100%"></table>
+  <table id="example" class="display" width="100%"></table>
 </body>
 </html>
