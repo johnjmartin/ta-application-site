@@ -120,14 +120,15 @@
 }
 
   function discription(choice,desc){
+    var t = choice.options[choice.selectedIndex].name;
     if (choice.value == "Select a course"){
       desc.title = "";
     }
-    else if(choice.name[0] == "F"){
-        desc.title = descriptionF[choice.name[1]];
+    else if(t[0] == "F"){
+        desc.title = descriptionF[t[1]];
       }
     else {
-      desc.title = descriptionW[choice.name[1]];
+      desc.title = descriptionW[t[1]];
     }
   }
   </script>
