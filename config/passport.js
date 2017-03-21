@@ -64,6 +64,7 @@ module.exports = function(passport) {
                 newUser.year     = req.body.year;
                 newUser.lname    = req.body.lname;
                 newUser.admin    = false;
+                newUser.numAssigned = 0;
 
 				// save the user
                 newUser.save(function(err) {
