@@ -152,24 +152,30 @@ module.exports = function(app, passport) {
 	});
 
 	app.post('/application', isLoggedIn, function(req, res) {
-		var body 		          = req.body;
-		console.log(body);
+		var body = req.body;
 		var appList = [];
+		var semesterSet = new Set();
+
+		Course.find({}, function(err, courses) {
+			for (var i=0; i<courses.length; i++) {
+				semesterSet.add(courses[i].term);
+			}
+		});
 
 		var courseList = [body.F0, body.F1, body.F2, body.F3, body.F4, body.F5, body.W0, body.W1, body.W2, body.W3, body.W4, body.W5];
 		var TAList = [body. checkF0, body.checkF1, body.checkF2, body.checkF3, body.checkF4, body.checkF5, body.checkW0, body.checkW1, body.checkW2, body.checkW3, body.checkW4, body.checkW5];
 		console.log(courseList[0]);
 		for (i = 0; i < 12; i++){
-			if (courseList[i] != "Select a course"){
+			if (courseList[i] != "Select a course") {
 				var newApplication = new Application();
 				newApplication.courseCode = courseList[i];
 				newApplication.hasTAed = TAList[i];
-				if (i < 6){
+				if (i < 6) {
 					newApplication.semester = "Fall";
-				} else{
+				} else {
 					newApplication.semester = "Winter";
 				}
-				if (body.hasOwnProperty('submitButton')){
+				if (body.hasOwnProperty('submitButton')) {
 					console.log("SADSAD");
 					newApplication.submitted = true;
 				}
