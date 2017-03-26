@@ -1,7 +1,6 @@
 // app/routes.js
 var Application = require('./models/application');
 var User       	= require('./models/user');
-var Grades      = require('./models/grades');
 var Course      = require('./models/course');
 
 var fileUpload  = require('express-fileupload');
@@ -103,7 +102,7 @@ module.exports = function(app, passport) {
 		var body 	      = req.body;
 		var grades_string = body.grades;
 		var grades_arr    = [];
-		var newGrades 	  = new Grades();
+		var appList 	  = [];
 
 		try {
 			grades_arr = body.grades.replace(/\r/g,'');
@@ -114,25 +113,29 @@ module.exports = function(app, passport) {
 		}
 
 		for (var i=0; i<grades_arr.length; i++) {
+			var newGrades 	  = new Application();
 			var temp = grades_arr[i].split(',');
 			if (!temp[1] || !temp[0] ) {
 				req.flash('message', 'One or more grades formatted incorrectly, try again.');
 				res.redirect('/grades');
 				return;
 			}
-			grades_arr[i] = { 'grade': temp[1].trim(), 'course': temp[0].trim() };
+			temp[1] = temp[1].trim();
+			temp[0] = temp[0].trim()
+			newGrades.grade = temp[1];
+			newGrades.courseCode = temp[0];
+			appList.push(newGrades);
 		}
-	
-		newGrades.grades = grades_arr;
 
 		User.findById(req.user._id, function(err, user){
 			if (err) return handleError(err);
-			user.grades = newGrades;
+			user.applications = appList;
 			user.save(function(err){
 				if (err)
 					throw err;
-			});
+				});
 		});
+
 		res.redirect('/application');
 	});
 
@@ -141,7 +144,6 @@ module.exports = function(app, passport) {
 	// =====================================
 	app.get('/application', isLoggedIn, function(req, res) {
 		Course.find({}, function(err, courses) {
-			console.dir(courses);
 			//check for error
 			res.render('application.ejs', {
 				courses: courses,
@@ -374,6 +376,8 @@ function findApplicants(users, courses) {
 					console.dir(app.semester);
 					// if (app.courseCode == course.courseID && course.term == app.semester){
 					if (app.courseCode == course.courseID){
+						var checkbox = '<input type="checkbox" name="vehicle" value="Bike">'
+						if (app.isTAing) checkbox = '<input type="checkbox" name="vehicle" value="Bike" checked>'
 						var applicant = { 
 							'term'    	  : course.term, 
 							'courseID'	  : course.courseID,

@@ -8,9 +8,9 @@
       $(document).ready(function() {
         <%if (user.grades) { %>
         var grades = <%- JSON.stringify(user.grades.grades) %>;
-        temp = ""
+
         for (i = 0; i < grades.length; i++){
-          var temp = temp + grades[i].course + ", " + grades[i].grade + "\n"
+          temp = grades[i].course + ", " + grades[i].grade + "\n"
         }
         $('#grades').val(temp);
   <% } %>
@@ -48,8 +48,7 @@
     <br>
     <form action="/grades" method="post">
           <div id="gradeTable">
-            <textarea id="grades" value='SD' name="grades">
-            </textarea>
+            <textarea id="grades" value='SD' name="grades"></textarea>
           </div>
           <br>
           <button type="submit" class="btn btn-success" name="submitButton">Submit</button>

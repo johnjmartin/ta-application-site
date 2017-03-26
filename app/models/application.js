@@ -5,6 +5,7 @@ var applicationSchema = mongoose.Schema({
     courseCode     : String,
     hasTAed        : Boolean,
     semester       : String,
+    grade		   : String,
     submitted      : Boolean,
     isTAing		   : Boolean
 });
