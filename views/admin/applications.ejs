@@ -7,7 +7,6 @@
   <script type="text/javascript">
 
     var userList = <%- JSON.stringify(users) %>;
-    console.log(userList);
 
     var dataSet = [];
 
@@ -19,7 +18,7 @@
           ajax: {
               url: "/admin/applications/json",
               dataSrc: ""
-          },    
+          },
           columns: [ 
             { data: "term", title: "Term" },
             { data: "courseID", title: "Course ID"},
@@ -30,7 +29,27 @@
             { data: "isTAing", title: "isTAing"}
          ]
       });
+      // Handle form submission event 
+    /*  $('#frm-example').on('submit', function(e){
+        var form = this;
+        console.log(table.column(6).data());
+
+        
+        var rows_selected = table.column(6).isTAing.selected();
+
+        // Iterate over all selected checkboxes
+        $.each(rows_selected, function(index, rowId){
+           // Create a hidden element 
+           $(form).append(
+               $('<input>')
+                  .attr('type', 'hidden')
+                  .attr('name', 'id[]')
+                  .val(rowId)
+           );
+        });
+      });*/
     });
+
 
   </script>
 </head>
@@ -50,16 +69,11 @@
     </div>
   </div>
 </div>
-<div class ="container pull-center">
-  <div class ="row">
-  <div class="col-md-2 col-md-offset-4">
-   
-  </div>
-  <div class="col-md-2">
-    <br>
- </div>
-</div>
-</div>
+
+<form id="frm-example" action="/admin/applications" method="post">
   <table id="example" class="display" width="100%"></table>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
 </body>
 </html>
