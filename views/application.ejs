@@ -21,19 +21,28 @@
 
   courseListF = [];
   courseListW = [];
-  descriptionF = [];
-  descriptionW = [];
+  courseListS = [];
+  DescriptionF = [];
+  DescriptionW = [];
+  DescriptionS = [];
 
   var courses = <%- JSON.stringify(courses) %>;
+  var semesters = <%- JSON.stringify(semesters) %>;
+  var fall = semesters[0];
+  var winter = semesters[1];
+  var summer = semesters[2];
 
   for (var i=0; i < courses.length; i++) {
     var course = courses[i];
-    if (course['term'] == 'Fall 2017') {
+    if (course['term'] == fall) {
       courseListF.push(course['courseID']);
-      descriptionF.push(course['courseDescription']);
-    } else {
+      DescriptionF.push(course['courseDescription']);
+    } else if (course['term'] == winter){
       courseListW.push(course['courseID']);
-      descriptionW.push(course['courseDescription']);
+      DescriptionW.push(course['courseDescription']);
+    } else {
+      courseListS.push(course['courseID']);
+      DescriptionS.push(course['courseDescription']);
     }
   }
   window.onload = function() {
@@ -41,9 +50,9 @@
       var apps = <%- JSON.stringify(user.applications) %>;
       var fallCount = 0;
       var winterCount = 0;
+      var summerCount = 0;
       for (i = 0; i < apps.length; i++){
-          if (apps[i].semester == "Fall"){
-
+          if (apps[i].semester == fall){
             var place = 'F' + fallCount;
             var t = "#" + place
             $(t).text("");
@@ -59,6 +68,10 @@
               $(che).prop("checked",true);
             }
             if (apps[i].submitted == true){
+              var b =document.getElementById("subButton");
+              b.disabled = true;
+              var s =document.getElementById("saveButton");
+              s.disabled = true;
               Fstr = "F" + fallCount;
               Fcheck = "checkF" + fallCount;
               document.getElementById(Fstr).disabled = true;
@@ -66,7 +79,7 @@
             }
             fallCount++;
           }
-          if (apps[i].semester == "Winter"){
+          else if (apps[i].semester == winter){
 
             var place = 'W' + winterCount;
             var t = "#" + place;
@@ -83,12 +96,43 @@
               $(che).prop("checked",true);
             }
             if (apps[i].submitted == true){
+              var b =document.getElementById("subButton");
+              var s =document.getElementById("saveButton");
+              s.disabled = true;
+              b.disabled = true;
               Wstr = "W" + winterCount;
               Wcheck = "checkW" + winterCount;
               document.getElementById(Wstr).disabled = true;
               document.getElementById(Wcheck).disabled = true;
             }
             winterCount++;
+          }
+          else if (apps[i].semester == summer) {
+            var place = 'S' + summerCount;
+            var t = "#" + place;
+            $(t).text("");
+            var courses = document.getElementById(place);
+            var Entry = document.createElement("option");
+            Entry.name = apps[i].courseCode;
+            Entry.value = apps[i].courseCode;
+            Entry.id = apps[i].courseCode;
+            Entry.text = apps[i].courseCode;
+            courses.add(Entry ,null);
+            if (apps[i].hasTAed == true){
+              che = "#checkS" + summerCount;
+              $(che).prop("checked",true);
+            }
+            if (apps[i].submitted == true){
+              var b =document.getElementById("subButton");
+              b.disabled = true;
+              var s =document.getElementById("saveButton");
+              s.disabled = true;
+              Wstr = "S" + summerCount;
+              Wcheck = "checkS" + summerCount;
+              document.getElementById(Wstr).disabled = true;
+              document.getElementById(Wcheck).disabled = true;
+            }
+            summerCount++;
           }
         }
     <% } %>
@@ -117,18 +161,30 @@
           courses.add(Entry ,null);
       }
   }
+    for (s = 0; s < 6; s++){
+      var str = "S" + s;
+      var courses = document.getElementById(str);
+      for (i = 0; i < courseListS.length; i++) {
+          var Entry = document.createElement("option");
+          Entry.name = "S" + i;
+          Entry.value = courseListS[i];
+          Entry.id = courseListS[i];
+          Entry.text = courseListS[i];
+          courses.add(Entry ,null);
+      }
+  }
 }
 
   function discription(choice,desc){
     var t = choice.options[choice.selectedIndex].name;
-    if (choice.value == "Select a course"){
+    if (choice.value == "Course Code"){
       desc.title = "";
     }
     else if(t[0] == "F"){
-        desc.title = descriptionF[t[1]];
+        desc.title = DescriptionF[t[1]];
       }
     else {
-      desc.title = descriptionW[t[1]];
+      desc.title = DescriptionW[t[1]];
     }
   }
   </script>
@@ -155,7 +211,7 @@
     <% } %>
 <div class="col-md-4 col-md-offset-4">
   <div class="text-center">
-    <small>Please select six courses for each semester for which you would like to apply. Check the box in the center if you have TA'd for this course before. Hover over the description link for an expectation of requirements for each course. A text box has been left open for comments for both semesters</small>
+    <small>Please select six courses for each semester for which you would like to apply. Check the box in the center if you have TA'd for this course before. Hover over the Details link for an expectation of requirements for each course. A text box has been left open for comments for both semesters</small>
   </div>
 </div>
 <br>
@@ -164,35 +220,30 @@
 <div class="container">
   <form action="/application" method="post">
     <div class="row">
-      <div class="col-md-5 col-md-offset-1">
-          <div class="col-sm-6 pull-left">
+          <div class="col-md-4 pull-left">
             <div class="text-center">
-            <h1><span></span> Fall</h1>
+            <h1><span></span><%= semesters[0] %></h1>
           </div>
-        </div>
-        <br>
-        <br>
-        <br>
         <br>
         <br>
             <div class="row">
                 <div class="col-md-5">
                   <select class="form-control" name="F0" id="F0">
-                      <option>Select a course</option>
+                      <option>Course Code</option>
                   </select>
                 </div>
                 <div class="col-md-1">
                   <input name="checkF0" id="checkF0" type="checkbox"></input>
                 </div>
                 <div class="col-md-3">
-                  <a href="#" id="Fd0" data-toggle="tooltip" onmouseover="discription(F0,Fd0)" title = "">Description</a>
+                  <a href="#" id="Fd0" data-toggle="tooltip" onmouseover="discription(F0,Fd0)" title = "">Details</a>
                 </div>
             </div>
             <br>
             <div class="row">
               <div class="col-md-5">
                 <select class="form-control" name="F1" id="F1">
-                    <option>Select a course</option>
+                    <option>Course Code</option>
                 </select>
              </div>
               <div class="col-md-1">
@@ -200,14 +251,14 @@
               </div>
 
               <div class="col-md-3">
-                <a href="#" id="Fd1" data-toggle="tooltip" onmouseover="discription(F1,Fd1)" title = "">Description</a>
+                <a href="#" id="Fd1" data-toggle="tooltip" onmouseover="discription(F1,Fd1)" title = "">Details</a>
               </div>
             </div>
             <br>
             <div class="row">
               <div class="col-md-5">
                 <select class="form-control" name="F2" id="F2">
-                    <option>Select a course</option>
+                    <option>Course Code</option>
                 </select>
              </div>
               <div class="col-md-1">
@@ -215,14 +266,14 @@
               </div>
 
               <div class="col-md-3">
-                <a href="#" id="Fd2" data-toggle="tooltip" onmouseover="discription(F2,Fd2)" title = "">Description</a>
+                <a href="#" id="Fd2" data-toggle="tooltip" onmouseover="discription(F2,Fd2)" title = "">Details</a>
               </div>
             </div>
             <br>
             <div class="row">
                <div class="col-md-5">
                 <select class="form-control" name="F3" id="F3">
-                    <option>Select a course</option>
+                    <option>Course Code</option>
                 </select>
              </div>
               <div class="col-md-1">
@@ -230,14 +281,14 @@
               </div>
 
               <div class="col-md-3">
-                <a href="#" id="Fd3" data-toggle="tooltip" onmouseover="discription(F3,Fd3)" title = "">Description</a>
+                <a href="#" id="Fd3" data-toggle="tooltip" onmouseover="discription(F3,Fd3)" title = "">Details</a>
               </div>
             </div>
             <br>
             <div class="row">
               <div class="col-md-5">
                 <select class="form-control" name="F4" id="F4">
-                    <option>Select a course</option>
+                    <option>Course Code</option>
                 </select>
              </div>
               <div class="col-md-1">
@@ -245,14 +296,14 @@
               </div>
 
               <div class="col-md-3">
-                <a href="#" id="Fd4" data-toggle="tooltip" onmouseover="discription(F4,Fd4)" title = "">Description</a>
+                <a href="#" id="Fd4" data-toggle="tooltip" onmouseover="discription(F4,Fd4)" title = "">Details</a>
               </div>
             </div>
             <br>
             <div class="row">
                <div class="col-md-5">
                 <select class="form-control" name="F5" id="F5">
-                    <option>Select a course</option>
+                    <option>Course Code</option>
                 </select>
              </div>
               <div class="col-md-1">
@@ -260,28 +311,25 @@
               </div>
 
               <div class="col-md-3">
-                <a href="#" id="Fd5" data-toggle="tooltip" onmouseover="discription(F5,Fd5)" title = "">Description</a>
+                <a href="#" id="Fd5" data-toggle="tooltip" onmouseover="discription(F5,Fd5)" title = "">Details</a>
               </div>
             </div>
             <br>
             <br>
-            <textarea rows="4" cols="50" name="fallCom"></textarea>
+            <textarea rows="4" cols="30" name="fallCom"></textarea>
         </div>
-        <div class="col-sm-5 col-sm-offset-1">
-          <div class="col-sm-6 col-sm-offset-1">
+        <div class="col-md-4">
+
             <div class="text-center">
-            <h1><span></span> Winter</h1>
-          </div>
+            <h1><span></span><%= semesters[1] %></h1>
+ 
         </div>
-        <br>
-        <br>
-        <br>
         <br>
         <br>
             <div class="row">
               <div class="col-md-5">
                 <select class="form-control" name="W0" id="W0">
-                    <option>Select a course</option>
+                    <option>Course Code</option>
                 </select>
              </div>
               <div class="col-md-1">
@@ -289,14 +337,14 @@
               </div>
 
               <div class="col-md-3">
-                <a href="#" id="Wd0" data-toggle="tooltip" onmouseover="discription(W0,Wd0)" title = "">Description</a>
+                <a href="#" id="Wd0" data-toggle="tooltip" onmouseover="discription(W0,Wd0)" title = "">Details</a>
               </div>
             </div>
             <br>
             <div class="row">
               <div class="col-md-5">
                 <select class="form-control" name="W1" id="W1">
-                    <option>Select a course</option>
+                    <option>Course Code</option>
                 </select>
              </div>
               <div class="col-md-1">
@@ -304,14 +352,14 @@
               </div>
 
               <div class="col-md-3">
-                <a href="#" id="Wd1" data-toggle="tooltip" onmouseover="discription(W1,Wd1)" title = "">Description</a>
+                <a href="#" id="Wd1" data-toggle="tooltip" onmouseover="discription(W1,Wd1)" title = "">Details</a>
               </div>
             </div>
             <br>
             <div class="row">
               <div class="col-md-5">
                 <select class="form-control" name="W2" id="W2">
-                    <option>Select a course</option>
+                    <option>Course Code</option>
                 </select>
              </div>
               <div class="col-md-1">
@@ -319,14 +367,14 @@
               </div>
 
               <div class="col-md-3">
-                <a href="#" id="Wd2" data-toggle="tooltip" onmouseover="discription(W2,Wd2)" title = "">Description</a>
+                <a href="#" id="Wd2" data-toggle="tooltip" onmouseover="discription(W2,Wd2)" title = "">Details</a>
               </div>
             </div>
             <br>
             <div class="row">
               <div class="col-md-5">
                 <select class="form-control" name="W3" id="W3">
-                    <option>Select a course</option>
+                    <option>Course Code</option>
                 </select>
              </div>
               <div class="col-md-1">
@@ -334,14 +382,14 @@
               </div>
 
               <div class="col-md-3">
-                <a href="#" id="Wd3" data-toggle="tooltip" onmouseover="discription(W3,Wd3)" title = "">Description</a>
+                <a href="#" id="Wd3" data-toggle="tooltip" onmouseover="discription(W3,Wd3)" title = "">Details</a>
               </div>
             </div>
             <br>
             <div class="row">
               <div class="col-md-5">
                 <select class="form-control" name="W4" id="W4">
-                    <option>Select a course</option>
+                    <option>Course Code</option>
                 </select>
              </div>
               <div class="col-md-1">
@@ -349,14 +397,14 @@
               </div>
 
               <div class="col-md-3">
-                <a href="#" id="Wd4" data-toggle="tooltip" onmouseover="discription(W4,Wd4)" title = "">Description</a>
+                <a href="#" id="Wd4" data-toggle="tooltip" onmouseover="discription(W4,Wd4)" title = "">Details</a>
               </div>
             </div>
             <br>
             <div class="row">
               <div class="col-md-5">
                 <select class="form-control" name="W5" id="W5">
-                    <option>Select a course</option>
+                    <option>Course Code</option>
                 </select>
              </div>
               <div class="col-md-1">
@@ -364,25 +412,125 @@
               </div>
 
               <div class="col-md-3">
-                <a href="#" id="Wd5" data-toggle="tooltip" onmouseover="discription(W5,Wd5)" title = "">Description</a>
+                <a href="#" id="Wd5" data-toggle="tooltip" onmouseover="discription(W5,Wd5)" title = "">Details</a>
               </div>
             </div>
             <br>
             <br>
-            <textarea rows="4" cols="50" name="winterCom"></textarea>
+            <textarea rows="4" cols="30" name="winterCom"></textarea>
+          </div>
+     <div class="col-md-4">  
+        <div class="text-center">
+            <h1><span></span><%= semesters[2] %></h1>
+        </div>
 
+        <br>
+        <br>
+            <div class="row">
+                <div class="col-md-5">
+                  <select class="form-control" name="S0" id="S0">
+                      <option>Course Code</option>
+                  </select>
+                </div>
+                <div class="col-md-1">
+                  <input name="checkS0" id="checkS0" type="checkbox"></input>
+                </div>
+                <div class="col-md-3">
+                  <a href="#" id="Sd0" data-toggle="tooltip" onmouseover="discription(S0,Sd0)" title = "">Details</a>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-5">
+                <select class="form-control" name="S1" id="S1">
+                    <option>Course Code</option>
+                </select>
+             </div>
+              <div class="col-md-1">
+                <input name="checkS1" id="checkS1" type="checkbox"></input>
+              </div>
+
+              <div class="col-md-3">
+                <a href="#" id="Sd1" data-toggle="tooltip" onmouseover="discription(S1,Sd1)" title = "">Details</a>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-5">
+                <select class="form-control" name="S2" id="S2">
+                    <option>Course Code</option>
+                </select>
+             </div>
+              <div class="col-md-1">
+                <input name="checkS2" id="checkS2" type="checkbox"></input>
+              </div>
+
+              <div class="col-md-3">
+                <a href="#" id="Sd2" data-toggle="tooltip" onmouseover="discription(S2,Sd2)" title = "">Details</a>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+               <div class="col-md-5">
+                <select class="form-control" name="S3" id="S3">
+                    <option>Course Code</option>
+                </select>
+             </div>
+              <div class="col-md-1">
+                <input name="checkS3" id="checkS3" type="checkbox"></input>
+              </div>
+
+              <div class="col-md-3">
+                <a href="#" id="Sd3" data-toggle="tooltip" onmouseover="discription(S3,Sd3)" title = "">Details</a>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-5">
+                <select class="form-control" name="S4" id="S4">
+                    <option>Course Code</option>
+                </select>
+             </div>
+              <div class="col-md-1">
+                <input name="checkS4" id="checkS4" type="checkbox"></input>
+              </div>
+
+              <div class="col-md-3">
+                <a href="#" id="Sd4" data-toggle="tooltip" onmouseover="discription(S4,Sd4)" title = "">Details</a>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+               <div class="col-md-5">
+                <select class="form-control" name="S5" id="S5">
+                    <option>Course Code</option>
+                </select>
+             </div>
+              <div class="col-md-1">
+                <input name="checkS5" id="checkS5" type="checkbox"></input>
+              </div>
+
+              <div class="col-md-3">
+                <a href="#" id="Sd5" data-toggle="tooltip" onmouseover="discription(S5,Sd5)" title = "">Details</a>
+              </div>
+            </div>
+            <br>
+            <br>
+            <textarea rows="4" cols="30" name="summerCom"></textarea>
+        </div>
+      </div>
       </div>
     </div>
     <br>
     <div class="container">
       <div class="page-footer text-center">
-        <button type="submit" class="btn" name="saveButton">Save</button>
+        <button type="submit" id="saveButton" class="btn" name="saveButton">Save</button>
     </div>
   </div>
   <br>
     <div class="container">
       <div class="page-footer text-center">
-        <button type="submit" class="btn btn-success" name="submitButton">Submit</button>
+        <button type="submit" id="subButton" class="btn btn-success" name="submitButton">Submit</button>
         <br>
       </div>
     </div>
