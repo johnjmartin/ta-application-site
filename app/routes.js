@@ -124,6 +124,9 @@ module.exports = function(app, passport) {
 			temp[0] = temp[0].trim()
 			newGrades.grade = temp[1];
 			newGrades.courseCode = temp[0];
+			newGrades.hasTAed = false;
+			newGrades.submitted = false;
+			newGrades.isTAing  = false;
 			appList.push(newGrades);
 		}
 
@@ -155,9 +158,11 @@ module.exports = function(app, passport) {
 
 	app.post('/application', isLoggedIn, function(req, res) {
 		var body = req.body;
+		var checkedList = body.id;
 		var appList = [];
+		
+		//doesnt work
 		var semesterSet = new Set();
-
 		Course.find({}, function(err, courses) {
 			for (var i=0; i<courses.length; i++) {
 				semesterSet.add(courses[i].term);
@@ -165,7 +170,7 @@ module.exports = function(app, passport) {
 		});
 
 		var courseList = [body.F0, body.F1, body.F2, body.F3, body.F4, body.F5, body.W0, body.W1, body.W2, body.W3, body.W4, body.W5];
-		var TAList = [body. checkF0, body.checkF1, body.checkF2, body.checkF3, body.checkF4, body.checkF5, body.checkW0, body.checkW1, body.checkW2, body.checkW3, body.checkW4, body.checkW5];
+		var TAList = [body.checkF0, body.checkF1, body.checkF2, body.checkF3, body.checkF4, body.checkF5, body.checkW0, body.checkW1, body.checkW2, body.checkW3, body.checkW4, body.checkW5];
 		console.log(courseList[0]);
 		for (i = 0; i < 12; i++){
 			if (courseList[i] != "Select a course") {
@@ -250,11 +255,16 @@ module.exports = function(app, passport) {
 		});
 	});
 
+	// To give/remove admin priviliges 
+	app.post('/admin/applications', isLoggedInAdmin, function(req, res) {
+		console.dir(req.body);
+		res.redirect('/admin/applications');
+	});
+
 	app.get('/admin/applications/json', isLoggedInAdmin, function(req, res) {
 		User.find({}, function(err, users) {
 			Course.find({}, function(err, courses) {
 				var applicants = findApplicants(users, courses); 
-				console.dir(applicants);
 				res.send(applicants);
 			});
 		});
@@ -370,22 +380,19 @@ function findApplicants(users, courses) {
 			if (applications) {
 				for (var k=0; k<applications.length; k++) {
 					var app = applications[k];
-					console.dir(app.courseCode);
-					console.dir(course.courseID);
-					console.dir(course.term);
-					console.dir(app.semester);
 					// if (app.courseCode == course.courseID && course.term == app.semester){
-					if (app.courseCode == course.courseID){
-						var checkbox = '<input type="checkbox" name="vehicle" value="Bike">'
-						if (app.isTAing) checkbox = '<input type="checkbox" name="vehicle" value="Bike" checked>'
+					if (app.courseCode == course.courseID) {
+						var id = user._id + ',' + app._id;
+						var checkbox = '<input type="checkbox" name="id[]" value="' + id + '">'
+						if (app.isTAing) checkbox = '<input type="checkbox" checked>'
 						var applicant = { 
 							'term'    	  : course.term, 
 							'courseID'	  : course.courseID,
 							'fullName'    : user.fname + ' ' + user.lname,
 							'email'	      : user.email,
 							'numAssigned' : user.numAssigned,
-							'hasTAed'	  : user.hasTAed,
-							'isTAing'	  : app.isTAing
+							'hasTAed'	  : app.hasTAed,
+							'isTAing'	  : checkbox
 						};
 						applicants_table.push(applicant);
 					}
