@@ -102,8 +102,9 @@ module.exports = function(app, passport) {
 		var body 	      = req.body;
 		var grades_string = body.grades;
 		var grades_arr    = [];
-		var appList 	  = [];
-
+		var appList = req.user.applications;
+		var applications = req.user.applications;
+		
 		try {
 			grades_arr = body.grades.replace(/\r/g,'');
 			grades_arr = grades_arr.split('\n');
@@ -113,6 +114,7 @@ module.exports = function(app, passport) {
 		}
 
 		for (var i=0; i<grades_arr.length; i++) {
+			var exists = false;
 			var newGrades 	  = new Application();
 			var temp = grades_arr[i].split(',');
 			if (!temp[1] || !temp[0] ) {
@@ -122,12 +124,22 @@ module.exports = function(app, passport) {
 			}
 			temp[1] = temp[1].trim();
 			temp[0] = temp[0].trim()
+
+			for (var j=0; j<applications.length; j++) {
+				var course = applications[j].courseCode;
+				if (temp[0] == course) {
+					exists = true;
+					newApplication = applications[j];
+				}
+			}
 			newGrades.grade = temp[1];
 			newGrades.courseCode = temp[0];
-			newGrades.hasTAed = false;
-			newGrades.submitted = false;
-			newGrades.isTAing  = false;
-			appList.push(newGrades);
+			if (!exists) {
+				newGrades.hasTAed = false;
+				newGrades.submitted = false;
+				newGrades.isTAing  = false;
+				appList.push(newGrades);
+			}
 		}
 
 		User.findById(req.user._id, function(err, user){
@@ -165,8 +177,8 @@ module.exports = function(app, passport) {
 
 	app.post('/application', isLoggedIn, function(req, res) {
 		var body = req.body;
-		var checkedList = body.id;
-		var appList = [];
+		var appList = req.user.applications;
+		var applications = req.user.applications;
 		
 		//doesnt work
 		var semesterSet = new Set();
@@ -179,30 +191,52 @@ module.exports = function(app, passport) {
 			var courseList = [body.F0, body.F1, body.F2, body.F3, body.F4, body.F5, 
 							  body.W0, body.W1, body.W2, body.W3, body.W4, body.W5, 
 							  body.S0, body.S1, body.S2, body.S3, body.S4, body.S5];
-			var TAList = [body. checkF0, body.checkF1, body.checkF2, body.checkF3, body.checkF4, body.checkF5, 
+			var TAList = [body.checkF0, body.checkF1, body.checkF2, body.checkF3, body.checkF4, body.checkF5, 
 						  body.checkW0, body.checkW1, body.checkW2, body.checkW3, body.checkW4, body.checkW5,
 						  body.checkS0, body.checkS1, body.checkS2, body.checkS3, body.checkS4, body.checkS5];
-			for (i = 0; i < 18; i++){
+			for (var i=0; i<TAList.length; i++) {
+				if (TAList[i]=='on') TAList[i] = true;
+				else TAList[i] = false
+			}
+
+			for (i = 0; i < 18; i++) {
 				if (courseList[i] != "Course Code") {
-					var newApplication = new Application();
-					newApplication.courseCode = courseList[i];
-					newApplication.hasTAed = TAList[i];
+					//check if application created already
+					var currentSemester = "";
+
 					if (i < 6) {
-						newApplication.semester = semesterArray[0];
+						currentSemester = semesterArray[0];
 					} else if (i < 12 && i >= 6) {
-						newApplication.semester = semesterArray[1];
+						currentSemester = semesterArray[1];
 					}
 					else {
-						newApplication.semester = semesterArray[2];
+						currentSemester = semesterArray[2];
 					}
+					var exists = false;
+					var newApplication = new Application();
+
+					for (var j=0; j<applications.length; j++) {
+						var course = applications[j].courseCode;
+						if (courseList[i] == course) {
+							exists = true;
+							newApplication = applications[j];
+						}
+					}
+
+					newApplication.courseCode = courseList[i];
+					newApplication.hasTAed = TAList[i];
+					newApplication.semester = currentSemester;
+					newApplication.isTAing = false;	
+
 					if (body.hasOwnProperty('submitButton')) {
 						newApplication.submitted = true;
+						req.flash('success', 'Succesfully applied to courses');
 					}
-					newApplication.isTAing = false;
-					appList.push(newApplication);
+					if (!exists) appList.push(newApplication);
 				}
 			}
 		});
+
 		User.findById(req.user._id, function(err, user){
 			if (err) return handleError(err);
 			user.applications = appList;
@@ -211,7 +245,7 @@ module.exports = function(app, passport) {
 					throw err;
 			});
 		});
-		req.flash('success', 'Succesfully applied to courses');
+		
 		res.redirect('/application');
 	});
 
