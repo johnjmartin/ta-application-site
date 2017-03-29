@@ -102,8 +102,11 @@ module.exports = function(app, passport) {
 		var body 	      = req.body;
 		var grades_string = body.grades;
 		var grades_arr    = [];
-		var appList = req.user.applications;
-		var applications = req.user.applications;
+
+		if (req.user.hasOwnProperty('applications'))
+			var appList = req.user.applications;
+		else
+			var appList = [];
 		
 		try {
 			grades_arr = body.grades.replace(/\r/g,'');
@@ -125,11 +128,11 @@ module.exports = function(app, passport) {
 			temp[1] = temp[1].trim();
 			temp[0] = temp[0].trim()
 
-			for (var j=0; j<applications.length; j++) {
-				var course = applications[j].courseCode;
+			for (var j=0; j<appList.length; j++) {
+				var course = appList[j].courseCode;
 				if (temp[0] == course) {
 					exists = true;
-					newApplication = applications[j];
+					newApplication = appList[j];
 				}
 			}
 			newGrades.grade = temp[1];
