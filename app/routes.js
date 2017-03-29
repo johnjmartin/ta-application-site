@@ -103,7 +103,7 @@ module.exports = function(app, passport) {
 		var grades_string = body.grades;
 		var grades_arr    = [];
 
-		if (req.user.hasOwnProperty('applications'))
+		if (req.user.applications != undefined)
 			var appList = req.user.applications;
 		else
 			var appList = [];
@@ -180,14 +180,14 @@ module.exports = function(app, passport) {
 
 	app.post('/application', isLoggedIn, function(req, res) {
 		var body = req.body;
-		if (req.user.hasOwnProperty('applications')) {
+		if (req.user.applications != undefined){
 			var appList = req.user.applications;
-			var applications = req.user.applications;
 		}
 		else {
 			var appList = [];
-			var applications = [];
 		}
+		console.dir(appList);
+		console.dir(req.user);
 
 		
 		//doesnt work
@@ -225,11 +225,14 @@ module.exports = function(app, passport) {
 					var exists = false;
 					var newApplication = new Application();
 
-					for (var j=0; j<applications.length; j++) {
-						var course = applications[j].courseCode;
+					for (var j=0; j<appList.length; j++) {
+						var course = appList[j].courseCode;
+						console.dir(courseList[i]);
+						console.dir(course);
+						console.dir("\n");
 						if (courseList[i] == course) {
 							exists = true;
-							newApplication = applications[j];
+							newApplication = appList[j];
 						}
 					}
 
@@ -240,17 +243,16 @@ module.exports = function(app, passport) {
 
 					if (body.hasOwnProperty('submitButton')) {
 						newApplication.submitted = true;
-						req.flash('successMessage', 'Succesfully applied to courses');
-						console.dir("submitflash")
-					} else {
-						req.flash('successMessage', 'Changes saved');
-						console.dir("hey what up!")
-
-					}
+					} 
 					if (!exists) appList.push(newApplication);
 				}
 			}
 		});
+		if (body.hasOwnProperty('submitButton')) {
+			req.flash('successMessage', 'Succesfully applied to courses');
+		} else {
+			req.flash('successMessage', 'Changes saved');
+		}
 
 		User.findById(req.user._id, function(err, user){
 			if (err) return handleError(err);
