@@ -139,7 +139,6 @@ module.exports = function(app, passport) {
 			newGrades.courseCode = temp[0];
 			if (!exists) {
 				newGrades.hasTAed = false;
-				newGrades.submitted = false;
 				newGrades.isTAing  = false;
 				appList.push(newGrades);
 			}
@@ -190,7 +189,6 @@ module.exports = function(app, passport) {
 		console.dir(req.user);
 
 		
-		//doesnt work
 		var semesterSet = new Set();
 		var semesterArray = [];
 		Course.find({}, function(err, courses) {
@@ -227,9 +225,6 @@ module.exports = function(app, passport) {
 
 					for (var j=0; j<appList.length; j++) {
 						var course = appList[j].courseCode;
-						console.dir(courseList[i]);
-						console.dir(course);
-						console.dir("\n");
 						if (courseList[i] == course) {
 							exists = true;
 							newApplication = appList[j];
@@ -243,8 +238,11 @@ module.exports = function(app, passport) {
 
 					if (body.hasOwnProperty('submitButton')) {
 						newApplication.submitted = true;
-					} 
+					}
+					console.dir("\n");
+					
 					if (!exists) appList.push(newApplication);
+					else console.dir(appList)
 				}
 			}
 		});
@@ -445,15 +443,18 @@ function findApplicants(users, courses) {
 				for (var k=0; k<applications.length; k++) {
 					var app = applications[k];
 					// if (app.courseCode == course.courseID && course.term == app.semester){
-					if (app.courseCode == course.courseID) {
+					if (app.courseCode == course.courseID && course.term == app.semester) {
 						var id = user._id + ',' + app._id;
 						var checkbox = '<input type="checkbox" name="id[]" value="' + id + '">'
 						if (app.isTAing) checkbox = '<input type="checkbox" checked>'
+						var grade = app.grade;
+						if (grade == undefined) grade = "Not Given"
 						var applicant = { 
 							'term'    	  : course.term, 
 							'courseID'	  : course.courseID,
 							'fullName'    : user.fname + ' ' + user.lname,
 							'email'	      : user.email,
+							'grade'		  : grade,
 							'numAssigned' : user.numAssigned,
 							'hasTAed'	  : app.hasTAed,
 							'isTAing'	  : checkbox
