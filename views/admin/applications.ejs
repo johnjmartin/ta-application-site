@@ -14,7 +14,8 @@
     $(document).ready(function() {
       var table = $('#example').DataTable({
           processing: true,
-          serverSide: true,
+          serverSide: false,
+
           ajax: {
               url: "/admin/applications/json",
               dataSrc: ""
@@ -29,6 +30,11 @@
             { data: "isTAing", title: "isTAing"}
          ]
       });
+
+    $('#example tbody').on('click', 'tr', function () {
+        var data = table.row(0).data();
+        alert(data);
+    } );
       // Handle form submission event 
     /*  $('#frm-example').on('submit', function(e){
         var form = this;
