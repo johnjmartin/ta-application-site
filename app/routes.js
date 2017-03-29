@@ -173,15 +173,22 @@ module.exports = function(app, passport) {
 				semesters: semesterArray,
 				courses: courses,
 				user: req.user,
-				successMessage: req.flash('success')
+				successMessage: req.flash('successMessage')
 			}); // load the application.ejs file
 		}); 
 	});
 
 	app.post('/application', isLoggedIn, function(req, res) {
 		var body = req.body;
-		var appList = req.user.applications;
-		var applications = req.user.applications;
+		if (req.user.hasOwnProperty('applications')) {
+			var appList = req.user.applications;
+			var applications = req.user.applications;
+		}
+		else {
+			var appList = [];
+			var applications = [];
+		}
+
 		
 		//doesnt work
 		var semesterSet = new Set();
@@ -233,7 +240,12 @@ module.exports = function(app, passport) {
 
 					if (body.hasOwnProperty('submitButton')) {
 						newApplication.submitted = true;
-						req.flash('success', 'Succesfully applied to courses');
+						req.flash('successMessage', 'Succesfully applied to courses');
+						console.dir("submitflash")
+					} else {
+						req.flash('successMessage', 'Changes saved');
+						console.dir("hey what up!")
+
 					}
 					if (!exists) appList.push(newApplication);
 				}
