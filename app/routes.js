@@ -240,7 +240,7 @@ module.exports = function(app, passport) {
 						newApplication.submitted = true;
 					}
 					console.dir("\n");
-					
+
 					if (!exists) appList.push(newApplication);
 					else console.dir(appList)
 				}
@@ -317,9 +317,52 @@ module.exports = function(app, passport) {
 		});
 	});
 
+
+
+	app.post('/admin/applications/:userId/:appId', isLoggedInAdmin, function(req, res) {
+
+	});
+
 	// To give/remove admin priviliges 
 	app.post('/admin/applications', isLoggedInAdmin, function(req, res) {
 		console.dir(req.body);
+		var idList = req.body.id;
+		// idList = idList.map((x) => { return x.split(',')});
+		var user_id_list = [];
+		var app_id_list = [];
+		for (i=0; i<idList.length; i++) { 
+			user_id_list.push(idList[i][0]);
+			app_id_list.push(idList[i][1]);
+		}
+		User.find({}, function(err, users) {
+
+			if (user_id_list.includes(user._id)) {
+				console.dir("test")
+				user.numAssigned += 1;
+				var applications = user.applications;
+				for (j=0; j<applications.length; j++) {
+					var app = applications[j];
+					console.dir(app._id);
+					if (app_id_list.includes(app._id)) {
+						console.dir("yup")
+						app.isTAing = true;
+					}
+				}
+			} else {
+				if (user.numAssigned > 1)
+					user.numAssigned -= 1;
+				if (user.applications != undefined)
+					var applications = user.applications;
+				else
+					var applications = [];
+				for (j=0; j<applications.length; j++) {
+					app.isTAing = false;
+				}	
+			}
+			// user.save(function(err){
+			// 	if (err) throw err;
+			// });
+		});
 		res.redirect('/admin/applications');
 	});
 
@@ -445,17 +488,17 @@ function findApplicants(users, courses) {
 					// if (app.courseCode == course.courseID && course.term == app.semester){
 					if (app.courseCode == course.courseID && course.term == app.semester) {
 						var id = user._id + ',' + app._id;
-						var checkbox = '<input type="checkbox" name="id[]" value="' + id + '">'
-						if (app.isTAing) checkbox = '<input type="checkbox" checked>'
+						var checkbox = '<input type="checkbox" onclick="makeTA()" name="' + id + '">'
+						if (app.isTAing) checkbox = '<input type="checkbox" onclick="makeTA()" name="' + id + '" checked>'
 						var grade = app.grade;
-						if (grade == undefined) grade = "Not Given"
+						if (grade == undefined) grade = " "
 						var applicant = { 
 							'term'    	  : course.term, 
 							'courseID'	  : course.courseID,
 							'fullName'    : user.fname + ' ' + user.lname,
 							'email'	      : user.email,
 							'grade'		  : grade,
-							'numAssigned' : user.numAssigned,
+							'numAssigned' : '<span name="'+ id + '">' + user.numAssigned + '</span>',
 							'hasTAed'	  : app.hasTAed,
 							'isTAing'	  : checkbox
 						};
