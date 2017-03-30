@@ -2,7 +2,16 @@
 // load the things we need
 var mongoose    = require('mongoose');
 var bcrypt      = require('bcrypt-nodejs');
-var Application = require('./application')
+var Application = require('./application');
+
+var applicationSchema = mongoose.Schema({
+    courseCode     : String,
+    hasTAed        : Boolean,
+    semester       : String,
+    grade          : String,
+    submitted      : Boolean,
+    isTAing        : Boolean
+});
 
 // define the schema for our user model
 var userSchema = mongoose.Schema({
@@ -12,8 +21,7 @@ var userSchema = mongoose.Schema({
     email        : String,
     password     : String,
     admin		 : Boolean,
-    grades	     : {},
-    applications : {},
+    applications : [applicationSchema],
     numAssigned  : Number
 });
 

@@ -319,8 +319,36 @@ module.exports = function(app, passport) {
 
 
 
-	app.post('/admin/applications/:userId/:appId', isLoggedInAdmin, function(req, res) {
+	app.post('/admin/applications/:userId/:appId/:checked', isLoggedInAdmin, function(req, res) {
+		var userId = req.params.userId;
+		var appId = req.params.appId;
+		var checked = req.params.checked;
+		if (checked = 'true')
+			checked = true;
+		else
+			checked = false;
 
+		User.findById(userId, function(err, user){
+			if (err) return handleError(err);
+			var app = user.applications.id(appId);
+
+			if (checked) {
+				user.numAssigned += 1;
+				app.isTAing = true;
+			}
+			else {
+				user.numAssigned -= 1;
+				app.isTAing = false
+			}
+
+			user.save(function(err){
+				if (err)
+					throw err;
+			});
+		});
+
+
+		res.send("success");
 	});
 
 	// To give/remove admin priviliges 
@@ -488,8 +516,8 @@ function findApplicants(users, courses) {
 					// if (app.courseCode == course.courseID && course.term == app.semester){
 					if (app.courseCode == course.courseID && course.term == app.semester) {
 						var id = user._id + ',' + app._id;
-						var checkbox = '<input type="checkbox" onclick="makeTA()" name="' + id + '">'
-						if (app.isTAing) checkbox = '<input type="checkbox" onclick="makeTA()" name="' + id + '" checked>'
+						var checkbox = '<input id="makeTA" type="checkbox" name="' + id + '">'
+						if (app.isTAing) checkbox = '<input id="makeTA" type="checkbox" name="' + id + '" checked>'
 						var grade = app.grade;
 						if (grade == undefined) grade = " "
 						var applicant = { 
