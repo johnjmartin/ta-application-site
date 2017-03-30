@@ -39,23 +39,28 @@
           var id = $('#makeTA').attr('name');
           id = id.split(',');
           var checked = false
-          $(this).is(':checked')
+          if ($('#makeTA').is(':checked')) {
             var checked = true;
+          }
           $.post("/admin/applications/" + id[0] + '/' + id[1] + '/' + checked)
-
-          /*$(':checkbox',this).trigger('click');
-          var data = table.row(this).data().email;
-          increment(data);*/
+          increment(id[0], checked);
         }
     } );
 
-/*   function increment(usr){
-     alert(usr);
-     var rows = document.getElementsByName(usr);
-     console.log(rows);
-   }*/
+     function increment(usr, checked) {
 
-    });
+      var counter = $('#'+usr);
+      counter.val(function(count) {
+        var newcount = 0;
+        if (checked)
+          newcount = parseInt(count) + 1;
+        else
+          newcount = parseInt(count) - 1;
+        return newcount.toString();
+      });
+     }
+
+  });
 
 
   </script>

@@ -323,7 +323,7 @@ module.exports = function(app, passport) {
 		var userId = req.params.userId;
 		var appId = req.params.appId;
 		var checked = req.params.checked;
-		if (checked = 'true')
+		if (checked == 'true')
 			checked = true;
 		else
 			checked = false;
@@ -331,6 +331,7 @@ module.exports = function(app, passport) {
 		User.findById(userId, function(err, user){
 			if (err) return handleError(err);
 			var app = user.applications.id(appId);
+			console.dir(app);
 
 			if (checked) {
 				user.numAssigned += 1;
@@ -338,7 +339,7 @@ module.exports = function(app, passport) {
 			}
 			else {
 				user.numAssigned -= 1;
-				app.isTAing = false
+				app.isTAing = false;
 			}
 
 			user.save(function(err){
@@ -351,48 +352,6 @@ module.exports = function(app, passport) {
 		res.send("success");
 	});
 
-	// To give/remove admin priviliges 
-	app.post('/admin/applications', isLoggedInAdmin, function(req, res) {
-		console.dir(req.body);
-		var idList = req.body.id;
-		// idList = idList.map((x) => { return x.split(',')});
-		var user_id_list = [];
-		var app_id_list = [];
-		for (i=0; i<idList.length; i++) { 
-			user_id_list.push(idList[i][0]);
-			app_id_list.push(idList[i][1]);
-		}
-		User.find({}, function(err, users) {
-
-			if (user_id_list.includes(user._id)) {
-				console.dir("test")
-				user.numAssigned += 1;
-				var applications = user.applications;
-				for (j=0; j<applications.length; j++) {
-					var app = applications[j];
-					console.dir(app._id);
-					if (app_id_list.includes(app._id)) {
-						console.dir("yup")
-						app.isTAing = true;
-					}
-				}
-			} else {
-				if (user.numAssigned > 1)
-					user.numAssigned -= 1;
-				if (user.applications != undefined)
-					var applications = user.applications;
-				else
-					var applications = [];
-				for (j=0; j<applications.length; j++) {
-					app.isTAing = false;
-				}	
-			}
-			// user.save(function(err){
-			// 	if (err) throw err;
-			// });
-		});
-		res.redirect('/admin/applications');
-	});
 
 	app.get('/admin/applications/json', isLoggedInAdmin, function(req, res) {
 		User.find({}, function(err, users) {
@@ -526,7 +485,7 @@ function findApplicants(users, courses) {
 							'fullName'    : user.fname + ' ' + user.lname,
 							'email'	      : user.email,
 							'grade'		  : grade,
-							'numAssigned' : '<span name="'+ id + '">' + user.numAssigned + '</span>',
+							'numAssigned' : '<span id="'+ user._id + '">' + user.numAssigned + '</span>',
 							'hasTAed'	  : app.hasTAed,
 							'isTAing'	  : checkbox
 						};
