@@ -28,14 +28,23 @@
             { data: "grade", title: "Grade"},
             { data: "numAssigned", title: "Courses Assigned To"},
             { data: "hasTAed", title: "Previous TA"},
-            { data: "isTAing", title: "isTAing"}
+            { data: "isTAing", title: "isTAing", className: "checkBox"}
          ]
       });
 
-    $('#example tbody').on('click', 'tr', function () {
-        var data = table.row(0).data();
-        alert(data);
+    $('#example').on('click','tr', function(event) {
+        if (event.target.type !== 'checkbox'){
+          $(':checkbox',this).trigger('click');
+          var data = table.row(this).data().email;
+          increment(data);
+        }
     } );
+
+   function increment(usr){
+     alert(usr);
+     var rows = document.getElementsByName(usr);
+     console.log(rows);
+   }
       // Handle form submission event 
     /*  $('#frm-example').on('submit', function(e){
         var form = this;
