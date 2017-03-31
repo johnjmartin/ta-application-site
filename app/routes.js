@@ -240,7 +240,7 @@ module.exports = function(app, passport) {
 						newApplication.submitted = true;
 					}
 					console.dir("\n");
-					
+
 					if (!exists) appList.push(newApplication);
 					else console.dir(appList)
 				}
@@ -317,11 +317,41 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	// To give/remove admin priviliges 
-	app.post('/admin/applications', isLoggedInAdmin, function(req, res) {
-		console.dir(req.body);
-		res.redirect('/admin/applications');
+
+
+	app.post('/admin/applications/:userId/:appId/:checked', isLoggedInAdmin, function(req, res) {
+		var userId = req.params.userId;
+		var appId = req.params.appId;
+		var checked = req.params.checked;
+		if (checked == 'true')
+			checked = true;
+		else
+			checked = false;
+
+		User.findById(userId, function(err, user){
+			if (err) return handleError(err);
+			var app = user.applications.id(appId);
+			console.dir(app);
+
+			if (checked) {
+				user.numAssigned += 1;
+				app.isTAing = true;
+			}
+			else {
+				user.numAssigned -= 1;
+				app.isTAing = false;
+			}
+
+			user.save(function(err){
+				if (err)
+					throw err;
+			});
+		});
+
+
+		res.send("success");
 	});
+
 
 	app.get('/admin/applications/json', isLoggedInAdmin, function(req, res) {
 		User.find({}, function(err, users) {
@@ -445,17 +475,17 @@ function findApplicants(users, courses) {
 					// if (app.courseCode == course.courseID && course.term == app.semester){
 					if (app.courseCode == course.courseID && course.term == app.semester) {
 						var id = user._id + ',' + app._id;
-						var checkbox = '<input type="checkbox" name="id[]" value="' + id + '">'
-						if (app.isTAing) checkbox = '<input type="checkbox" checked>'
+						var checkbox = '<input id="makeTA" type="checkbox" name="' + id + '">'
+						if (app.isTAing) checkbox = '<input id="makeTA" type="checkbox" name="' + id + '" checked>'
 						var grade = app.grade;
-						if (grade == undefined) grade = "Not Given"
+						if (grade == undefined) grade = " "
 						var applicant = { 
 							'term'    	  : course.term, 
 							'courseID'	  : course.courseID,
 							'fullName'    : user.fname + ' ' + user.lname,
 							'email'	      : user.email,
 							'grade'		  : grade,
-							'numAssigned' : user.numAssigned,
+							'numAssigned' : '<span class="'+ user._id + '">' + user.numAssigned + '</span>',
 							'hasTAed'	  : app.hasTAed,
 							'isTAing'	  : checkbox
 						};
