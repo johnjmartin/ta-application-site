@@ -41,15 +41,23 @@
           while (data[start] != "x"){
             start++;
           }
-          var id = data.substring(start+9,(data.length-2));
+          var end = start + 12;
+          while (data[end] != '"'){
+            end++;
+          }
+          var id = data.substring(start+9,(end));
           //var id = $('#makeTA').attr('name');
-          id = id.split(',');
+
           var $checkbox = $($(this).find("input")[0]).show();
           var checked = false;
           if ($checkbox.is(':checked')) {
             var checked = true;
           }
-          // $.post("/admin/applications/" + id[0] + '/' + id[1] + '/' + checked)
+    
+          id = id.split(',');
+          alert(data);
+          alert(id);
+          $.post("/admin/applications/" + id[0] + '/' + id[1] + '/' + checked)
           increment(id[0], checked);
         }
     } );
@@ -92,7 +100,6 @@
 
 <form id="frm-example" action="/admin/applications" method="post">
   <table id="example" class="display" width="100%"></table>
-  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 </body>
