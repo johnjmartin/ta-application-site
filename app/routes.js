@@ -475,8 +475,8 @@ function findApplicants(users, courses) {
 					// if (app.courseCode == course.courseID && course.term == app.semester){
 					if (app.courseCode == course.courseID && course.term == app.semester) {
 						var id = user._id + ',' + app._id;
-						var checkbox = '<input id="makeTA" type="checkbox" name="' + id + '">'
-						if (app.isTAing) checkbox = '<input id="makeTA" type="checkbox" name="' + id + '" checked>'
+						var checkbox = '<input id="makeTA" value="false" type="checkbox" name="' + id + '">'
+						if (app.isTAing) checkbox = '<input id="makeTA" value="true" type="checkbox" name="' + id + '" checked>'
 						var grade = app.grade;
 						if (grade == undefined) grade = " "
 						var applicant = { 
