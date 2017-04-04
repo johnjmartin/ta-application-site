@@ -466,6 +466,8 @@ function findApplicants(users, courses) {
 	var applicants_table = [];
 	for (var i=0; i<courses.length; i++) {
 		var course = courses[i];
+		//Calling function to generate ranking (add ranking to each user application, then return the user)
+		users = generateRanking(users, course);
 		for (var j=0; j<users.length; j++) {
 			var user         = users[j];
 			var applications = user.applications;
@@ -484,7 +486,9 @@ function findApplicants(users, courses) {
 							'courseID'	  : course.courseID,
 							'fullName'    : user.fname + ' ' + user.lname,
 							'email'	      : user.email,
+							'year'		  : user.year,
 							'grade'		  : grade,
+							'score'		  : app.score,
 							'numAssigned' : '<span class="'+ user._id + '">' + user.numAssigned + '</span>',
 							'hasTAed'	  : app.hasTAed,
 							'isTAing'	  : checkbox
@@ -495,6 +499,75 @@ function findApplicants(users, courses) {
 			}
 		}
 	}
-
 	return applicants_table;
+}
+
+function generateRanking(users, course) {
+
+	for (var j=0; j<users.length; j++) {
+		var user = users[j];
+		var applications = user.applications;
+		if (applications) {
+			for (var k=0; k<applications.length; k++) {
+				var app = applications[k];
+				if (app.courseCode == course.courseID && course.term == app.semester) {
+					var score = ConvertGrade(app.grade) + ConvertYear(user.year);
+					console.dir(score);
+					app.score = score;
+				}
+			}
+		}
+	}
+	return users;
+}
+
+//convert grade to score between 0 & 1
+function ConvertGrade(z) {
+    var x = z.toString().toUpperCase();
+    var scale = 4.3;
+    switch (x) {
+    	case "A+":
+    		return +((4.3 / scale).toFixed(2));
+        case "A":
+            return +((4.0 / scale).toFixed(2));
+        case "A-":
+            return +((3.7 / scale).toFixed(2));
+        case "B+":
+            return +((3.3 / scale).toFixed(2));
+        case "B":
+            return +((3.0 / scale).toFixed(2));
+        case "B-":
+            return +((2.7 / scale).toFixed(2));
+        case "C+":
+            return +((2.3 / scale).toFixed(2));
+        case "C":
+            return +((2.0 / scale).toFixed(2));
+        case "C-":
+            return +((1.7 / scale).toFixed(2));
+        case "D+":
+            return +((1.3 / scale).toFixed(2));
+        case "D":
+            return +((1.0 / scale).toFixed(2));
+        case "D-":
+        	return +((0.7 / scale).toFixed(2));
+        case "F":
+            return +((0.0 / scale).toFixed(2));
+    }
+}
+
+function ConvertYear(year) {
+	var scale = 5;
+	switch (year) {
+		case "First Year":
+			return +((1 / scale).toFixed(2));
+        case "Second Year":
+			return +((2 / scale).toFixed(2));
+        case "Third Year":
+			return +((3 / scale).toFixed(2));
+        case "Fourth Year":
+			return +((4 / scale).toFixed(2));
+        case "Graduate":
+			return +((5 / scale).toFixed(2));
+	}
+
 }
