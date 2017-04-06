@@ -511,8 +511,22 @@ function generateRanking(users, course) {
 			for (var k=0; k<applications.length; k++) {
 				var app = applications[k];
 				if (app.courseCode == course.courseID && course.term == app.semester) {
-					var score = ConvertGrade(app.grade) + ConvertYear(user.year);
-					console.dir(score);
+					var grade_score = 0;
+					var year_score = 0;
+					var TA_score = 0;
+
+					if (app.hasTAed)
+						TA_score = 1;
+					if (app.grade)
+						grade_score = ConvertGrade(app.grade);
+					if (app.year)
+						year_score = ConvertYear(user.year, app.courseCode);
+
+					if (app.year == "Graduate") {
+						var score = +(((TA_score * 0.40) + (year_score * 0.3) + (grade_score * 0.3)).toFixed(2))
+					} else {
+						var score = +(((TA_score * 0.35) + (year_score * 0.5) + (grade_score * 0.15)).toFixed(2))
+					}
 					app.score = score;
 				}
 			}
@@ -552,22 +566,92 @@ function ConvertGrade(z) {
         	return +((0.7 / scale).toFixed(2));
         case "F":
             return +((0.0 / scale).toFixed(2));
+        default:
+        	return 0;
     }
 }
 
-function ConvertYear(year) {
+function ConvertYear(year, course) {
 	var scale = 5;
 	switch (year) {
 		case "First Year":
-			return +((1 / scale).toFixed(2));
+			var courseNum = findFirstNum(course);
+			var score = calcYearCourseScore(courseNum, 1);
+			return score;
         case "Second Year":
-			return +((2 / scale).toFixed(2));
+			var courseNum = findFirstNum(course);
+			var score = calcYearCourseScore(courseNum, 2);
+			return score;
         case "Third Year":
-			return +((3 / scale).toFixed(2));
+			var courseNum = findFirstNum(course);
+			var score = calcYearCourseScore(courseNum, 3);
+			return score;
         case "Fourth Year":
-			return +((4 / scale).toFixed(2));
+			var courseNum = findFirstNum(course);
+			var score = calcYearCourseScore(courseNum, 4);
+			return score;
         case "Graduate":
-			return +((5 / scale).toFixed(2));
+			var courseNum = findFirstNum(course);
+			var score = calcYearCourseScore(courseNum, 5);
+			return score;
 	}
+}
 
+function findFirstNum(code) {
+	for (var i=0; code.length; i++) {
+		var num = parseInt(code[i]);
+		if (!isNaN(num)) {
+			return num;
+		}
+	}
+	return 0;
+}
+
+function calcYearCourseScore(course, year) {
+	if (course == 1) {
+		if (year == 5)
+			return 0;
+		else if (year == 4)
+			return 0.25;
+		else if (year == 3)
+			return 0.75;
+		else if (year == 2)
+			return 1;
+		else if (year == 1)
+			return 0.5;
+		else return 0;
+	}
+	if (course == 2) {
+		if (year == 5)
+			return 0.1;
+		else if (year == 4)
+			return 0.25;
+		else if (year == 3)
+			return 1;
+		else if (year == 2)
+			return 0.5;
+		else return 0;
+	}
+	if (course == 3) {
+		if (year == 5)
+			return 0.75;
+		else if (year == 4)
+			return 1;
+		else if (year == 3)
+			return 0.5;
+		else if (year == 2)
+			return 0.1;
+		else return 0;
+	}
+	if (course == 4) {
+		if (year == 5)
+			return 1;
+		else if (year == 4)
+			return 0.5;
+		else if (year == 3)
+			return 0.1;
+		else return 0;
+	}
+	//if it isnt a course in range 100-499
+	return 0;
 }
