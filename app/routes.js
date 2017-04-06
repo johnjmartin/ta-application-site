@@ -519,8 +519,7 @@ function generateRanking(users, course) {
 						TA_score = 1;
 					if (app.grade)
 						grade_score = ConvertGrade(app.grade);
-					if (app.year)
-						year_score = ConvertYear(user.year, app.courseCode);
+					year_score = ConvertYear(user.year, app.courseCode);
 
 					if (app.year == "Graduate") {
 						var score = +(((TA_score * 0.40) + (year_score * 0.3) + (grade_score * 0.3)).toFixed(2))
@@ -572,26 +571,23 @@ function ConvertGrade(z) {
 }
 
 function ConvertYear(year, course) {
+	var courseNum = findFirstNum(course);
+	console.dir(courseNum);
 	var scale = 5;
 	switch (year) {
 		case "First Year":
-			var courseNum = findFirstNum(course);
 			var score = calcYearCourseScore(courseNum, 1);
 			return score;
         case "Second Year":
-			var courseNum = findFirstNum(course);
 			var score = calcYearCourseScore(courseNum, 2);
 			return score;
         case "Third Year":
-			var courseNum = findFirstNum(course);
 			var score = calcYearCourseScore(courseNum, 3);
 			return score;
         case "Fourth Year":
-			var courseNum = findFirstNum(course);
 			var score = calcYearCourseScore(courseNum, 4);
 			return score;
         case "Graduate":
-			var courseNum = findFirstNum(course);
 			var score = calcYearCourseScore(courseNum, 5);
 			return score;
 	}
