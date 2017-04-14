@@ -12,7 +12,9 @@
         for (i = 0; i < grades.length; i++) {
           if (grades[i].grade != undefined) temp = temp + grades[i].courseCode + ", " + grades[i].grade + "\n"
         }
-        $('#grades').val(temp);
+
+        var t = temp.substring(0,temp.length-1);
+        $('#grades').val(t);
   <% } %>
       });
   </script>
@@ -21,8 +23,6 @@
 
 <!-- Navigation Header (should be consistent on each page) -->
 <% include partials/nav %>
-
-
 
 <div class="page-header">
   <div class="row vbottom">

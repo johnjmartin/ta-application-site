@@ -51,6 +51,7 @@
       var fallCount = 0;
       var winterCount = 0;
       var summerCount = 0;
+
       for (i = 0; i < apps.length; i++){
           if (apps[i].semester == fall){
             var place = 'F' + fallCount;
@@ -66,16 +67,6 @@
             if (apps[i].hasTAed == true){
               che = "#checkF" + fallCount;
               $(che).prop("checked",true);
-            }
-            if (apps[i].submitted == true){
-              var b =document.getElementById("submitButton");
-              b.disabled = true;
-              var s =document.getElementById("saveButton");
-              s.disabled = true;
-              Fstr = "F" + fallCount;
-              Fcheck = "checkF" + fallCount;
-              document.getElementById(Fstr).disabled = true;
-              document.getElementById(Fcheck).disabled = true;
             }
             fallCount++;
           }
@@ -95,16 +86,6 @@
               che = "#checkW" + winterCount;
               $(che).prop("checked",true);
             }
-            if (apps[i].submitted == true){
-              var b =document.getElementById("submitButton");
-              var s =document.getElementById("saveButton");
-              s.disabled = true;
-              b.disabled = true;
-              Wstr = "W" + winterCount;
-              Wcheck = "checkW" + winterCount;
-              document.getElementById(Wstr).disabled = true;
-              document.getElementById(Wcheck).disabled = true;
-            }
             winterCount++;
           }
           else if (apps[i].semester == summer) {
@@ -122,17 +103,13 @@
               che = "#checkS" + summerCount;
               $(che).prop("checked",true);
             }
-            if (apps[i].submitted == true){
-              var b =document.getElementById("submitButton");
-              b.disabled = true;
-              var s =document.getElementById("saveButton");
-              s.disabled = true;
-              Wstr = "S" + summerCount;
-              Wcheck = "checkS" + summerCount;
-              document.getElementById(Wstr).disabled = true;
-              document.getElementById(Wcheck).disabled = true;
-            }
             summerCount++;
+          }
+        }
+        for (i = 0; i < apps.length; i++){
+          if (apps[i].submitted == true){
+            disable();
+            break;
           }
         }
     <% } %>
@@ -174,7 +151,32 @@
       }
   }
 }
-
+  function disable(){
+    var b = document.getElementById("submitButton");
+    b.disabled = true;
+    var s = document.getElementById("saveButton");
+    s.disabled = true;
+    var fCom = document.getElementById("fallCom");
+    var wCom = document.getElementById("winterCom");
+    var sCom = document.getElementById("summerCom");
+    fCom.disabled = true;
+    wCom.disabled = true;
+    sCom.disabled = true;
+    for (i = 0; i < 6; i++){
+      Fstr = "F" + i;
+      Fcheck = "checkF" + i;
+      document.getElementById(Fstr).disabled = true;
+      document.getElementById(Fcheck).disabled = true;
+      Wstr = "W" + i;
+      Wcheck = "checkW" + i;
+      document.getElementById(Wstr).disabled = true;
+      document.getElementById(Wcheck).disabled = true;
+      Sstr = "S" + i;
+      Scheck = "checkS" + i;
+      document.getElementById(Sstr).disabled = true;
+      document.getElementById(Scheck).disabled = true;
+    }
+  }
   function discription(choice,desc){
     var t = choice.options[choice.selectedIndex].name;
     if (choice.value == "Course Code"){
@@ -316,7 +318,7 @@
             </div>
             <br>
             <br>
-            <textarea rows="4" cols="30" name="fallCom"></textarea>
+            <textarea rows="4" cols="30" id="fallCom" name="fallCom"></textarea>
         </div>
         <div class="col-md-4">
 
@@ -417,7 +419,7 @@
             </div>
             <br>
             <br>
-            <textarea rows="4" cols="30" name="winterCom"></textarea>
+            <textarea rows="4" cols="30" id="winterCom" name="winterCom"></textarea>
           </div>
      <div class="col-md-4">  
         <div class="text-center">
@@ -516,7 +518,7 @@
             </div>
             <br>
             <br>
-            <textarea rows="4" cols="30" name="summerCom"></textarea>
+            <textarea rows="4" cols="30" id="summerCom" name="summerCom"></textarea>
         </div>
       </div>
       </div>
